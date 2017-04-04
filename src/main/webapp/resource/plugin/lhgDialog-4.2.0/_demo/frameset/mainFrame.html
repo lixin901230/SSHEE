@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>lhgdialog - mainFrame</title>
+	<link href="../../_doc/common.css" type="text/css" rel="stylesheet"/>
+	<script type="text/javascript" src="../jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="../lhgdialog.min.js"></script>
+	<script type="text/javascript">
+function opdg()
+{
+    $.dialog({ content:'我弹出在加载组件本身(mainFrame)的页面，没跨框架。' });
+}
+	</script>
+</head>
+
+<body style="background:#66cdaa;_height:100%;">
+    <div style="margin:0 10px;">
+	    <h3>这是框架页面中的mainFrame页面</h3>
+        <p style="width:100px;margin:5px 0;border:1px solid #666;background:#f3f3f3;text-align:center;padding:5px 2px;cursor:pointer;" onclick="opdg();">在本身页面弹出»</p>
+	</div>
+</body>
+</html>

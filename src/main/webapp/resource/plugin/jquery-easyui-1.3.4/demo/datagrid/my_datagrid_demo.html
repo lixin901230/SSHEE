@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>我的datagrid复杂表格示例</title>
+	<link rel="stylesheet" type="text/css" href="../../themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../../themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="../demo.css">
+	<script type="text/javascript" src="../../jquery.min.js"></script>
+	<script type="text/javascript" src="../../jquery.easyui.min.js"></script>
+</head>
+<body>
+	<h2>datagrid复杂表格示例</h2>
+	<div class="demo-info">
+		<div class="demo-tip icon-tip"></div>
+		<div>示例包含：冻结列、合并表头、合并列</div>
+	</div>
+	<div style="margin:10px 0;"></div>
+	
+	<table id="dg"></table> 
+	
+	<script type="text/javascript">
+	
+		$(function(){
+			initDatagrid();
+		});
+		
+		function intiColumns(){
+			var columns =[[
+					        {field:'',title:'合并列',width:100,align:'center', colspan: 4},    
+					    ],[
+					        {field:'',title:'合并列',width:100,align:'center', colspan: 2},    
+					        {field:'',title:'合并列',width:200,align:'center', colspan: 2},    
+					    ],
+					    [    
+					        {field:'itemid',title:'itemid', checkbox: true, width:100, align:'center'},   
+					        {field:'unitcost',title:'unitcost', width:100, align:'center'},    
+					        {field:'status',title:'status', width:100, align:'center'},    
+					        {field:'listprice',title:'listprice', width:200, align:'center'}  
+					    ] 
+					   ];
+			return columns;
+		}
+		
+		function initDatagrid(){
+			
+			var columns = intiColumns();
+			
+			$('#dg').datagrid({
+				loadMsg: '正努力为您加载数据...',
+			    url:'datagrid_data1.json',
+				width: 1000,
+				striped: true,
+			    rownumbers: true,
+				pagination: true,
+				fitColumns: true,
+				idField: 'itemid',
+			    frozenColumns: [[
+					{field:'attr1',title:'attr1', width:50, align:'center', styler: function(value,row,index){
+						return 'background-color: #eeeeee;color:red;';
+					}},
+					{field:'productid', title:'productid', width:100, align:'center', styler: function(value,row,index){
+						return 'background-color: #eeeeee; border-style: red;';
+					}},    
+					{field:'productname',title:'productname',width:100,align:'center', styler: function(value,row,index){
+						return 'background-color: #eeeeee;';
+					}}
+				]],
+			    columns: columns,
+			    onLoadSuccess: onLoadSuccess
+			    /* ,toolbar: [{
+					iconCls: 'icon-edit',
+					handler: function(){alert('编辑按钮')}
+				},'-',{
+					iconCls: 'icon-help',
+					handler: function(){alert('帮助按钮')}
+				}] */
+
+			});
+		}
+	
+		function onLoadSuccess(data){
+			var merges1 = [{
+				index: 0,
+				rowspan: 5
+			},{
+				index: 5,
+				rowspan: 5
+			}];
+			for(var i=0; i<merges1.length; i++){
+				$(this).datagrid('mergeCells',{
+					index: merges1[i].index,
+					field: 'attr1',
+					rowspan: merges1[i].rowspan
+				});
+			}
+			
+			var merges2 = [{
+				index: 0,
+				rowspan: 2
+			},{
+				index: 3,
+				rowspan: 3
+			},{
+				index: 6,
+				rowspan: 3
+			}];
+			for(var i=0; i<merges2.length; i++){
+				$(this).datagrid('mergeCells',{
+					index: merges2[i].index,
+					field: 'productid',
+					rowspan: merges2[i].rowspan
+				});
+			}
+		}
+	</script>
+</body>
+</html>

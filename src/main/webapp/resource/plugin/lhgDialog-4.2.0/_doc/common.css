@@ -1,0 +1,69 @@
+﻿/*!
+ * lhgcore.com common StyleSheet
+ * Copyright (c) 2009 - 2011 By Li Hui Gang
+ */
+*{margin:0;padding:0;}
+body{background-color:#eee;color:#000;font:12px tahoma,arial,sans-serif;padding:10px 0;}
+pre{font-family:"Courier New",Courier,monospace;}
+
+/* 共用的头部和横线开始 */
+.container{width:900px;background:#fff;margin:auto;border:1px solid #d3d3d3;}
+.line{height:2px;background:#3B62A7;font-size:0;margin:5px 10px;}
+
+.header{height:40px;padding:0 20px;}
+.hd_logo{float:left;padding-top:10px;}
+.hd_nav{float:right;padding-top:15px;line-height:18px;}
+a{text-decoration:none;color:#00f;}
+/* 共用的头部和横线结束 */
+
+/* 首页内容部分开始 */
+.content{padding:0 15px;}
+.left{margin-right:280px;}
+.right{float:right;}
+
+.ldg_box{font-size:14px;margin:4px 5px; padding:8px; text-align:left; color:#000; background:#EEF7F5; border:1px solid #D7EAE2; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius:3px;}
+.ldg_box_ui{margin:10px 0 0;width:270px;padding:0;background:#FFF;}
+.box_title{background:url(images/boxtitle.gif) no-repeat left center;padding: 0 10px;margin-left:15px;line-height:30px;font-size:12px;color:#000;}
+.ldg_box p{padding:5px 0 5px 10px;font-size:12px;}
+.ldg_box p a,.ldg_box p span{border:1px solid #d3d3d3;background:#EEF7F5;padding:3px 8px;color:#00f;}
+
+.lt_syn{padding:0 20px 5px 10px;}
+.lt_syn h2{font-size:12px;color:#1E9300;line-height:26px;margin-top:5px;}
+.lt_syn p{line-height:1.6;background:url("images/dotline.gif") repeat-x center bottom;padding-bottom:5px;}
+.lt_syn ul{ padding:5px; background-color:#F8F8F8; border:solid 1px #e3e3e3; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius:5px; }
+.lt_syn li { margin:10px; list-style: disc inside; }
+/* 首页内容部分结束 */
+
+/* 共用的其它页面内容部分开始 */
+.cbody{padding:5px 10px;}
+.cbody h2{font-size:15px;color:#FF4314;padding:5px;background:#f2f2f2;}
+.cbody p{font-size:14px;padding:10px 0;line-height:1.5;}
+.cbody ol{font-size:14px;padding:0 40px;}
+.cbody ol h3{font-size:12px;}
+.cbody ul{font-size:12px;line-height:1.5em;padding:5px 40px;}
+.cbody ul span{color:#f00;font-size:15px;}
+.cbody dl { margin:0 10px; font-size:1.16em; color:#666; }
+.cbody dt { font-weight:bold; color:#030; }
+.cbody dl dd { margin:5px 20px; list-style:inside; text-indent:1em; }
+
+.runcode{border:1px solid #ddd;background:#f3f3f3;cursor:pointer;padding:2px 8px;_padding:0 5px;font-size:12px;margin:0;}
+.runinput{font-size:12px;margin:0;padding:2px;}
+
+/*行变色表格*/
+table.zebra, .zebra th, .zebra td { border-width: 1px; border-style: solid; margin: 0; font-family:'Microsoft Yahei', Tahoma, Arial!important; font-family:'宋体', Tahoma, Arial; }
+table.zebra { table-layout: fixed; width: 100%; margin-bottom: 6px; padding: 0 1px 1px 0; border-spacing: 0; border-collapse: separate; *border-collapse:collapse; border-color: #abb8ce; background: #EDEDED; }
+.zebra th { padding: 5px 4px; font-weight: bold; border-color: #f8f8f8 #abb8ce #abb8ce #f8f8f8; text-align: left; text-shadow: 1px 1px 0 #e4edfb; vertical-align: middle; background: #d0dbee; }
+.zebra thead th { text-align:center; }
+.zebra th strong { color:#090; border-bottom:1px dashed #090;  text-decoration:underline; }
+.zebra td { padding:0; }
+.zebra th.separate { text-align:center; border-color: #E1F196 #AECD1B #AECD1B #F3FAD6; background-color: #f3f7fd; }
+.zebra td { padding: 4px; font: 12px/18px Consolas, "Courier New", Courier, monospace; text-align: left; vertical-align: top; }
+.zebra td { border-color: #f8f8f8 #abb8ce #abb8ce #f8f8f8; background: #e0e8f5; }
+.zebra tr.odd th { background: #dbe4f4; }
+.zebra tr.odd td { background: #e6eef9; }
+.zebra br { margin-bottom:1.8em; }
+
+/* 共用的页脚部分开始 */
+.footer{padding:10px 20px 35px 20px;}
+.ft_copy{float:right;}
+/* 共用的页脚部分结束 */

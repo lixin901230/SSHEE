@@ -1,0 +1,55 @@
+1   og4j.rootCategory=INFO, stdout , R
+	此句为将等级为INFO的日志信息输出到stdout和R这两个目的地，stdout和R的定义在下面的代码，可以任意起名。等级可分为OFF、FATAL、ERROR、WARN、INFO、DEBUG、ALL，如果配置OFF则不打出任何信息，如果配置为INFO这样只显示INFO, WARN, ERROR的log信息，而DEBUG信息不会被显示，具体讲解可参照第三部分定义配置文件中的logger。
+3   log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+	此句为定义名为stdout的输出端是哪种类型，可以是
+	org.apache.log4j.ConsoleAppender（控制台），
+	org.apache.log4j.FileAppender（文件），
+	org.apache.log4j.DailyRollingFileAppender（每天产生一个日志文件），
+	org.apache.log4j.RollingFileAppender（文件大小到达指定尺寸的时候产生一个新的文件）
+	org.apache.log4j.WriterAppender（将日志信息以流格式发送到任意指定的地方）
+具体讲解可参照第三部分定义配置文件中的Appender。
+4       log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+	此句为定义名为stdout的输出端的layout是哪种类型，可以是
+	org.apache.log4j.HTMLLayout（以HTML表格形式布局），
+	org.apache.log4j.PatternLayout（可以灵活地指定布局模式），
+	org.apache.log4j.SimpleLayout（包含日志信息的级别和信息字符串），
+	org.apache.log4j.TTCCLayout（包含日志产生的时间、线程、类别等等信息）
+	具体讲解可参照第三部分定义配置文件中的Layout。
+5       log4j.appender.stdout.layout.ConversionPattern= [QC] %p [%t] %C.%M(%L) | %m%n
+	如果使用pattern布局就要指定的打印信息的具体格式ConversionPattern，打印参数如下：
+	%m 输出代码中指定的消息
+	%p 输出优先级，即DEBUG，INFO，WARN，ERROR，FATAL
+	%r 输出自应用启动到输出该log信息耗费的毫秒数
+	%c 输出所属的类目，通常就是所在类的全名
+	%t 输出产生该日志事件的线程名
+	%n 输出一个回车换行符，Windows平台为“rn”，Unix平台为“n”
+	%d 输出日志时间点的日期或时间，默认格式为ISO8601，也可以在其后指定格式，比如：%d{yyyy MMM dd HH:mm:ss,SSS}，输出类似：2002年10月18日 22：10：28，921
+	%l 输出日志事件的发生位置，包括类目名、发生的线程，以及在代码中的行数。
+	[QC]是log信息的开头，可以为任意字符，一般为项目简称。
+	输出的信息
+	[TS] DEBUG [main] AbstractBeanFactory.getBean(189) | Returning cached instance of singleton bean 'MyAutoProxy'
+	具体讲解可参照第三部分定义配置文件中的格式化日志信息。
+7       log4j.appender.R=org.apache.log4j.DailyRollingFileAppender
+此句与第3行一样。定义名为R的输出端的类型为每天产生一个日志文件。
+8       log4j.appender.R.File=D:\\Tomcat 5.5\\logs\\qc.log
+此句为定义名为R的输出端的文件名为D:\\Tomcat 5.5\\logs\\qc.log可以自行修改。
+9       log4j.appender.R.layout=org.apache.log4j.PatternLayout
+与第4行相同。
+10     log4j.appender.R.layout.ConversionPattern=%d-[TS] %p %t %c - %m%n
+与第5行相同。
+12     log4j.logger.com. neusoft =DEBUG
+指定com.neusoft包下的所有类的等级为DEBUG。
+可以把com.neusoft改为自己项目所用的包名。
+13     log4j.logger.com.opensymphony.oscache=ERROR
+14     log4j.logger.net.sf.navigator=ERROR
+这两句是把这两个包下出现的错误的等级设为ERROR，如果项目中没有配置EHCache，则不需要这两句。
+15     log4j.logger.org.apache.commons=ERROR
+16     log4j.logger.org.apache.struts=WARN
+这两句是struts的包。
+17     log4j.logger.org.displaytag=ERROR
+这句是displaytag的包。（QC问题列表页面所用）
+18     log4j.logger.org.springframework=DEBUG
+此句为Spring的包。
+24     log4j.logger.org.hibernate.ps.PreparedStatementCache=WARN
+25     log4j.logger.org.hibernate=DEBUG
+此两句是hibernate的包。

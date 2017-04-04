@@ -1,0 +1,91 @@
+@CHARSET "UTF-8";
+
+/*index主页center部分显示用户登陆信息*/
+.index_icon_center{
+	background:url('../images/icons/self/user4_16.png') no-repeat center center;
+}
+
+.index_icon_right_calendar{
+	background:url('../images/icons/calendar.gif') no-repeat center center;
+}
+
+.index_icon_right_chat{
+/* 	background:url('../images/icons/self/chat/qq1_24.png') no-repeat center center; */
+/* 	background:url('../images/icons/self/chat/chat4_16.png') no-repeat center center; */
+	background:url('../images/icons/self/chat/chat5_16.png') no-repeat center center;
+}
+
+.index_icon_left_menu{
+	background:url('../images/icons/self/menu/menu1_24.png') no-repeat center center;
+/* 	background:url('../images/icons/self/menu/menu2_16.png') no-repeat center center; */
+/* 	background:url('../images/icons/self/menu/menu3_24.png') no-repeat center center; */
+/* 	background:url('../images/icons/self/menu/menu6_24.png') no-repeat center center; */
+}
+
+.menu_icon_welcome_page{
+/* 	background:url('../images/icons/self/home3_16.png') no-repeat center center; */
+/* 	background:url('../images/icons/self/home4_16.png') no-repeat center center; */
+/* 	background:url('../images/icons/self/home5_16.png') no-repeat center center; */
+	background:url('../images/icons/home.png') no-repeat center center;
+}
+
+.menu_icon_welcome_about{
+	background:url('../images/icons/self/about2_16.png') no-repeat center center;
+}
+
+.menu_icon_sys_man{
+	background:url('../images/icons/xp.gif') no-repeat center center;
+}
+
+.menu_icon_biz_man{
+	background:url('../images/icons/connecting.gif') no-repeat center center;
+}
+
+.menu_icon_report_man{
+	background:url('../images/icons/chart_bar.png') no-repeat center center;
+}
+
+.menu_icon_user_man{
+	background:url('../images/icons/user2_16.png') no-repeat center center;
+/* 	background:url('../images/icons/auth16.png') no-repeat center center; */
+}
+
+.menu_icon_role_man{
+	background:url('../images/icons/tux.png') no-repeat center center;
+}
+
+.menu_icon_resource_man{
+/* 	background:url('../images/icons/newspaper_link.png') no-repeat center center; */
+	background:url('../images/icons/desktop/tree_16.png') no-repeat center center;
+}
+
+.menu_icon_user_group_man{
+	background:url('../images/icons/desktop/user_group2_16.png') no-repeat center center;
+}
+
+.menu_icon_org_man{
+	background:url('../images/icons/org_24.png') no-repeat center center;
+}
+.menu_icon_dic_man{
+/* 	background:url('../images/icons/self/dic2_16.png') no-repeat center center; */
+/* 	background:url('../images/icons/self/dic3_16.png') no-repeat center center; */
+	background:url('../images/icons/self/dic4_16.png') no-repeat center center;
+}
+.menu_icon_portal_man{
+	background:url('../images/icons/self/portal1_16.png') no-repeat center center;
+}
+
+.menu_icon_log_man{
+/* 	background:url('../images/icons/desktop/count_16.png') no-repeat center center; */
+/* 	background:url('../images/icons/historydata.gif') no-repeat center center; */
+	background:url('../images/icons/i.p.cont.individual.gif') no-repeat center center;
+}
+
+.menu_icon_access_log_man{
+	background:url('../images/icons/access_log_16.png') no-repeat center center;
+}
+
+.menu_icon_sys_log_man{
+	background:url('../images/icons/basene.gif') no-repeat center center;
+}
+

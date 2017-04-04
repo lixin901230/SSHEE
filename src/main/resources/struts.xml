@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+	"http://struts.apache.org/dtds/struts-2.0.dtd" >
+<struts>
+	
+<!-- 	<constant name="struts.objectFactory" value="spring"/> -->
+<!-- 	<constant name="struts.devMode" value="true"/> -->
+<!-- 	<constant name="struts.i18n.encoding" value="UTF-8"/> -->
+<!-- 	<constant name="struts.locale" value="zh_CN"/> -->
+	<constant name="struts.objectFactory" value="${struts.objectFactory}"/>
+	<constant name="struts.devMode" value="${struts.devMode}"/>
+	<constant name="struts.i18n.encoding" value="${struts.i18n.encoding}"/>
+	<constant name="struts.locale" value="${struts.locale}"/>
+	
+	<!-- 导入系统管理模块配置 -->
+	<include file="struts/struts-sysman.xml"/>
+	
+	<package name="baseStruts" namespace="/" extends="struts-default">
+		
+		<!-- 404异常处理 -->
+<!-- 		<global-results> -->
+<!-- 			<result name="input">/view/common/error/404.jsp</result> -->
+<!-- 		</global-results> -->
+		
+		<!-- 全局异常处理 -->
+<!-- 		<global-exception-mappings> -->
+<!-- 			<exception-mapping result="error" exception="java.lang.Exception">/view/common/error/error.jsp</exception-mapping> -->
+<!-- 		</global-exception-mappings> -->
+	
+		<!-- 加载菜单 -->
+		<action name="imageCodeAction" class="imageCodeAction"></action>
+	
+		<!-- 加载菜单 -->
+		<action name="menuAction" class="menuAction">
+			<result name="input">/view/common/error/404.jsp</result>
+			<result name="west">/view/common/layout/west.jsp</result>
+		</action>
+	
+		<!-- 欢迎页 -->
+		<action name="jumpWelComeAction" class="jumpWelComeAction">
+			<result name="welcome">/WEB-INF/view/common/welcome.jsp</result>
+			<result name="aboutWe">/WEB-INF/view/common/aboutWe.jsp</result>
+		</action>
+		
+		<!-- <interceptors>
+			<interceptor-stack name="albumUpload">
+					 <interceptor-ref name="fileUpload">   
+			              配置允许上传的文件类型，多个用","分隔   
+			              <param name="allowedTypes">   
+							image/bmp,image/png,image/gif,image/jpeg,image/jpg,image/x-png, image/pjpeg   
+			              </param>   
+			              配置允许上传的文件大小，单位字节   
+			              <param name="maximumSize">10240000</param>   
+			      </interceptor-ref>   
+			      <interceptor-ref name="defaultStack" />  
+			</interceptor-stack>
+		</interceptors> -->
+
+		<!-- <action name="album!*" class="com.easyjob.cnhuike.actions.AlbumAction"	method="{1}">
+			<interceptor-ref name="albumUpload" />  
+			<result>/album/album_{1}.jsp</result>
+			<result name="list" type="redirect-action">album!{1}List</result>
+			<result name="error">/album/album_error.jsp</result>
+			<result name="input">/album/album_error.jsp</result>
+			<result name="next" type="redirect-action">
+				<param name="actionName">${nextAction}</param>
+				<param name="namespace">/album</param>
+			</result>
+		</action> -->
+		
+		<!-- <action name="notice" class="noticeAction">
+			<result name="input">/page/common/error.jsp</result> 请求出错时跳转的页面
+			<result name="success">/page/notice_man/noticeList.jsp</result>
+			<result name="detailNotice">/page/notice_man/noticeDetail.jsp</result>
+			
+			<result name="toAddNotice">/page/notice_man/noticeAdd.jsp</result>
+			<result name="addNotice" type="redirect">notice!findNoticeList.action</result>
+			
+			<result name="toUpdateNotice">page/notice_man/noticeUpdate.jsp</result>
+			<result name="updateNotice" type="redirect">notice!findNoticeList.action</result>
+			
+			<result name="delNotice" type="redirect">notice!findNoticeList.action</result>
+		</action> -->
+
+	</package>
+	
+</struts>

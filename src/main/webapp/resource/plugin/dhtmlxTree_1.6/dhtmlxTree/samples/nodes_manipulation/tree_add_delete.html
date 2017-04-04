@@ -1,0 +1,117 @@
+<!--conf
+<sample>
+              <product version="1.5" edition="std"/>
+                     <modifications>
+                            <modified date="070101"/>
+                     </modifications>
+               </sample>
+ --> 
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+	<title>Add / Delete items</title>
+
+</head>
+
+<body>
+<link rel='STYLESHEET' type='text/css' href='../common/style.css'>
+<table cellspacing="0" cellpadding="0" class="sample_header" border="0">
+	<tr valign="middle">
+		<!-- COMPONENT ICON -->
+		<td width="40" align="center"><img src="../common/dhtmlxtree_icon.gif" border="0"></td>
+		<!-- COMPONENT NAME -->
+		<td width="120" align="left">Sample: dhtmlxTree</td>
+		<!-- SAMPLE TITLE -->
+		<td width="0" align="left"><b>Add / Delete items</b></td>
+		<!-- LINK TO COMPONENT PAGE -->
+		<td width="0" align="right"><a href="http://www.dhtmlx.com/docs/products/dhtmlxTree/index.shtml">dhtmlxTree main page</a></td>
+		<!-- CLOSE BUTTON -->
+		<td width="50"><div class="sample_close"><a href="javascript:void(0);" onclick="self.close();"><img src="../common/sample_close.gif" width="14" height="14" border="0" alt="X"></a></div></td>
+	</tr>
+</table>
+	
+	
+	
+	<p>You can freely customize a tree view. This sample illustrates that the tree items can be easily 
+	added/deleted dynamically through the graphical user interface.
+	You can insert new item after the selected node or as its child. 
+	This feature allows you to configure a DHTML tree menu effortlessly.</p>
+	
+	<link rel="STYLESHEET" type="text/css" href="../../codebase/dhtmlxtree.css">
+	<script  src="../../codebase/dhtmlxcommon.js"></script>
+	<script  src="../../codebase/dhtmlxtree.js"></script>
+	
+	<script>
+	
+		function fixImage(id){
+			switch(tree.getLevel(id)){
+			case 1:
+			tree.setItemImage2(id,'books_close.gif','tombs.gif','tombs.gif');
+				break;
+			case 2:
+			tree.setItemImage2(id,'book.gif','books_open.gif','books_close.gif');			
+				break;
+			case 3:
+			tree.setItemImage2(id,'book.gif','books_open.gif','book.gif');			
+				break;			
+			default:
+			tree.setItemImage2(id,'book_titel.gif','book_titel.gif','book_titel.gif');			
+				break;
+			}
+		}
+		
+	</script>
+	<table>
+		<tr>
+			<td valign="top">
+
+
+				<div id="treeboxbox_tree" style="width:250; height:218;background-color:#f5f5f5;border :1px solid Silver;; overflow:auto;"></div>
+			</td>
+			<td rowspan="2" style="padding-left:25" valign="top">
+			
+			
+			<a href="javascript:void(0);" onclick="var d=new Date(); tree.insertNewItem(tree.getSelectedItemId(),d.valueOf(),document.getElementById('ed1').value,0,0,0,0,'SELECT'); fixImage(d.valueOf());">Insert new child item</a> Item label <input type="text" value="New item" id="ed1"><br><br>
+			
+			<a href="javascript:void(0);" onclick="var d=new Date(); tree.insertNewNext(tree.getSelectedItemId(),d.valueOf(),document.getElementById('ed2').value,0,0,0,0,'SELECT'); fixImage(d.valueOf());">Insert new item next</a> Item label <input type="text" value="New item" id="ed2"><br><br>
+			
+			<a href="javascript:void(0);" onclick="tree.deleteItem(tree.getSelectedItemId(),true);">Delete item</a><br><br>
+						
+			</td>
+		</tr>
+		
+	</table>
+
+			
+<div class='sample_code'><div class="hl-main"><pre><span class="hl-code"> 
+</span><span class="hl-brackets">&lt;</span><span class="hl-reserved">div</span><span class="hl-code"> </span><span class="hl-var">id</span><span class="hl-code">=</span><span class="hl-quotes">&quot;</span><span class="hl-string">treeboxbox_tree</span><span class="hl-quotes">&quot;</span><span class="hl-code"> </span><span class="hl-var">style</span><span class="hl-code">=</span><span class="hl-quotes">&quot;</span><span class="hl-string">width:200;height:200</span><span class="hl-quotes">&quot;</span><span class="hl-brackets">&gt;</span><span class="hl-brackets">&lt;/</span><span class="hl-reserved">div</span><span class="hl-brackets">&gt;</span><span class="hl-code">
+</span><span class="hl-brackets">&lt;</span><span class="hl-reserved">script</span><span class="hl-brackets">&gt;</span><span class="hl-code"><div class="hl-main"><pre><span class="hl-code"> 
+    </span><span class="hl-identifier">tree</span><span class="hl-code">=</span><span class="hl-reserved">new</span><span class="hl-code"> </span><span class="hl-identifier">dhtmlXTreeObject</span><span class="hl-brackets">(</span><span class="hl-quotes">&quot;</span><span class="hl-string">treeboxbox_tree</span><span class="hl-quotes">&quot;</span><span class="hl-code">,</span><span class="hl-quotes">&quot;</span><span class="hl-string">100%</span><span class="hl-quotes">&quot;</span><span class="hl-code">,</span><span class="hl-quotes">&quot;</span><span class="hl-string">100%</span><span class="hl-quotes">&quot;</span><span class="hl-code">,</span><span class="hl-number">0</span><span class="hl-brackets">)</span><span class="hl-code">;
+        </span><span class="hl-identifier">tree</span><span class="hl-code">.</span><span class="hl-identifier">setImagePath</span><span class="hl-brackets">(</span><span class="hl-quotes">&quot;</span><span class="hl-string">../imgs/</span><span class="hl-quotes">&quot;</span><span class="hl-brackets">)</span><span class="hl-code">;
+        </span><span class="hl-identifier">tree</span><span class="hl-code">.</span><span class="hl-identifier">loadXML</span><span class="hl-brackets">(</span><span class="hl-quotes">&quot;</span><span class="hl-string">tree.xml</span><span class="hl-quotes">&quot;</span><span class="hl-brackets">)</span><span class="hl-code">
+        
+        </span><span class="hl-identifier">tree</span><span class="hl-code">.</span><span class="hl-identifier">insertNewItem</span><span class="hl-brackets">(</span><span class="hl-number">0</span><span class="hl-code">,</span><span class="hl-number">100</span><span class="hl-code">,</span><span class="hl-quotes">&quot;</span><span class="hl-string">New Node 1</span><span class="hl-quotes">&quot;</span><span class="hl-code">,</span><span class="hl-number">0</span><span class="hl-code">,</span><span class="hl-number">0</span><span class="hl-code">,</span><span class="hl-number">0</span><span class="hl-code">,</span><span class="hl-number">0</span><span class="hl-code">,</span><span class="hl-quotes">&quot;</span><span class="hl-string">SELECT</span><span class="hl-quotes">&quot;</span><span class="hl-brackets">)</span><span class="hl-code">;
+        </span><span class="hl-identifier">tree</span><span class="hl-code">.</span><span class="hl-identifier">insertNewNext</span><span class="hl-brackets">(</span><span class="hl-number">2</span><span class="hl-code">,</span><span class="hl-number">101</span><span class="hl-code">,</span><span class="hl-quotes">&quot;</span><span class="hl-string">New Node 2</span><span class="hl-quotes">&quot;</span><span class="hl-code">,</span><span class="hl-number">0</span><span class="hl-code">,</span><span class="hl-number">0</span><span class="hl-code">,</span><span class="hl-number">0</span><span class="hl-code">,</span><span class="hl-number">0</span><span class="hl-code">,</span><span class="hl-quotes">&quot;</span><span class="hl-quotes">&quot;</span><span class="hl-brackets">)</span><span class="hl-code">;
+        </span><span class="hl-identifier">tree</span><span class="hl-code">.</span><span class="hl-identifier">deleteItem</span><span class="hl-brackets">(</span><span class="hl-quotes">&quot;</span><span class="hl-string">2</span><span class="hl-quotes">&quot;</span><span class="hl-brackets">)</span><span class="hl-code">;</span></pre></div></span><span class="hl-brackets">&lt;/</span><span class="hl-reserved">script</span><span class="hl-brackets">&gt;</span></pre></div></div>	
+		<li>0s passed to the function for arguments 4-7 (function to call on select, images) mean use default values for them</li>
+		<li>Last argument is a comma delimited string of following possible value (upper case only):</li>
+		<li type="circle">SELECT - move selection to this node after inserting</li>
+		<li type="circle">CALL - call function on select</li>
+		<li type="circle">TOP - add node to the top position </li>
+		<li type="circle">CHILD - node has children</li>
+		<li type="circle">CHECKED - checkbox is checked (if exists)</li>
+	<script>
+			tree=new dhtmlXTreeObject("treeboxbox_tree","100%","100%",0);
+			tree.setImagePath("../../codebase/imgs/csh_bluebooks/");
+			tree.loadXML("tree3.xml");
+
+
+	</script>
+
+<!-- FOOTER -->
+<table callspacing="0" cellpadding="0" border="0" class="sample_footer"><tr><td style="padding-left: 8px;">&copy; <a href="http://www.dhtmlx.com">DHTMLX LTD</a>. All rights reserved</td></tr></table>
+<!-- FOOTER -->
+
+</body>
+</html>

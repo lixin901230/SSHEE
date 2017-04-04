@@ -1,0 +1,21 @@
+.wp_syntax {
+	margin: 0px 0px 8px; border: 1px solid rgb(225, 225, 225); color: rgb(17, 0, 0); overflow: auto; background-color: rgb(249, 249, 249);
+}
+.wp_syntax {
+	overflow-x: auto; overflow-y: hidden;
+}
+.wp_syntax table {
+	border-collapse: collapse;
+}
+.wp_syntax div {
+	padding: 2px 4px; vertical-align: top;
+}
+.wp_syntax td {
+	padding: 2px 4px; vertical-align: top;
+}
+.wp_syntax .line_numbers {
+	text-align: right; color: gray; overflow: visible; background-color: rgb(221, 238, 255);
+}
+.wp_syntax pre {
+	margin: 0px; width: auto; line-height: 1.333; overflow: visible; clear: none; font-size: 12px; float: none; white-space: pre;
+}

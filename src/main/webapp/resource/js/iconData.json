@@ -1,0 +1,118 @@
+[{
+	"value" : "",
+	"text" : "默认"
+},{
+	"value" : "index_icon_center",
+	"text" : "index_icon_center"
+},{
+	"value" : "index_icon_right_calendar",
+	"text" : "index_icon_right_calendar"
+},{
+	"value" : "index_icon_right_chat",
+	"text" : "index_icon_right_chat"
+},{
+	"value" : "index_icon_left_menu",
+	"text" : "index_icon_left_menu"
+},{
+	"value" : "menu_icon_welcome_page",
+	"text" : "menu_icon_welcome_page"
+},{
+	"value" : "menu_icon_welcome_about",
+	"text" : "menu_icon_welcome_about"
+},{
+	"value" : "menu_icon_sys_man",
+	"text" : "menu_icon_sys_man"
+},{
+	"value" : "menu_icon_biz_man",
+	"text" : "menu_icon_biz_man"
+},{
+	"value" : "menu_icon_report_man",
+	"text" : "menu_icon_report_man"
+},{
+	"value" : "menu_icon_user_man",
+	"text" : "menu_icon_user_man"
+},{
+	"value" : "menu_icon_role_man",
+	"text" : "menu_icon_role_man"
+},{
+	"value" : "menu_icon_resource_man",
+	"text" : "menu_icon_resource_man"
+},{
+	"value" : "menu_icon_user_group_man",
+	"text" : "menu_icon_user_group_man"
+},{
+	"value" : "menu_icon_org_man",
+	"text" : "menu_icon_org_man"
+},{
+	"value" : "menu_icon_dic_man",
+	"text" : "menu_icon_dic_man"
+},{
+	"value" : "menu_icon_portal_man",
+	"text" : "menu_icon_portal_man"
+},{
+	"value" : "menu_icon_log_man",
+	"text" : "menu_icon_log_man"
+},{
+	"value" : "menu_icon_access_log_man",
+	"text" : "menu_icon_access_log_man"
+},{
+	"value" : "menu_icon_sys_log_man",
+	"text" : "menu_icon_sys_log_man"
+},
+
+
+
+
+
+ {
+	"value" : "icon-add",
+	"text" : "icon-add"
+}, {
+	"value" : "icon-edit",
+	"text" : "icon-edit"
+}, {
+	"value" : "icon-remove",
+	"text" : "icon-remove"
+}, {
+	"value" : "icon-save",
+	"text" : "icon-save"
+}, {
+	"value" : "icon-cut",
+	"text" : "icon-cut"
+}, {
+	"value" : "icon-ok",
+	"text" : "icon-ok"
+}, {
+	"value" : "icon-no",
+	"text" : "icon-no"
+}, {
+	"value" : "icon-cancel",
+	"text" : "icon-cancel"
+}, {
+	"value" : "icon-reload",
+	"text" : "icon-reload"
+}, {
+	"value" : "icon-search",
+	"text" : "icon-search"
+}, {
+	"value" : "icon-print",
+	"text" : "icon-print"
+}, {
+	"value" : "icon-help",
+	"text" : "icon-help"
+}, {
+	"value" : "icon-undo",
+	"text" : "icon-undo"
+}, {
+	"value" : "icon-redo",
+	"text" : "icon-redo"
+}, {
+	"value" : "icon-back",
+	"text" : "icon-back"
+}, {
+	"value" : "icon-sum",
+	"text" : "icon-sum"
+}, {
+	"value" : "icon-tip",
+	"text" : "icon-tip"
+}]

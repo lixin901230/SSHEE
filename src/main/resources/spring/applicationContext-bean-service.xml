@@ -1,0 +1,50 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	
+	<!-- 用户信息管理 -->
+	<bean id="userService" class="com.zl.frame.sysman.userman.service.impl.UserServiceImpl">
+		<property name="userDao" ref="userDao"/>
+	</bean>
+	
+	<!-- 角色管理 -->
+	<bean id="roleService" class="com.zl.frame.sysman.roleman.service.impl.RoleServiceImpl">
+		<property name="roleDao" ref="roleDao"/>
+	</bean>
+	
+	<!-- 资源（菜单节点）管理 -->
+	<bean id="resourceService" class="com.zl.frame.sysman.resourceman.service.impl.ResourceServiceImpl">
+		<property name="resourceDao" ref="resourceDao"/>
+	</bean>
+	
+	<!-- 授权管理 -->
+	<bean id="authService" class="com.zl.frame.sysman.authorizationman.service.impl.AuthServiceImpl">
+		<property name="userDao" ref="userDao"/>
+		<property name="roleDao" ref="roleDao"/>
+		<property name="orgInfoDao" ref="orgInfoDao"/>
+		<property name="userGroupDao" ref="userGroupDao"/>
+	</bean>
+	
+	<!-- 用户组管理 -->
+	<bean id="userGroupService" class="com.zl.frame.sysman.usergroupman.service.impl.UserGroupServiceImpl">
+		<property name="userGroupDao" ref="userGroupDao"/>
+	</bean>
+
+	<!-- 组织机构管理 -->
+	<bean id="orgInfoService" class="com.zl.frame.sysman.orgman.service.impl.OrgInfoServiceImpl">
+		<property name="orgInfoDao" ref="orgInfoDao"/>
+	</bean>
+	
+	<!-- 认证日志管理 -->
+	<bean id="accessLogService" class="com.zl.frame.sysman.logman.service.impl.AccessLogServiceImpl">
+		<property name="accessLogDao" ref="accessLogDao"/>
+	</bean>
+	
+	<!-- 操作日志管理 -->
+	<bean id="operationLogService" class="com.zl.frame.sysman.logman.service.impl.OperationLogServiceImpl">
+		<property name="operationLogDao" ref="operationLogDao"/>
+	</bean>
+    
+</beans>

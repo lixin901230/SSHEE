@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	
+	<!--  图片验证码 -->
+    <bean id="imageCodeAction" class="com.zl.frame.core.web.ImageCodeAction" scope="prototype"/>
+	
+	<!-- 资源管理 -->
+    <bean id="menuAction" class="com.zl.frame.core.web.MenuAction" scope="prototype">
+    	<property name="resourceService" ref="resourceService"/>
+    </bean>
+	
+	<!-- 欢迎页跳转Action -->
+	<bean id="jumpWelComeAction" class="com.zl.frame.core.web.JumpWelComeAction"></bean>
+	
+	<!-- 用户信息管理 -->
+    <bean id="userAction" class="com.zl.frame.sysman.userman.action.UserAction" scope="prototype">
+        <property name="userService" ref="userService"/>
+        <property name="roleService" ref="roleService"/>
+        <property name="resourceService" ref="resourceService"/>
+    </bean>
+    
+    <!-- 角色管理 -->
+    <bean id="roleAction" class="com.zl.frame.sysman.roleman.action.RoleAction" scope="prototype">
+    	<property name="roleService" ref="roleService"/>
+    	<property name="resourceService" ref="resourceService"/>
+    </bean>
+    
+    <!-- 资源管理 -->
+    <bean id="resourceAction" class="com.zl.frame.sysman.resourceman.action.ResourceAction" scope="prototype">
+    	<property name="resourceService" ref="resourceService"/>
+    </bean>
+
+    <!-- 授权管理 -->
+    <bean id="authAction" class="com.zl.frame.sysman.authorizationman.action.AuthAction" scope="prototype">
+    	<property name="userService" ref="userService"/>
+    	<property name="roleService" ref="roleService"/>
+    	<property name="authService" ref="authService"/>
+    </bean>
+
+    <!-- 用户组管理 -->
+    <bean id="userGroupAction" class="com.zl.frame.sysman.usergroupman.action.UserGroupAction" scope="prototype">
+    	<property name="userGroupService" ref="userGroupService"/>
+    	<property name="userService" ref="userService"/>
+    </bean>
+    
+    <!-- 组织机构管理 -->
+    <bean id="orgInfoAction" class="com.zl.frame.sysman.orgman.action.OrgInfoAction" scope="prototype">
+    	<property name="orgInfoService" ref="orgInfoService"/>
+    	<property name="userService" ref="userService"/>
+    </bean>
+    
+    <!-- 认证日志管理 -->
+    <bean id="accessLogAction" class="com.zl.frame.sysman.logman.action.AccessLogAction" scope="prototype">
+    	<property name="accessLogService" ref="accessLogService"/>
+    </bean>
+    
+    <!-- 操作日志管理 -->
+    <bean id="operationLogAction" class="com.zl.frame.sysman.logman.action.OperationLogAction" scope="prototype">
+    	<property name="operationLogService" ref="operationLogService"/>
+    </bean>
+</beans>

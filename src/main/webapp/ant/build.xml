@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--请各组修改下面的工程名称-->
+<project name="eap" default="buildwar" basedir=".">
+	<property file="build.properties"/>
+	<property name="src" value="src" />
+		<property name="webapp_location" value="build/classes" />
+	<tstamp>
+		<format property="TODAY_CN" pattern="yyyyMMdd" locale="zh"/>
+	</tstamp>
+
+	<path id="master-classpath">
+		<fileset dir="webapp/WEB-INF/lib">
+			<include name="*.jar" />
+		</fileset>
+		<!--window_tomcat_lib_path在build.properties中定义，
+			在LINUX下打包时请改为tomcat_lib_path-->
+		<fileset dir="${tomcat_lib_path}">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<target name="complie">
+		<javac fork="true" includejavaruntime="true" includeantruntime="true"
+    	   debug="true" debuglevel="source,lines"
+    	   source="1.6" srcdir="${src}" 
+    	   destdir="build/classes" failonerror="false"
+    	   encoding="UTF-8">
+			<classpath refid="master-classpath" />
+		</javac>
+		<copy todir="build/classes">
+			<fileset dir="${src}">
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+	</target>
+	<target name="generateCodeVersion">
+		<exec executable="svn" output="webapp/version.txt" failonerror="false" failifexecutionfails="false">
+			<arg line="info"/>
+			<redirector >
+				<outputfilterchain>
+					<linecontainsregexp>
+						<regexp pattern="^\S{1,6}\: [0-9]*[1-9][0-9]+.$"/>
+					</linecontainsregexp>
+					<tokenfilter>
+						<replaceregex pattern="\S+\: " replace="V3.0.${TODAY_CN}."/>
+					</tokenfilter>
+				</outputfilterchain>
+			</redirector>
+		</exec>
+	</target>
+
+	<target name="buildwar" depends="clean,complie,generateCodeVersion">
+		<!--请装下面的./sysman.war改为各组的WAR包名称-->
+		<war destfile="./springsecurity.war" webxml="webapp/WEB-INF/web.xml" >
+			<fileset dir="webapp" includes="**/*" >
+				<exclude name="WEB-INF/web.xml" />
+			</fileset>
+			<fileset dir="." includes="*.txt">
+			</fileset>
+		</war>
+	</target>
+
+	<target name="clean">
+			 <echo message="clear the project!!!!" />
+		<delete dir="${webapp_location}" includes="**/*.class"/>
+	</target>
+</project>
+

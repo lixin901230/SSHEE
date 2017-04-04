@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <node value="" text="请选择专业"/>
+  <node value="bj1" text="专业1"/>
+  <node value="bj2" text="专业2"/>
+  <node value="bj3" text="专业3"/>
+</root>

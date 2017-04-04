@@ -1,0 +1,86 @@
+/**
+ * @version 1.0.0  
+ * @description 框架公共样式
+ */
+@CHARSET "UTF-8";
+
+/**
+ * north LOGO部分背景样式
+ */
+.frame_north{
+	background: url('resource/images/myself/top.jpg') repeat-x 50% bottom;
+	border-top: #1d438b 1px solid;
+	color:#000;
+	position: relative;
+}
+
+.frame_north .part1{
+	background: url('resource/images/myself/topicon.gif') no-repeat 10px 5px;
+	color: #e7e7e7;
+	font-family:'微软雅黑', '宋体', Arial, sans-serif;
+	size: 12px;
+	line-height: 26px;
+	margin: 0px;
+	padding-bottom: 0px;
+	padding-left: 35px;
+	padding-right: 0px;
+	padding-top: 0px;
+}
+
+#north li{
+	list-style: none;
+	float: left;
+	padding-right: 4px;
+}
+
+/**
+ * 菜单导ul li样式
+ */
+#west li{
+	list-style: none;
+}
+
+/**
+ * north LOGO部分 <a> 超链接样式
+ */
+#north a:LINK {
+	color:#e7e7e7;
+	text-decoration: none;
+}
+#north a:HOVER {
+	color:red;
+	text-decoration: none;
+}
+#north a:ACTIVE {
+	color:red;
+	text-decoration: none;
+}
+#north a:VISITED {
+	color: #e7e7e7;
+	text-decoration: none;
+}
+
+/**
+ * west菜单栏部分 <a> 超链接样式
+ */
+#west a:LINK {
+	color: black;
+	text-decoration: none;
+}
+#west a:HOVER {
+	color:red;
+	text-decoration: none;
+	cursor: pointer;
+}
+#west a:ACTIVE {
+	color:red;
+	text-decoration: none;
+}
+#west a:VISITED {
+	color: black;
+	text-decoration: none;
+}
+
+.icon-home{
+	background:url('../images/icons/home.png') no-repeat center center;
+}

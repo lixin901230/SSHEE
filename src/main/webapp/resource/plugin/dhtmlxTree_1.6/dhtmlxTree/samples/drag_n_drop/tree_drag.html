@@ -1,0 +1,104 @@
+<!--conf
+<sample>
+              <product version="1.5" edition="std"/>
+                     <modifications>
+                            <modified date="070101"/>
+                     </modifications>
+               </sample>
+ --> 
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+	
+
+<title>Drag and Drop</title>
+
+</head>
+
+<body>
+<link rel='STYLESHEET' type='text/css' href='../common/style.css'>
+<table cellspacing="0" cellpadding="0" class="sample_header" border="0">
+	<tr valign="middle">
+		<!-- COMPONENT ICON -->
+		<td width="40" align="center"><img src="../common/dhtmlxtree_icon.gif" border="0"></td>
+		<!-- COMPONENT NAME -->
+		<td width="120" align="left">Sample: dhtmlxTree</td>
+		<!-- SAMPLE TITLE -->
+		<td width="0" align="left"><b>Drag and Drop</b></td>
+		<!-- LINK TO COMPONENT PAGE -->
+		<td width="0" align="right"><a href="http://www.dhtmlx.com/docs/products/dhtmlxTree/index.shtml">dhtmlxTree main page</a></td>
+		<!-- CLOSE BUTTON -->
+		<td width="50"><div class="sample_close"><a href="javascript:void(0);" onclick="self.close();"><img src="../common/sample_close.gif" width="14" height="14" border="0" alt="X"></a></div></td>
+	</tr>
+</table>
+<link rel="STYLESHEET" type="text/css" href="../../codebase/dhtmlxtree.css">
+	
+	<script  src="../../codebase/dhtmlxcommon.js"></script>
+	<script  src="../../codebase/dhtmlxtree.js"></script>
+	
+	
+	<p>This JavaScript tree menu has extended drag-and-drop functionality 
+	(within one tree, between trees, between frames). Drop-as-sibling behavior makes 
+	it easy to reorder nodes in a tree view. 
+You can easily edit the tree by dragging nodes within one tree or between trees or even to another object.</p>
+	
+
+	<table>
+		<tr>
+			<td valign="top">
+
+				<div id="treeboxbox_tree" style="width:250; height:218;background-color:#f5f5f5;border :1px solid Silver;"></div><br>
+			
+				
+			</td>
+			<td style="padding-left:25px" valign="top">
+			
+				<div id="treeboxbox_tree2" style="width:250; height:218;background-color:#f5f5f5;border :1px solid Silver;"></div><br>
+			
+
+			</td>
+		</tr>
+
+	</table>
+<p>	Drag&ampDrop works in each tree and between trees too. </p>
+	
+<div class='sample_code'><div class="hl-main"><pre><span class="hl-code"> 
+</span><span class="hl-brackets">&lt;</span><span class="hl-reserved">div</span><span class="hl-code"> </span><span class="hl-var">id</span><span class="hl-code">=</span><span class="hl-quotes">&quot;</span><span class="hl-string">treeboxbox_tree</span><span class="hl-quotes">&quot;</span><span class="hl-code"> </span><span class="hl-var">style</span><span class="hl-code">=</span><span class="hl-quotes">&quot;</span><span class="hl-string">width:200;height:200</span><span class="hl-quotes">&quot;</span><span class="hl-brackets">&gt;</span><span class="hl-brackets">&lt;/</span><span class="hl-reserved">div</span><span class="hl-brackets">&gt;</span><span class="hl-code">
+</span><span class="hl-brackets">&lt;</span><span class="hl-reserved">script</span><span class="hl-brackets">&gt;</span><span class="hl-code"><div class="hl-main"><pre><span class="hl-code"> 
+            </span><span class="hl-identifier">tree</span><span class="hl-code">=</span><span class="hl-reserved">new</span><span class="hl-code"> </span><span class="hl-identifier">dhtmlXTreeObject</span><span class="hl-brackets">(</span><span class="hl-quotes">&quot;</span><span class="hl-string">treeboxbox_tree</span><span class="hl-quotes">&quot;</span><span class="hl-code">,</span><span class="hl-quotes">&quot;</span><span class="hl-string">100%</span><span class="hl-quotes">&quot;</span><span class="hl-code">,</span><span class="hl-quotes">&quot;</span><span class="hl-string">100%</span><span class="hl-quotes">&quot;</span><span class="hl-code">,</span><span class="hl-number">0</span><span class="hl-brackets">)</span><span class="hl-code">;
+            </span><span class="hl-identifier">tree</span><span class="hl-code">.</span><span class="hl-identifier">setImagePath</span><span class="hl-brackets">(</span><span class="hl-quotes">&quot;</span><span class="hl-string">../images/</span><span class="hl-quotes">&quot;</span><span class="hl-brackets">)</span><span class="hl-code">;
+            
+            </span><span class="hl-comment">//</span><span class="hl-comment">enable Drag&amp;Drop</span><span class="hl-comment"></span><span class="hl-code">
+            </span><span class="hl-identifier">tree</span><span class="hl-code">.</span><span class="hl-identifier">enableDragAndDrop</span><span class="hl-brackets">(</span><span class="hl-number">1</span><span class="hl-brackets">)</span><span class="hl-code">;
+            </span><span class="hl-comment">//</span><span class="hl-comment">set my Drag&amp;Drop handler</span><span class="hl-comment"></span><span class="hl-code">
+            </span><span class="hl-identifier">tree</span><span class="hl-code">.</span><span class="hl-identifier">setDragHandler</span><span class="hl-brackets">(</span><span class="hl-identifier">myDragHandler</span><span class="hl-brackets">)</span><span class="hl-code">;
+            </span><span class="hl-identifier">tree</span><span class="hl-code">.</span><span class="hl-identifier">loadXML</span><span class="hl-brackets">(</span><span class="hl-quotes">&quot;</span><span class="hl-string">tree.xml</span><span class="hl-quotes">&quot;</span><span class="hl-brackets">)</span><span class="hl-code">;
+ 
+            </span><span class="hl-reserved">function</span><span class="hl-code"> </span><span class="hl-identifier">myDragHandler</span><span class="hl-brackets">(</span><span class="hl-identifier">idFrom</span><span class="hl-code">,</span><span class="hl-identifier">idTo</span><span class="hl-brackets">)</span><span class="hl-brackets">{</span><span class="hl-code">
+                </span><span class="hl-comment">//</span><span class="hl-comment">if we return false then drag&amp;drop be aborted</span><span class="hl-comment"></span><span class="hl-code">
+                </span><span class="hl-reserved">return</span><span class="hl-code"> </span><span class="hl-reserved">true</span><span class="hl-code">;
+            </span><span class="hl-brackets">}</span></pre></div></span><span class="hl-brackets">&lt;/</span><span class="hl-reserved">script</span><span class="hl-brackets">&gt;</span></pre></div></div>	
+ 
+	<script>
+	
+			tree=new dhtmlXTreeObject("treeboxbox_tree","100%","100%",0);
+			tree.setImagePath("../../codebase/imgs/csh_yellowbooks/");
+			tree.enableDragAndDrop(true);
+			tree.loadXML("tree.xml");
+			
+
+			tree2=new dhtmlXTreeObject("treeboxbox_tree2","100%","100%",0);
+			tree2.setImagePath("../../codebase/imgs/csh_yellowbooks/");
+			tree2.enableDragAndDrop(true);
+			tree2.loadXML("tree.xml");
+			
+
+	</script>
+
+<!-- FOOTER -->
+<table callspacing="0" cellpadding="0" border="0" class="sample_footer"><tr><td style="padding-left: 8px;">&copy; <a href="http://www.dhtmlx.com">DHTMLX LTD</a>. All rights reserved</td></tr></table>
+<!-- FOOTER -->
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<style type="text/css">
+body{margin:0;padding:0;}
+input{font-size:12px;margin:0;padding:2px;}
+	</style>
+	<script type="text/javascript">
+var api = frameElement.api, W = api.opener;
+
+api.button({
+    id:'valueOk',
+	name:'确定',
+	callback:ok
+});
+
+function ok()
+{
+    W.document.getElementById('txt2').value = document.getElementById('itxt').value;
+};
+	</script>
+</head>
+
+<body>
+<p style="color:#F00;text-align:center;margin-top:40px;"><input size="25" id="itxt" type="text" value="窗口内容页中文本框的值"/></p>
+<p style="text-align:center;">点击下面的确定按钮将值传回调用组件页面的文本框中</p>
+</body>
+</html>

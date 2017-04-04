@@ -1,0 +1,172 @@
+@charset "utf-8";
+/*
+ * lhgdialog 皮肤公用部分 
+ * Version: 1.2
+ * 2011-12-6
+ * (C) 2009-2011 【一丝冰凉】, http://t.qq.com/yisibl  QQ:50167214
+ * This is licensed under the GNU LGPL, version 2.1 or later.
+ * For details, see: http://creativecommons.org/licenses/LGPL/2.1/
+ */
+/*为了更好的用户体验,此文档采用引导式注释,更加方便初次制作皮肤*/ 
+/*=========1.每个皮肤都会用到的部分,制作新皮肤从这里开始复制=========*/
+/*基本重置*/
+body { _margin:0;/*IE6 BUG*/ }
+.ui_lock_scroll body { overflow:hidden; }/*隐藏锁屏和全屏时滚动条*/
+.ui_lock_scroll { *overflow:hidden;}
+/*结构层开始*/
+.ui_outer { text-align:left; }/*最外层div*/
+.ui_content, .ui_title, .ui_buttons button { font: 12px/1.333 tahoma, arial, \5b8b\4f53, sans-serif; }/*tahom字体在各个浏览器保持良好的统一*/
+table.ui_border, table.ui_dialog { width:auto; border-spacing:0; *border-collapse:collapse;/*现代浏览器有bug，参见【一丝冰凉】微博*/}
+.ui_border td, .ui_dialog td { padding:0; }
+.ui_dialog { background:#FFF; }/*主体背景*/
+/*标题部分开始*/
+.ui_title { overflow:hidden; text-overflow: ellipsis; white-space:nowrap;/*firefox 不自动换行*/ display:block; cursor:move; padding:0 100px 0 5px;/*防止IE6按钮错位*/ *background: #79BCFF;/*IE haslayout 勿删除*/ -moz-user-select:none; -webkit-user-select:none; /*firefox2+，webkit禁止双击选中标题文字*/ }
+.ui_title_icon { display: inline-block; height:100%; min-width:16px; width:16px; margin-right:5px; vertical-align:middle; background-position: center center; background-repeat:no-repeat; }
+.ui_title_buttons { position:absolute; cursor:pointer; font-size:0;/*opera 空隙修复*/ letter-spacing:-.5em; /*其他浏览器 空隙修复 宋体/Verdana为-.5em，Tahoma为-.333em，Arial为-.25em*/ }
+/*标题部分结束*/
+
+/*对齐自适应*/
+.ui_main { min-width:12em; min-width:0\9/*IE8 BUG*/; text-align:center; }/*超过最小宽度居中对齐*/
+.ui_content { display:inline-block; *display:inline; zoom:1; text-align:left; }/*小于最小宽度左对齐*/
+.ui_content.ui_state_full { display:block; width:100%; height:100%; margin:0; padding:0!important; }/*加载iframe时设置为0*/
+.ui_content.ui_state_full iframe { border-radius:0 0 5px 5px;/*实验性属性，防止边框圆角内容溢出*/ }
+.ui_loading { width:96px; height:32px; text-align:left; text-indent:-9999em; overflow:hidden; background:url(icons/loading.gif) no-repeat center center; }/*加载中*/
+.ui_icon_bg { margin:20px 0 20px 15px; }/*图标外边距*/
+.ui_state_tips .ui_main { min-width:3em; }/*tips最小宽度*/
+.ui_state_tips .ui_content { padding:8px 10px!important; margin-top:-2px; }/*tips适宜的边距和视觉居中*/
+.ui_state_tips .ui_icon_bg { margin:5px 0 6px 9px; }/*tips主体图标边距控制*/
+.ui_state_tips .ui_title, .ui_state_tips .ui_title_buttons { display:none; }/*无标题时隐藏无需显示结构*/
+
+/*标题纯CSS按钮开始
+* min 最小化，max最大化，res还原，rese恢复，close关闭*/
+.ui_min, .ui_max, .ui_close, .ui_res, .ui_rese { letter-spacing: normal; text-align:center; display:inline-block; *display:inline; zoom:1; vertical-align:top; font-family:tahoma, arial, \5b8b\4f53, sans-serif; font-weight:600; text-decoration:none;}
+.ui_close:hover{ text-decoration:none;}
+.ui_res, .ui_rese, .ui_title_icon { display:none; } /*默认隐藏 回复和 还原按钮*/
+/*标题按钮结束*/
+
+/************样式层开始（可选部分）************/
+/*=========2.如果您的皮肤想要使用项目自定义的按钮样式,无需复制此段,直接到第3步=======*/
+/*底部按钮样式*/
+/*按钮结构部分*/
+.ui_buttons { white-space:nowrap; padding:8px 8px 5px; text-align:right; }
+.ui_buttons button::-moz-focus-inner {border:0; padding:0; margin:0; }
+/*按钮结构部分结束*/
+.ui_buttons button { padding: 6px 10px 7px 12px; *padding:6px 10px 4px; margin-left:10px; cursor: pointer; display: inline-block; text-align: center; line-height: 1;  letter-spacing:2px; overflow:visible; *height:2em; *width:1;color: #333; border: solid 1px #999; border-radius: 5px; border-radius: 0\9;/*IE9渐变溢出*/ 
+background: #DDD;
+background: linear-gradient(top, #FAFAFA, #E4E4E4); 
+background: -moz-linear-gradient(top, #FAFAFA, #E4E4E4); 
+background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FAFAFA), to(#E4E4E4)); 
+background: -o-linear-gradient(top, #FAFAFA, #E4E4E4); 
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAFAFA', endColorstr='#E4E4E4');
+text-shadow: 0 1px 1px rgba(255, 255, 255, 1); box-shadow: 0 1px 0 rgba(255, 255, 255, .7), 0 -1px 0 rgba(0, 0, 0, .09);
+-moz-transition:-moz-box-shadow linear .2s; 
+-webkit-transition: -webkit-box-shadow linear .2s; 
+transition: box-shadow linear .2s; }
+.ui_buttons button:focus { outline:0 none; border-color:#2258e1; box-shadow:0 2px 6px #0e78c9; }
+.ui_buttons button:hover { color:#000; border-color:#666; box-shadow:none; }
+.ui_buttons button:active { border-color:#666; background: linear-gradient(top, #FAFAFA, #E4E4E4); background: -moz-linear-gradient(top, #FAFAFA, #E4E4E4); background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FAFAFA), to(#E4E4E4)); background: -o-linear-gradient(top, #FAFAFA, #E4E4E4); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAFAFA', endColorstr='#E4E4E4');}
+.ui_buttons button[disabled] { cursor:default; color:#666; background:#DDD; border: solid 1px #999; filter:alpha(opacity=50); opacity:.5; box-shadow:none; }
+/*高亮按钮样式，用于区分普通按钮*/
+button.ui_state_highlight { color: #FFF; border: solid 1px #1c6a9e;
+background: #2288cc;  
+background: linear-gradient(top, #33bbee, #2288cc); 
+background: -moz-linear-gradient(top, #33bbee, #2288cc); 
+background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#33bbee), to(#2288cc)); 
+background: -o-linear-gradient(top, #33bbee, #2288cc); 
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#33bbee', endColorstr='#2288cc'); text-shadow: 0 -1px 1px #1c6a9e; }
+button.ui_state_highlight:hover { color:#FFF; border-color:#555; }
+button.ui_state_highlight:active { border-color:#1c6a9e; 
+background: linear-gradient(top, #33bbee, #2288cc); 
+background: -moz-linear-gradient(top, #33bbee, #2288cc); 
+background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#33bbee), to(#2288cc)); 
+background: -o-linear-gradient(top, #33bbee, #2288cc); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#33bbee', endColorstr='#2288cc'); }
+/*底部按钮样式结束*/
+/*=========3.这里是纯CSS按钮,如果您的皮肤使用图片作为背景那么也无需复制此段,转至第4步=======*/
+/*标题纯CSS按钮定位部分*/
+.ui_title_buttons { top:3px; right:5px; }/*标题按钮整体位置*/
+
+.ui_min, .ui_max, .ui_res, .ui_rese { position:relative; }
+.ui_min b, .ui_max b, .ui_res_t, .ui_res_b, .ui_rese_b, .ui_rese_t { display:block; position:absolute; overflow:hidden; cursor:pointer; }
+
+.ui_min, .ui_max, .ui_res, .ui_rese, .ui_close { margin-left:3px; color:#636363; font-size:22px; width:22px; height:22px; line-height:18px;/*按钮视觉居中*/ }
+.ui_min b { top:10px; left:5px; width:12px; height:2px; border-bottom:2px solid #636363; }
+.ui_max b { top:5px; left:5px; width:10px; height:7px; }
+.ui_res_t, .ui_res_b, .ui_rese_b, .ui_rese_t { top:8px; left:3px; width:10px; height:5px; }
+.ui_res_b, .ui_rese_b { top:4px; left:6px; }
+.ui_res_t, .ui_res_b, .ui_rese_b, .ui_rese_t, .ui_max b { border:1px solid #636363; border-top-width:3px; } /*标题纯CSS按钮定位部分结束*/
+.ui_res_t, .ui_rese_t { background:#DDD; }/*还原按钮底部框背景与标题背景融合*/
+.ui_min, .ui_rese { font-size:14px; font-weight:600; line-height:20px; *line-height:22px; } /*最小化 恢复按钮*/
+.ui_min:hover b, .ui_max:hover b, .ui_res:hover b, .ui_rese:hover b { border-color:#2492FF; }
+/*关闭按钮*/
+.ui_close { font-weight:600; *font-weight:800;/*兼容IE6*/ vertical-align:baseline; *line-height:22px; *margin-left:0;}/*IE6关闭按钮垂直居中*/
+.ui_close:hover, .ui_close:focus { color:#bf160b; outline:0 none; }
+/*标题按钮结束*/
+
+/*=========4.如果您的皮肤需要边框,类似Discuz皮肤,请复制以下部分,无边框请至第5步=======*/
+.ui_lt, .ui_rt, .ui_lb, .ui_rb { width:8px; height:8px; display:block;/*防止改变浏览器大小挤压窗口边框*/}/*边框宽度*/
+.ui_lt{ border-radius:5px 0 0 0;}.ui_rt{ border-radius:0 5px 0 0;}.ui_rb{ border-radius:0 0 5px 0;}.ui_lb{ border-radius:0 0 0 5px;}/*边框圆角*/
+.ui_lt, .ui_rt, .ui_l, .ui_r, .ui_lb, .ui_b, .ui_t, .ui_rb { background:rgba(0, 0, 0, .2); background:#000\9; filter:alpha(opacity=20);}/*边框透明度*/
+
+/*=========5.如果您的皮肤不需要边框,类似JTop皮肤,请复制以下部分,有边框回到第4步=======*/
+.ui_rb { display:block; width:12px; height:12px; position:absolute; bottom:0; right:0; background:rgba(0, 0, 0, 0); background:#000\9; filter:alpha(opacity=0);}/*重新显示右下角拖动，设为负值会造成浏览器显示滚动条;设置透明背景防止IE中有滚动条的页面遮住了拖动手柄*/
+
+/*=========6.如果您想制作类似Jtop皮肤的按住标题栏时改变颜色，lhgdialog提供.ui_state_drag类,例如:=======*/
+.ui_title { background:blue;}
+.ui_state_drag .ui_title { background:lightblue;}/*按下标题栏时样式*/
+
+/*=========7.lhgdialog提供人性化的失去焦点时变灰样式=======*/
+.ui_state_focus .ui_title{ color:#000;}/*获得焦点也就是默认弹出时颜色*/
+.ui_title{ color:#888;}/*失去焦点*/
+/*类似的我们可以扩展更多*/
+.ui_state_focus .ui_content{color:#000;}
+.ui_content{ color:#888;}
+
+.ui_state_focus .ui_close{color:#000;}
+.ui_close{ color:#888;}
+/*=========8.如果您想锁屏时改变某些皮肤细节那么使用ui_state_lock=======*/
+.ui_state_lock .ui_dialog{box-shadow:0 3px 10px rgba(0, 0, 0, .5);}/*锁屏时遮罩*/
+.ui_dialog{box-shadow:none;}
+
+/*=========9.至此,您的主体皮肤已经完成啦,先奖励自己一个kiss吧!
+ * 这时您可以使用lhgdialog.tips看看tips皮肤是否满意,如果不满意,
+ * 我们为您准备了大餐,复制对应皮肤中tips部分即可=======*/
+ 
+ /*通用的QQTips*/
+.ui_state_tips , .ui_state_tips .ui_inner, .ui_state_tips .ui_dialog, .ui_state_tips .ui_title_bar { border:0 none; background:none; box-shadow:none; border-radius:0; filter:none; }
+.ui_state_tips .ui_content { font-weight:bold; font-size:14px; color:#666; text-align:center; }
+.ui_state_focus .ui_state_tips .ui_content { color:#323232; }/*高亮字体颜色*/
+/*Tips(图片背景，IE6也支持圆角) End*/
+.ui_state_tips .ui_dialog, .ui_state_tips .ui_l, .ui_state_tips .ui_r { background-image: url( "icons/gb_tip_layer.png" ); _background-image:url("icons/gb_tip_layer_ie6.png"); background-repeat:no-repeat; }/*共用背景图片*/
+.ui_state_tips .ui_l { background-position:-6px 0; width:5px; }/*左侧背景侧样式*/
+.ui_state_tips .ui_r { background-position:0 0; width:5px; }/*右侧背景样式*/
+.ui_state_tips .ui_dialog { background-position: 0 -54px; background-repeat: repeat-x; height:54px; overflow:hidden; }/*主体内容背景*/
+
+
+
+/*=========9.多皮肤共存=======*/
+/*lhgdialog 4多皮肤共存基于CSS选择器实现，所以更加高效，普通窗口和Tips共存就是使用的此种原理
+ *在最外层有一个div 默认class为空，<div class="" style="display: block; position: absolut;。。。">
+ *调用skin:'skin1'参数的时候 就会变成<div class="skin1">
+ *此时我们就可以写如下样式来实现不同的皮肤
+*/
+.skin1 ui_title{ background:red;}
+.skin2 ui_title{ background:blue;}
+/*具体制作步骤(假如我们要让idialog和discuz皮肤共存)*/
+1.复制公用部分也就是步骤1中的CSS到一个新的CSS文档,假如保存为myskin.css
+2.复制idialog皮肤自定义部分到新文档中,保存后,调用该皮肤
+  <script type="text/javascript" src="lhgdialog.js?skin=myskin"></script>
+  检查单独的idialog皮肤是否有问题,如果没问题继续,有问题检查是否少复制了CSS
+3.复制discuz皮肤自定义部分到新文档中,然后把所有discuz皮肤自定义部分前面都加上如 .dz的类名,
+  例如 .dz .ui_title{ height:30px;}
+4.修改完毕后,使用skin:'dz',即可调用discuz皮肤,不加skin参数则为idialog皮肤
+5.最终效果诸如:
+/*皮肤1-idialog*/
+ui_title{}
+ui_dialog{}
+。。。。。。
+/*皮肤2-discuz*/
+.dz ui_title{}
+.dz ui_dialog{}
+。。。。。。
+/**/
+/*可选部分结束*/

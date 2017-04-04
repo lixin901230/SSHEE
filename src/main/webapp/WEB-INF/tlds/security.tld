@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>   
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
+"http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
+<!-- <!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN"     -->
+<!-- "http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd">    -->
+<taglib>
+    <description>Spring Security JSP页面鉴权自定义标签</description>
+    <!-- 版本号 -->
+    <tlib-version>1.0</tlib-version>  
+    <jsp-version>1.2</jsp-version>
+    <short-name>securl</short-name>
+    <uri>http://mytag.security.net</uri>
+    <tag>
+    	<!-- 指定标签名 -->
+        <name>accessRight</name>
+        <!-- 指定标签类文件的全路径 -->
+        <tag-class>com.zl.frame.core.security.tag.SecurityRightCheckTag</tag-class>
+        <!--如果不需要标签体则设置empty，反之设定jsp --> 
+        <body-content>jsp</body-content>
+		<!-- 设定属性(如果有的话) -->
+        <attribute>
+        	<!-- 指定标签名 -->
+            <name>rightId</name>
+			<!-- 是否是必须，如果非必须没设置则为空 -->
+            <required>true</required>
+			<!-- 是否可在属性中使用表达式 -->
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+</taglib>

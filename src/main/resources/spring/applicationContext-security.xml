@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security" 
+	xmlns:beans="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+						http://www.springframework.org/schema/security 
+						http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+	<!-- 配置不需要认证鉴权的资源 -->
+    <http pattern="/resource/**" security="none"/>
+    <http pattern="/view/common/layout/portal/aboutWe.jsp" security="none"/>
+    <http pattern="/view/login_reg/**" security="none"/>
+    <http pattern="/view/common/error/403.jsp" security="none" />
+    <http pattern="/view/common/error/404.jsp" security="none" />
+    <http pattern="/view/common/error/error.jsp" security="none" />
+    
+    <http use-expressions='true' entry-point-ref="authenticationEntryPoint" 
+    	access-denied-page="/view/common/error/403.jsp">
+    	
+    	<!-- 配置view下的所有jsp页面都需要通过认证后才能访问（除了配置了不需认证的公共页面） -->
+    	<intercept-url pattern="/view/**" access="isAuthenticated()" />
+   	 	
+   	 	<!-- IS_AUTHENTICATED_FULLY允许提供完整的用户名和密码的用户访 -->
+<!--    	 	<intercept-url pattern="/**" access="IS_AUTHENTICATED_FULLY"/> -->
+   	 	
+    	<form-login login-page="/view/login_reg/login.jsp" login-processing-url="/j_spring_security_check" 
+    		authentication-failure-url="/view/login_reg/login.jsp?error=true" default-target-url="/view/index.jsp"/>
+    	
+    	<!-- 记住用户名密码 -->
+    	<!-- <remember-me data-source-ref="dataSource" use-secure-cookie="true"/> -->
+    	
+    	<!-- 登出管理，logout-url="j_spring_security_logout"为LogoutFilter中的默认配置 -->	
+    	<logout logout-url="/j_spring_security_logout" logout-success-url="/view/login_reg/login.jsp" delete-cookies="JSESSIONID"/>
+    	
+    	<!-- 会话管理
+    		error-if-maximum-exceeded 后登陆的账号会挤掉第一次登陆的账号    
+        	session-fixation-protection  防止伪造sessionid攻击,用户登录成功后会销毁用户当前的session--> 
+    	<!-- <session-management invalid-session-url="/view/common/error/timeout.jsp" session-fixation-protection="none"> -->
+    	<session-management invalid-session-url="/view/common/error/timeout.jsp">
+    	
+    		<!-- 1、error-if-maximum-exceeded设置成"true"后，如果用户会话超过max-sessions指定的值，会抛出异常SessionAuthenticationException。 默认行为是让原始会话过期；
+    			 2、如果没设置error-if-maximum-exceeded，则需要设置expired-url=""，当用户会话超过指定值后则会跳转到expired-url指定的url，并给出响应信息，如果未设置expired-url值，则会直接写回一个session过期的响应信息  -->
+    		<concurrency-control max-sessions="1" error-if-maximum-exceeded="true"/>
+    	</session-management>
+    	
+		<!-- 自定义过滤器，认证和鉴权处理 -->
+        <custom-filter ref="myAuthenticationFilter" before="FORM_LOGIN_FILTER"  />
+        <custom-filter ref="myAuthorizationFilter" before="FILTER_SECURITY_INTERCEPTOR"/>
+    </http>
+    
+    <!-- 认证过滤器， -->
+	<beans:bean id="myAuthenticationFilter" class="com.zl.frame.core.security.MyAuthenticationFilter">
+	
+		<!-- 用户名密码此处设置的为默认值，下面用户名密码参数需跟登录页面中用户名和密码文本的name值保持一致，
+			在认证过滤器中通过注入的此用户密码值来获取登陆页面中的用户名密码，详见类：com.zl.frame.core.security.MyAuthenticationFilter.java -->
+		<beans:property name="usernameParameter" value="j_username"/>	
+		<beans:property name="passwordParameter" value="j_password"/>
+		<beans:property name="postOnly" value="true"/>	<!-- postOnly:true只支持post请求，默认为true，推荐使用true，更安全 -->
+		<beans:property name="filterProcessesUrl" value="/j_spring_security_check"/>
+		
+		<beans:property name="authenticationManager" ref="myAuthenticationManager"/>
+		<beans:property name="authenticationSuccessHandler" ref="loginLogAuthenticationSuccessHandler"/>
+		<beans:property name="authenticationFailureHandler" ref="simpleUrlAuthenticationFailureHandler"/>
+		
+		<beans:property name="userDao" ref="userDao"/>
+		<beans:property name="userDetailsService" ref="myUserDetailService"/>	
+	</beans:bean>
+	
+	<!-- 登陆认证成功处理 -->
+	<beans:bean id="loginLogAuthenticationSuccessHandler" class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
+		<beans:property name="defaultTargetUrl" value="/view/index.jsp"/>
+	</beans:bean>
+	<!-- 登陆认证失败处理 -->
+	<beans:bean id="simpleUrlAuthenticationFailureHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+		<beans:property name="defaultFailureUrl" value="/view/login_reg/login.jsp"/>
+	</beans:bean>
+	
+	
+	<!-- 访问拦截过滤器，必须包含authenticationManager,accessDecisionManager,securityMetadataSource三个属性，
+    		我们的所有控制将在这三个类中实现 -->
+    <beans:bean id="myAuthorizationFilter" class="com.zl.frame.core.security.MyAuthorizationFilter">
+    	<beans:property name="authenticationManager" ref="myAuthenticationManager"/>	<!-- 用户拥有的权限 -->
+    	<beans:property name="securityMetadataSource" ref="mySecurityMetadataSource"/>	<!-- 资源与权限对应关系 -->
+    	<beans:property name="accessDecisionManager" ref="myAccessDecisionManager"/>	<!-- 用户是否拥有所请求资源的权限 -->
+    </beans:bean>
+    
+	
+	<!-- 认证管理器，提供认证服务 -->
+	<authentication-manager alias="myAuthenticationManager">
+		<!-- 方式一：由MyUserDetailService充当认证服务提供者
+		<authentication-provider user-service-ref="myUserDetailService"/> -->
+		<!-- 方式二：由扩展的认证提供者myAuthenticationProvider充当认证服务提供者，方式二扩展性更好 -->
+		<authentication-provider ref="myAuthenticationProvider" />
+	</authentication-manager>
+	
+	<!-- 认证提供者扩展 -->
+	<beans:bean id="myAuthenticationProvider" class="com.zl.frame.core.security.MyAuthenticationProvider">
+		<beans:property name="userDetailsService" ref="myUserDetailService"/>
+	</beans:bean>
+	
+	<!-- 认证提供器 -->
+	<beans:bean id="myUserDetailService" class="com.zl.frame.core.security.MyUserDetailService">
+		<beans:property name="userDao" ref="userDao"/>
+	</beans:bean>
+	
+    
+    <!-- 资源源数据定义，即定义某一资源可以被哪些角色访问，即资源与权限对应关系 -->
+    <beans:bean name="mySecurityMetadataSource" class="com.zl.frame.core.security.MySecurityMetadataSource">
+    	<beans:constructor-arg name="resourceDao" ref="resourceDao"/>
+    	<beans:property name="permit" ref="permit"/>	<!-- 注入不需鉴权的url配置bean -->
+    </beans:bean>
+    
+    <!-- 访问决策器，决定某个用户具有的角色，是否有足够的权限去访问某个资源 -->
+    <beans:bean name="myAccessDecisionManager" class=" com.zl.frame.core.security.MyAccessDecisionManager"></beans:bean>
+		
+	<!-- 未登录的切入点 -->
+    <beans:bean id="authenticationEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+        <beans:property name="loginFormUrl" value="/view/login_reg/login.jsp"/>
+    </beans:bean>
+    
+	<!-- 自己扩展：这里配置的主要是鉴权服务不进行拦截的URL -->
+	<beans:bean id="permit" class="com.zl.frame.core.security.entity.Permition">
+		<beans:property name="permitions">
+			<beans:list>
+				<beans:value>/</beans:value>
+				<beans:value>/resource/css/**</beans:value>
+				<beans:value>/resource/images/**</beans:value>
+				<beans:value>/resource/js/**</beans:value>
+				<beans:value>/resource/plugin/**</beans:value>
+				<beans:value>/test.jsp</beans:value>
+				<beans:value>/version.txt</beans:value>
+				<beans:value>/manual/**</beans:value>
+<!-- 				<beans:value>/dtams/resMan/showResImg.do**</beans:value> -->
+<!-- 				<beans:value>/dtams/serivce/intfc/**</beans:value> -->
+				<beans:value>/sysman/userAction!loadUserListPage.action**</beans:value>
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+</beans:beans>

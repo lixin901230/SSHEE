@@ -1,0 +1,107 @@
+<!--exclude
+       <sample>
+              <product version="1.5" edition="pro"/>
+                     <modifications>
+                            <modified date="070101"/>
+                     </modifications>
+               </sample>
+--> 
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+	<title> Linked form</title>
+</head>
+
+<body>
+<link rel='STYLESHEET' type='text/css' href='../common/style.css'>
+<table cellspacing="0" cellpadding="0" class="sample_header" border="0">
+	<tr valign="middle">
+		<!-- COMPONENT ICON -->
+		<td width="40" align="center"><img src="../common/dhtmlxtree_icon.gif" border="0"></td>
+		<!-- COMPONENT NAME -->
+		<td width="120" align="left">Sample: dhtmlxTree</td>
+		<!-- SAMPLE TITLE -->
+		<td width="0" align="left"><b> Linked form</b></td>
+		<!-- LINK TO COMPONENT PAGE -->
+		<td width="0" align="right"><a href="http://www.dhtmlx.com/docs/products/dhtmlxTree/index.shtml">dhtmlxTree main page</a></td>
+		<!-- CLOSE BUTTON -->
+		<td width="50"><div class="sample_close"><a href="javascript:void(0);" onclick="self.close();"><img src="../common/sample_close.gif" width="14" height="14" border="0" alt="X"></a></div></td>
+	</tr>
+</table>
+	
+	<link rel="STYLESHEET" type="text/css" href="../../codebase/dhtmlxtree.css">
+	
+	<script  src="../../codebase/dhtmlxcommon.js"></script>
+	<script  src="../../codebase/dhtmlxtree.js"></script>	
+	<script  src="../../codebase/ext/dhtmlxtree_if.js"></script>
+	
+    <p>Linked form extension allow to create per-item forms, which can be shown by user defined action under required item.</p>
+	<table>
+		<tr>
+			<td>
+				<div id="treeboxbox_tree" style="width:250; height:218;background-color:#f5f5f5;border :1px solid Silver;; overflow:auto;"/>
+			</td>
+			<td rowspan="2" style="padding-left:25" valign="top">
+            <div>
+			Form <a href="javascript:void(0)" onclick="tree.showItemForm('af')"> Show </a> | <a href="javascript:void(0)" onclick="tree.hideItemForm('af')">Hide</a>
+            </div>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+		</tr>
+	</table>
+<div class='sample_code'><div class="hl-main"><pre><span class="hl-code"> 
+</span><span class="hl-brackets">&lt;</span><span class="hl-reserved">div</span><span class="hl-code"> </span><span class="hl-var">id</span><span class="hl-code">=</span><span class="hl-quotes">&quot;</span><span class="hl-string">treeboxbox_tree</span><span class="hl-quotes">&quot;</span><span class="hl-code"> </span><span class="hl-var">style</span><span class="hl-code">=</span><span class="hl-quotes">&quot;</span><span class="hl-string">width:200;height:200</span><span class="hl-quotes">&quot;</span><span class="hl-brackets">&gt;</span><span class="hl-brackets">&lt;/</span><span class="hl-reserved">div</span><span class="hl-brackets">&gt;</span><span class="hl-code">
+</span><span class="hl-brackets">&lt;</span><span class="hl-reserved">script</span><span class="hl-brackets">&gt;</span><span class="hl-code"><div class="hl-main"><pre><span class="hl-code"> 
+    </span><span class="hl-identifier">tree</span><span class="hl-code">=</span><span class="hl-reserved">new</span><span class="hl-code"> </span><span class="hl-identifier">dhtmlXTreeObject</span><span class="hl-brackets">(</span><span class="hl-quotes">&quot;</span><span class="hl-string">treeboxbox_tree</span><span class="hl-quotes">&quot;</span><span class="hl-code">,</span><span class="hl-quotes">&quot;</span><span class="hl-string">100%</span><span class="hl-quotes">&quot;</span><span class="hl-code">,</span><span class="hl-quotes">&quot;</span><span class="hl-string">100%</span><span class="hl-quotes">&quot;</span><span class="hl-code">,</span><span class="hl-number">0</span><span class="hl-brackets">)</span><span class="hl-code">;
+            </span><span class="hl-identifier">tree</span><span class="hl-code">.</span><span class="hl-identifier">defineItemForm</span><span class="hl-brackets">(</span><span class="hl-quotes">&quot;</span><span class="hl-string">my_form</span><span class="hl-quotes">&quot;</span><span class="hl-brackets">)</span><span class="hl-code">;
+            </span><span class="hl-identifier">tree</span><span class="hl-code">.</span><span class="hl-identifier">setFormAppearOn</span><span class="hl-brackets">(</span><span class="hl-reserved">false</span><span class="hl-code">,</span><span class="hl-reserved">true</span><span class="hl-code">,</span><span class="hl-reserved">false</span><span class="hl-brackets">)</span><span class="hl-code">;
+            </span><span class="hl-identifier">tree</span><span class="hl-code">.</span><span class="hl-identifier">setFormDisappearOn</span><span class="hl-brackets">(</span><span class="hl-reserved">false</span><span class="hl-code">,</span><span class="hl-reserved">false</span><span class="hl-code">,</span><span class="hl-reserved">true</span><span class="hl-brackets">)</span><span class="hl-code">;
+            </span><span class="hl-identifier">tree</span><span class="hl-code">.</span><span class="hl-identifier">setOnFormInitialisation</span><span class="hl-brackets">(</span><span class="hl-identifier">m_test_1</span><span class="hl-brackets">)</span><span class="hl-code">;
+            </span><span class="hl-identifier">tree</span><span class="hl-code">.</span><span class="hl-identifier">setOnFormDismissal</span><span class="hl-brackets">(</span><span class="hl-identifier">m_test_2</span><span class="hl-brackets">)</span><span class="hl-code">;
+                
+            </span><span class="hl-identifier">tree</span><span class="hl-code">.</span><span class="hl-identifier">setImagePath</span><span class="hl-brackets">(</span><span class="hl-quotes">&quot;</span><span class="hl-string">../imgs/</span><span class="hl-quotes">&quot;</span><span class="hl-brackets">)</span><span class="hl-code">;
+            </span><span class="hl-identifier">tree</span><span class="hl-code">.</span><span class="hl-identifier">loadXML</span><span class="hl-brackets">(</span><span class="hl-quotes">&quot;</span><span class="hl-string">tree3.xml</span><span class="hl-quotes">&quot;</span><span class="hl-brackets">)</span><span class="hl-code">
+            ...
+            </span><span class="hl-identifier">tree</span><span class="hl-code">.</span><span class="hl-identifier">showItemForm</span><span class="hl-brackets">(</span><span class="hl-quotes">&quot;</span><span class="hl-string">af</span><span class="hl-quotes">&quot;</span><span class="hl-brackets">)</span><span class="hl-code">;
+            </span><span class="hl-identifier">tree</span><span class="hl-code">.</span><span class="hl-identifier">hideItemForm</span><span class="hl-brackets">(</span><span class="hl-brackets">)</span><span class="hl-code">;</span></pre></div></span><span class="hl-brackets">&lt;/</span><span class="hl-reserved">script</span><span class="hl-brackets">&gt;</span></pre></div></div>
+
+	<script>
+            function m_test_1(tree,node,state){
+                var f=document.getElementById("my_text");
+                f.value=state.toString()+":"+tree.getItemText(node);
+                return true;
+            }
+            function m_test_2(tree,node,state){
+                //
+                return true;
+            }
+
+			tree=new dhtmlXTreeObject("treeboxbox_tree","100%","100%",0);
+            tree.defineItemForm("my_form");
+            tree.setFormAppearOn(false,true,false);
+            tree.setFormDisappearOn(false,false,true);
+            tree.setOnFormInitialisation(m_test_1);
+            tree.setOnFormDismissal(m_test_2);
+
+			tree.setImagePath("../../codebase/imgs/csh_yellowbooks/");
+			tree.enableSmartXMLParsing(true);
+			tree.loadXML("tree.xml");
+
+	</script>
+<br><br>
+
+    <div id="my_form" style='width:230px; border:1px solid red; background-color:silver;' onselectstart="return true; event.cancelBubble();">
+        Some form here<br/>
+        Node <input id="my_text" type="text" value=""><br/>
+        <input onclick="alert('Some action')" type="Button" value='save'>
+    </div>
+
+<!-- FOOTER -->
+<table callspacing="0" cellpadding="0" border="0" class="sample_footer"><tr><td style="padding-left: 8px;">&copy; <a href="http://www.dhtmlx.com">DHTMLX LTD</a>. All rights reserved</td></tr></table>
+<!-- FOOTER -->
+
+</body>
+</html>

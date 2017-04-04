@@ -1,0 +1,399 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>传值示例 - LHGDIALOG</title>
+    <meta name="keywords" content="lhgdialog,dialog,弹出窗口,js窗口,js弹出窗口,js库,对话框,alert,提示,警告,确认,提问,ajax,tip,confirm,open,prompt,lhgcore,javascript,jquery,window,clientside,control,open source,LGPL,dhtml,html,xhtml,plugins"/>
+    <meta name="description" content="lhgdialog是一功能强大的简单迷你并且高效的弹出窗口插件,基于网络访问并且兼容IE 6.0+,Firefox 3.0+,Opera 9.6+,Chrome 1.0+,Safari 3.22+."/>
+    <meta name="copyright" content="lhgcore.com"/>
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<link href="../_doc/common.css" type="text/css" rel="stylesheet"/>
+	<link href="../_doc/prettify/prettify.css" type="text/css" rel="stylesheet"/>
+	<script type="text/javascript" src="../_doc/prettify/prettify.js"></script>
+	<script type="text/javascript" src="jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="lhgdialog.min.js"></script>
+	<script type="text/javascript">
+var demoDG1, demoDG2;
+
+// AA函数为此页面中的一个示例函数
+function AA()
+{
+    alert( '我是组件调用页面的一个函数' );
+};
+
+$(function(){
+    // 示例1中的相关代码
+	$('#demo_01').dialog({ content:'url:value/value01.html' });
+	$('#demo_02').dialog({
+	    content:'url:value/value02.html',
+		init:function(){
+		    // this.content 为窗口内容页value02.html页面的window对象
+		    this.content.document.getElementById('itxt').value = document.getElementById('txt1').value;
+		}
+	});
+	$('#demo_03').dialog({
+	    content:'url:value/value03.html',
+		data:document.getElementById('txt1').value
+	});
+	
+	// 示例2中的相关代码
+	$('#demo_04').dialog({ content:'url:value/value04.html' });
+	
+	// 示例4中的相关代码
+	$('#demo_08').dialog({ title:'B窗口', content:'url:value/value06.html' });
+	
+	// 示例6中的相关代码
+	$('#demo_14').dialog({ title:'B窗口', content:'url:value/value09.html' });
+	
+});
+
+// 示例3中的相关代码
+function opdg1()
+{
+    demoDG1 = $.dialog({ title:'B窗口', content:'url:value/value05.html' });
+};
+
+function getValue1()
+{
+    if( !demoDG1 || demoDG1.closed )
+	    alert( '请先打开B窗口' );
+	else // demoDG1.content 为B窗口内容页面的window对象
+	    alert( demoDG1.content.document.getElementById('itxt').value );
+};
+
+function getFunc1()
+{
+    if( !demoDG1 || demoDG1.closed )
+	    alert( '请先打开B窗口' );
+	else // demoDG1.content 为B窗口内容页面的window对象 BB()为B窗口内容页中的一个函数
+	    demoDG1.content.BB();
+};
+
+// 示例5中的相关代码
+function opdg2()
+{
+    demoDG2 = $.dialog({ title:'B窗口', content:'url:value/value07.html' });
+};
+
+function getValue2()
+{
+    // demoDG2.content 为B窗口内容页的window对象
+	if( !demoDG2 || !demoDG2.content.cDG || demoDG2.content.cDG.closed )
+	    alert( '请先打开C窗口' );
+	else // demoDG2.content.cDG 为B窗口中调用C窗口的实例对象 demoDG2.content.cDG.content 即为C窗口内容页的window对象
+	    alert( demoDG2.content.cDG.content.document.getElementById('itxt').value );
+};
+
+function getFunc2()
+{
+    if( !demoDG2 || !demoDG2.content.cDG || demoDG2.content.cDG.closed )
+	    alert( '请先打开C窗口' );
+	else
+	    demoDG2.content.cDG.content.CC();
+};
+
+function getValue3()
+{
+    /* 通过$.dialog.list['id']对象来获取C窗口的实例对象，其中的id即为创建C窗口的id
+	if( !$.dialog.list['demo_c'] || $.dialog.list['demo_c'].closed )
+	    alert( '请先打开C窗口' );
+	else
+	    alert( $.dialog.list['demo_c'].content.document.getElementById('itxt').value );
+	*/
+	
+	// 通过内部的get('id')方法来获取C窗口内容页window对象，其中的id即为创建C窗口的id（最推荐使用的方法）
+	// get方法有2个参数get('id',1)其中第二个参数只有为数字1时返回窗口实例对象，如不写或为其它任何值都返回窗口内容页的window对象
+	if( !demoDG2 || !demoDG2.get('demo_c') )
+	    alert( '请先打开C窗口' );
+	else
+	    alert( demoDG2.get('demo_c').document.getElementById('itxt').value );
+};
+
+function getFunc3()
+{
+    /*if( !$.dialog.list['demo_c'] || $.dialog.list['demo_c'].closed )
+	    alert( '请先打开C窗口' );
+	else
+	    $.dialog.list['demo_c'].content.CC();*/
+	
+	if( !demoDG2 || !demoDG2.get('demo_c') )
+	    alert( '请先打开C窗口' );
+	else
+	    demoDG2.get('demo_c').CC();
+};
+
+// 综合传值示例代码部分
+var demoDG3;
+
+function opdg3()
+{
+    demoDG3 = $.dialog({ id:'demo_ZB', title:'B窗口', content:'url:value/value11.html' });
+};
+// demoDG3为B窗口的实例对象
+function getValue4()
+{
+    if( !demoDG3 || demoDG3.closed )
+	    alert( '请先打开B窗口' );
+	else // demoDG3.content为B窗口的window对象
+	    alert( demoDG3.content.document.getElementById('btxt').value );
+};
+
+function getFunc4()
+{
+    if( !demoDG3 || demoDG3.closed )
+	    alert( '请先打开B窗口' );
+	else
+	    demoDG3.content.BB();
+};
+
+function reloadB()
+{
+    if( !demoDG3 || demoDG3.closed )
+	    alert( '请先打开B窗口' );
+	else // demoDG3.content为B窗口的window对象
+	    demoDG3.reload( demoDG3.content );
+};
+
+function getValue5()
+{
+    // 此函数使用了组件的$.dialog.list对象来获取窗口实例对象
+	if( !$.dialog.list['demo_ZC'] || $.dialog.list['demo_ZC'].closed )
+	    alert( '请先打开C窗口' );
+	else  // $.dialog.list['demo_ZC'].content为id为'demo_ZC'的C窗口的window对象
+	    alert( $.dialog.list['demo_ZC'].content.document.getElementById('ctxt').value );
+};
+
+function getFunc5()
+{
+    if( !$.dialog.list['demo_ZC'] || $.dialog.list['demo_ZC'].closed )
+	    alert( '请先打开C窗口' );
+	else
+	    $.dialog.list['demo_ZC'].content.CC();
+};
+
+function closeC()
+{
+    if( !$.dialog.list['demo_ZC'] || $.dialog.list['demo_ZC'].closed )
+	    alert( '请先打开C窗口' );
+	else
+	    $.dialog.list['demo_ZC'].close();
+};
+
+function reloadC()
+{
+    if( !$.dialog.list['demo_ZC'] || $.dialog.list['demo_ZC'].closed )
+	    alert( '请先打开C窗口' );
+	else // $.dialog.list['demo_ZC'].content为id为'demo_ZC'的C窗口的window对象
+	    $.dialog.list['demo_ZC'].reload($.dialog.list['demo_ZC'].content);
+};
+	</script>
+</head>
+
+<body>
+    <div class="container">
+	    <div class="header">
+		    <div class="hd_logo"><a href="../index.html"><img border="0" src="../_doc/images/hd_logo.gif" alt="lhgdialog"/></a></div>
+			<div class="hd_nav">
+			    <a href="../index.html">首页</a> | <a href="../_doc/api.html">API文档</a> | <a href="demo.html">基础示例</a> | 传值示例 | <a href="animate.html">动画示例</a> | <a href="frameset.html">框架示例</a> | <a href="../_doc/update.html">更新记录</a>
+			</div>
+		</div>
+		<div class="line">&nbsp;</div>
+		<div class="cbody">
+		    <h2>基本的传值示例(如您有不明白的地方可打开相应的示例文查看里面的相关代码)</h2>
+			<p>注：所有示例都可象第一个示例那样通过多种方式实现，除第一个示例使用多种方式外其它示例都使用一种方式，您可根据示例1自行尝试其它示例的其它实现方法！</p>
+			<ol>
+			    <li>
+			        <h3>将调用页面的值传到窗口中</h3>
+					<p></p>
+<pre class="prettyprint">
+/* 方式一 在内容页里写代码取值 */
+/* 下面的代码为内容页value01.html页面里的代码，请自行打开此文件查看代码 */
+var api = frameElement.api, W = api.opener;
+window.onload = function()
+{
+    document.getElementById('itxt').value = W.document.getElementById('txt1').value;
+};
+------------------------------------------------------
+/* 方式二 在调用窗口代码里使用init参数写入值 */
+/* 下面的代码为 运行2 按钮调用窗口组件的代码 */
+$('#demo_02').dialog({
+    content:'url:value/value02.html',
+    init:function(){
+        /* this.iwin 为窗口内容页的window对象 */
+        this.iwin.document.getElementById('itxt').value = document.getElementById('txt1').value;
+    }
+});
+------------------------------------------------------
+/* 方式三 在调用窗口代码里使用data参数来传入值 */
+/* 下面的代码为 运行3 按钮调用窗口组件的代码 */
+$('#demo_02').dialog({
+    content:'url:value/value02.html',
+    data:document.getElementById('txt1').value;
+});
+/* 下面的代码为内容页value03.html页面里的代码，请自行打开此文件查看代码 */
+var api = frameElement.api;
+window.onload = function()
+{
+    document.getElementById('itxt').value = api.data;
+};
+</pre>
+					<p><input class="runinput" size="25" id="txt1" type="text" value="调用组件页面中文本框的值"/>&nbsp;<button class="runcode" id="demo_01">运行1»</button>&nbsp;<button class="runcode" id="demo_02">运行2»</button>&nbsp;<button class="runcode" id="demo_03">运行3»</button></p>
+				</li>
+			    <li>
+			        <h3>将窗口中的值传回到调用页面中</h3>
+					<p>注：实现的方法也有很多种，请自行尝试</p>
+<pre class="prettyprint">
+/* 下面的代码为内容页value04.html页面里的代码，请自行打开此文件查看代码 */
+var api = frameElement.api, W = api.opener;
+api.button({
+    id:'valueOk',
+    name:'确定',
+    callback:ok
+});
+/* 函数ok即为上面添加按钮方法中callback回调函数调用的函数 */
+function ok()
+{
+    W.document.getElementById('txt2').value = document.getElementById('itxt').value;
+};
+</pre>
+					<p><input class="runinput" size="25" id="txt2" type="text" value=""/>&nbsp;<button class="runcode" id="demo_04">运行»</button></p>
+				</li>
+			    <li>
+			        <h3>在调用页面调用窗口B中的值或函数</h3>
+					<p>注：实现的方法也有很多种，请自行尝试</p>
+<pre class="prettyprint">
+/* 下面的代码为：“调用B窗口中文本框的值” 按钮所调用的函数的代码 */
+function getValue1()
+{
+    if( !demoDG1 || demoDG1.closed )
+        alert( '请先打开B窗口' );
+    else // demoDG1.content 为B窗口内容页面的window对象
+        alert( demoDG1.content.document.getElementById('itxt').value );
+};
+------------------------------------------------------
+/* 下面的代码为：“调用B窗口的函数” 按钮所调用的函数的代码 */
+function getFunc1()
+{
+    if( !demoDG1 || demoDG1.closed )
+        alert( '请先打开B窗口' );
+    else // demoDG1.content 为B窗口内容页面的window对象 BB()为B窗口内容页中的一个函数
+        demoDG1.content.BB();
+};
+</pre>					
+					<p><button class="runcode" id="demo_05" onclick="opdg1();">打开B窗口»</button>&nbsp;<button class="runcode" id="demo_06" onclick="getValue1();">调用B窗口中文本框的值»</button>&nbsp;<button class="runcode" id="demo_07" onclick="getFunc1();">调用B窗口的函数»</button></p>
+				</li>
+			    <li>
+			        <h3>在调用页面调用窗口B中的值或函数</h3>
+					<p>注：实现的方法也有很多种，请自行尝试</p>
+<pre class="prettyprint">
+/* 下面的代码为内容页value06.html页面里的代码，请自行打开此文件查看代码 */
+var api = frameElement.api, W = api.opener;
+// getValue函数为内容页value06.html页面里的“组件调用页面文本框的值” 按钮所调用的函数
+function getValue()
+{
+    alert( W.document.getElementById('txt3').value );
+};
+// 下面的代码为内容页value06.html页面里“组件调用页面的函数” 按钮单击事件所调用的函数
+W.AA();
+</pre>					
+					<p><input class="runinput" size="27" id="txt3" type="text" value="lhgdialog组件调用页面文本框"/>&nbsp;<button class="runcode" id="demo_08">打开B窗口»</button></p>
+				</li>
+			    <li>
+			        <h3>在调用页面调用C窗口(也就是B窗口的子窗口)的值或函数</h3>
+					<p>注：实现的方法也有很多种，请自行尝试</p>
+<pre class="prettyprint">
+/* 方式一 直接使用js原生方法来实现 */
+function getValue2()
+{
+    // demoDG2.content 为B窗口内容页的window对象
+    if( !demoDG2 || !demoDG2.content.cDG || demoDG2.content.cDG.closed )
+        alert( '请先打开C窗口' );
+    else // demoDG2.content.cDG 为B窗口中调用C窗口的实例对象 demoDG2.content.cDG.content 即为C窗口内容页的window对象
+        alert( demoDG2.content.cDG.content.document.getElementById('itxt').value );
+};
+function getFunc2()
+{
+    if( !demoDG2 || !demoDG2.content.cDG || demoDG2.content.cDG.closed )
+        alert( '请先打开C窗口' );
+    else
+        demoDG2.content.cDG.content.CC();
+};
+------------------------------------------------------
+/* 方式二 通过窗口的id参数来实现 （推荐使用这种方法来实现，这种方法更直观，更易理解） */
+function getValue3()
+{
+    /* 通过$.dialog.list['id']对象来获取C窗口的实例对象，其中的id即为创建C窗口的id
+    if( !$.dialog.list['demo_c'] || $.dialog.list['demo_c'].closed )
+        alert( '请先打开C窗口' );
+    else
+        alert( $.dialog.list['demo_c'].content.document.getElementById('itxt').value );
+    */
+	
+// 通过内部的get('id')方法来获取C窗口内容页window对象，其中的id即为创建C窗口的id（最推荐使用的方法）
+// get方法有2个参数get('id',1)其中第二个参数只有为数字1时返回窗口实例对象，如不写或为其它任何值都返回窗口内容页的window对象
+    if( !demoDG2 || !demoDG2.get('demo_c') )
+        alert( '请先打开C窗口' );
+    else
+        alert( demoDG2.get('demo_c').document.getElementById('itxt').value );
+};
+function getFunc3()
+{
+    /*
+    if( !$.dialog.list['demo_c'] || $.dialog.list['demo_c'].closed )
+        alert( '请先打开C窗口' );
+    else
+        $.dialog.list['demo_c'].content.CC();
+    */
+    // 演示示例都是使用的get内部方法来实现的
+    if( !demoDG2 || !demoDG2.get('demo_c') )
+        alert( '请先打开C窗口' );
+    else
+        demoDG2.get('demo_c').CC();
+};
+
+</pre>					
+					<p><button class="runcode" id="demo_09" onclick="opdg2();">打开B窗口»</button>&nbsp;<button class="runcode" id="demo_10" onclick="getValue2();">调用C窗口中文本框的值(方式一)»</button>&nbsp;<button class="runcode" id="demo_11" onclick="getFunc2();">调用c窗口的函数(方式一)»</button></p><p><button class="runcode" id="demo_12" onclick="getValue3();">调用C窗口中文本框的值(方式二)»</button>&nbsp;<button class="runcode" id="demo_13" onclick="getFunc3();">调用c窗口的函数(方式二)»</button></p>
+				</li>
+			    <li>
+			        <h3>在C窗口(也就是B窗口的子窗口)中调用组件调用页面中的值或函数</h3>
+					<p>注：实现的方法也有很多种，请自行尝试</p>
+<pre class="prettyprint">
+/* 下面的代码为内容页value10.html页面里的代码，请自行打开此文件查看代码 */
+var api = frameElement.api, W = api.opener;
+// getValue函数为内容页value10.html页面里的“组件调用页面文本框的值” 按钮所调用的函数
+function getValue()
+{
+    alert( W.document.getElementById('txt4').value );
+};
+// 下面的代码为内容页value10.html页面里“组件调用页面的函数” 按钮单击事件所调用的函数
+W.AA();
+</pre>					
+					<p><input class="runinput" size="27" id="txt4" type="text" value="lhgdialog组件调用页面文本框"/>&nbsp;<button class="runcode" id="demo_14">打开B窗口»</button></p>
+				</li>
+			</ol>
+		    <h2>综合的传值示例</h2>
+			<p>注：各种调用页面与窗口间的各种方法的传值示例，请自行打开相应文件查看代码</p>
+			<ol>
+			    <li>
+				    <h3>多窗口间，页面与窗口间的综合传值</h3>
+					<p></p>
+<pre class="prettyprint">
+注：由于代码量较大，这里不再写其相关代码，各种方法的相关代码请自行打开相应的文件查看相关的代码，代码中都带有注释！
+注：本示例都使用窗口id的属性，内部的get方法来实现，至于其它实现方法您可参考前面的示例来完成！
+</pre>					
+				<p><input class="runinput" size="33" id="txt5" type="text" value="lhgdialog弹出窗口组件超强传值功能"/>&nbsp;<button class="runcode" id="demo_15" onclick="opdg3();">打开B窗口»</button></p>
+				<p><button class="runcode" id="demo_16" onclick="getValue4();">调用B窗口中文本框的值»</button>&nbsp;<button class="runcode" id="demo_17" onclick="getFunc4();">调用B窗口中的函数»</button>&nbsp;<button class="runcode" id="demo_18" onclick="demoDG3.close();">关闭B窗口»</button>&nbsp;<button class="runcode" id="demo_19" onclick="reloadB();">刷新B窗口»</button></p>
+				<p><button class="runcode" id="demo_20" onclick="getValue5();">调用C窗口中文本框的值»</button>&nbsp;<button class="runcode" id="demo_21" onclick="getFunc5();">调用C窗口中的函数»</button>&nbsp;<button class="runcode" id="demo_22" onclick="closeC();">关闭C窗口»</button>&nbsp;<button class="runcode" id="demo_23" onclick="reloadC();">刷新C窗口»</button></p>
+				</li>
+			</ol>
+		</div>
+		<div class="line">&nbsp;</div>
+		<div class="footer">
+		    <div class="ft_copy">Copyright &copy <a href="http://www.lhgcore.com/" target="_blank">lhgcore.com</a>. All rights reserved. | 豫ICP备06002782号 | <a href="http://t.qq.com/lhgcore" target="_blank">官方微博</a></div>
+		</div>
+	</div>
+	<script type="text/javascript">prettyPrint();</script>
+	</div>
+</body>
+</html>

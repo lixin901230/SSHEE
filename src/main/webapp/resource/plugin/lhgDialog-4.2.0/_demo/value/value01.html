@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<style type="text/css">
+body{margin:0;padding:0;}
+input{font-size:12px;margin:0;padding:2px;}
+	</style>
+	<script type="text/javascript">
+var api = frameElement.api, W = api.opener;
+
+window.onload = function()
+{
+    document.getElementById('itxt').value = W.document.getElementById('txt1').value;
+};
+	</script>
+</head>
+
+<body>
+<p style="color:#F00;text-align:center;margin-top:40px;"><input size="25" id="itxt" type="text" value=""/></p>
+<p style="text-align:center;">上面文本框中的值是调用组件的页面文本框中传来的值</p>
+</body>
+</html>

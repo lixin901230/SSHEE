@@ -1,0 +1,101 @@
+@CHARSET "UTF-8";
+
+.body{
+	margin: 0px 0px;
+	
+	/* background-color: #f4f4f4;
+	font-family: "宋体";
+	font-size: 12px;
+	font-weight: inherit; */
+}
+
+/*-----------------------表单页面样式----------------------*/
+
+.form_table_div {
+	background-color: #f4f4f4;
+}
+
+
+table.form_table {
+	font-family: serif;
+	width: 100%;
+	height:25px;
+	border: 1px solid #f4f4f4;	/* #dddddd */
+	border-collapse: collapse;
+	border-spacing: 0px;
+}
+
+table.form_table th {
+	width: 15%;
+	height:25px;
+	text-align: right;
+	vertical-align: middle;
+	background-color: #f4f4f4;
+	border: 1px solid #dddddd;
+	background-color:#E7EFFF;
+	
+	font-family: "宋体";
+	font-size: 14px;
+	font-weight: inherit;
+}
+
+table.form_table td {
+	width: 35%;
+	height:25px;
+	text-align: left;
+	vertical-align: middle;
+	background-color: #f4f4f4;
+	border: 1px solid #dddddd;
+	
+	font-family: "宋体";
+	font-size: 14px;
+	font-weight: inherit;
+}
+
+table.form_table input_text {
+	width: 80%;	
+}
+
+
+/*-----------------------数据列表样式----------------------*/
+
+.search_table_form{
+	font-family: "宋体";
+	font-size: 13px;
+	font-weight: normal;
+}
+
+.data_table {
+	width: 100%;
+	height:25px;
+	border: 1px solid #f4f4f4;	/* #dddddd */
+	border-collapse: collapse;
+	border-spacing: 0px;
+}
+
+.data_table thead th {
+	width: 15%;
+	height:25px;
+	text-align: center;
+	vertical-align: middle;
+	background-color: #f4f4f4;
+	border: 1px solid #dddddd;
+	background-color:#E7EFFF;
+}
+
+.data_table tbody td {
+	width: 35%;
+	height:25px;
+	text-align: left;
+	vertical-align: middle;
+	background-color: #f4f4f4;
+	border: 1px solid #dddddd;
+}
+
+.data_table input_text {
+	width: 80%;	
+}
+
+
+
+.

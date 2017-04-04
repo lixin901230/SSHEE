@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.zl.frame.sysman.userman.bean">
+    <class name="com.zl.frame.sysman.userman.bean.User" table="t_sys_user" >
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="native"></generator>
+        </id>
+        <property name="userName" type="java.lang.String">
+            <column name="userName" />
+        </property>
+        <property name="password" type="java.lang.String">
+            <column name="password" />
+        </property>
+        <property name="sex" type="java.lang.String">
+            <column name="sex" />
+        </property>
+        <property name="telphone" type="java.lang.String">
+            <column name="telphone" />
+        </property>
+        <property name="email" type="java.lang.String">
+            <column name="email" />
+        </property>
+        <property name="createTime" type="java.sql.Timestamp">
+            <column name="createTime" length="0" />
+        </property>
+        <property name="lastUpdateTime" type="java.sql.Timestamp">
+            <column name="lastUpdateTime" />
+        </property>
+        <property name="statu" type="java.lang.Integer">
+            <column name="statu" />
+        </property>
+        <property name="remark" type="java.lang.String">
+            <column name="remark" />
+        </property>
+        
+        <!-- many to many of user$role -->
+		<bag name="roleList" table="t_sys_user$role" lazy="false" >
+			<key column="userId" />
+		 	<many-to-many column="roleId" class="com.zl.frame.sysman.roleman.bean.Role" />
+		</bag>
+    </class>
+</hibernate-mapping>

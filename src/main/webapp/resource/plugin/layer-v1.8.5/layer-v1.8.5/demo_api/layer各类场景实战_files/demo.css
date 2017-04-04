@@ -1,0 +1,396 @@
+html {
+	font-family: "Î¢ÈíÑÅºÚ"; font-size: 14px; _overflow-y: auto;
+}
+body {
+	font-family: "Î¢ÈíÑÅºÚ"; font-size: 14px; _overflow-y: auto;
+}
+body {
+	background: rgb(227, 227, 227);
+}
+a:hover {
+	text-decoration: none;
+}
+i {
+	font-family: Bookman Old Style;
+}
+.clear::after {
+	height: 0px; clear: both; font-size: 0px; display: block; visibility: hidden; content: ".";
+}
+.layer_first::after {
+	height: 0px; clear: both; font-size: 0px; display: block; visibility: hidden; content: ".";
+}
+.clear {
+	clear: both; zoom: 1;
+}
+.layer_first {
+	clear: both; zoom: 1;
+}
+.hide {
+	display: none;
+}
+.area_zero {
+	border-style: dashed; border-color: transparent; width: 0px; height: 0px; overflow: hidden; position: absolute;
+}
+.demotab li i {
+	border-style: dashed; border-color: transparent; width: 0px; height: 0px; overflow: hidden; position: absolute;
+}
+.box {
+	width: 1000px; position: relative;
+}
+pre {
+	font-family: "Î¢ÈíÑÅºÚ";
+}
+.inline {
+	vertical-align: top; display: inline-block;
+}
+.extimgs img {
+	vertical-align: top; display: inline-block;
+}
+.btns {
+	padding: 0px 15px; border-radius: 20px; color: rgb(255, 255, 255); line-height: 22px; font-size: 12px; vertical-align: top; display: inline-block; cursor: pointer; background-color: rgb(255, 68, 0);
+}
+.btns:hover {
+	color: rgb(255, 255, 255); background-color: rgb(255, 102, 0);
+}
+.layer_html {
+	overflow: hidden; _overflow-y: auto;
+}
+.layer_html body {
+	overflow: hidden; _overflow-y: auto;
+}
+.layer_top {
+	top: 0px; bottom: 0px; position: fixed; _position: absolute;
+}
+.layer_left {
+	top: 0px; bottom: 0px; position: fixed; _position: absolute;
+}
+.layer_right {
+	top: 0px; bottom: 0px; position: fixed; _position: absolute;
+}
+.layer_html .layer_top {
+	background: rgb(57, 61, 73); top: 0px; width: 100%; bottom: auto; z-index: 120;
+}
+.layer_html .layer_top a:hover {
+	color: rgb(204, 204, 204);
+}
+.layer_left {
+	width: 300px; padding-top: 40px; border-right-color: rgb(204, 204, 204); border-right-width: 1px; border-right-style: solid; z-index: 100; overflow-x: hidden; background-color: rgb(255, 255, 255); _border-right: none;
+}
+.layer_left .btns {
+	box-shadow: 1px 1px 1px #ccc;
+}
+.layer_right {
+	padding: 20px; left: 0px; right: 0px; margin-top: 40px; margin-left: 300px; overflow-x: hidden; overflow-y: auto; background-color: rgb(238, 238, 238);
+}
+.layer_banner {
+	background: rgb(57, 61, 73); height: 190px;
+}
+.layer_banner span.ie6PNG {
+	background: url("images/banner.png") no-repeat; top: 30px; width: 912px; height: 79px; position: absolute;
+}
+.layer_banner h1 {
+	display: none;
+}
+.layer_banner em {
+	right: 0px; bottom: 30px; color: rgb(255, 255, 255); position: absolute;
+}
+.layer_banner em a {
+	color: rgb(255, 255, 255);
+}
+.layer_nav {
+	background: url("images/layer_nav.jpg") repeat-x; height: 40px; text-shadow: 1px 1px 0 #393D49;
+}
+.layer_nav a {
+	color: rgb(255, 255, 255); line-height: 40px; padding-right: 60px; font-size: 16px; position: relative;
+}
+.layer_nav a:hover {
+	color: rgb(245, 245, 245);
+}
+.filter_nums {
+	padding: 0px 5px; border-radius: 3px; left: 50%; top: -22px; height: 16px; color: rgb(255, 255, 255); line-height: 16px; font-size: 12px; margin-left: -49px; position: absolute; z-index: 9; background-color: rgb(255, 68, 0); _float: left;
+}
+.layer_nav a .area_zero {
+	border-width: 8px; left: 50%; top: -15px; margin-left: -46px; border-right-color: rgb(255, 102, 0); border-right-style: solid; z-index: 8;
+}
+.layer_nav a .area_zero {
+	_display: none;
+}
+.layer_nav a .filter_nums {
+	_display: none;
+}
+.fixnav {
+	width: 100%; bottom: 0px; position: fixed; z-index: 999; background-color: rgb(32, 111, 150);
+}
+.layer_about {
+	background: rgb(255, 255, 255); padding-top: 20px;
+}
+.layer_notice {
+	background: rgb(120, 186, 50); padding: 10px; border: 1px solid rgb(98, 140, 28); width: 330px; height: 75px; overflow: hidden; float: left;
+}
+.layer_notice a {
+	color: rgb(255, 255, 255);
+}
+.layer_notice li {
+	line-height: 25px;
+}
+.layer_ico {
+	background: url("images/layer_ico.png") no-repeat;
+}
+.layer_download {
+	background: rgb(128, 213, 254); padding: 10px; border: 1px solid rgb(86, 180, 220); width: 608px; height: 75px; margin-left: 15px; float: right; position: relative; _display: inline;
+}
+.layer_download li {
+	color: rgb(55, 55, 55); line-height: 25px;
+}
+.layer_download .layer_yuan {
+	background-position: -1px -4px; top: 10px; width: 53px; height: 72px; right: 240px; position: absolute;
+}
+.layer_download .layer_down {
+	background-position: -78px -12px; top: 15px; width: 197px; height: 55px; right: 18px; position: absolute;
+}
+.layer_download .layer_downs {
+	width: 197px; height: 20px; right: 18px; bottom: 2px; color: rgb(55, 55, 55); line-height: 20px; overflow: hidden; font-size: 12px; position: absolute;
+}
+.layer_downs em {
+	font-family: Verdana;
+}
+.layer_down:hover {
+	background-position: -78px -78px;
+}
+.layer_download .padding {
+	line-height: 20px; padding-left: 70px; margin-top: 5px;
+}
+.layer_download .github {
+	background: url("http://www.oschina.net/img/github_logo.gif") no-repeat -10px 0px; padding-left: 57px;
+}
+.github a {
+	color: rgb(0, 91, 140); font-family: Courier New;
+}
+.github a:hover {
+	text-decoration: underline;
+}
+.layer_text {
+	padding: 30px 0px 0px; color: rgb(55, 55, 55); clear: both; position: relative;
+}
+.layer_text h2 {
+	height: 35px; line-height: 30px;
+}
+.layer_text p {
+	line-height: 23px; text-indent: 2em; margin-bottom: 10px;
+}
+.write p {
+	line-height: 23px; text-indent: 2em; margin-bottom: 10px;
+}
+.layer_text p em {
+	font-weight: 900;
+}
+.layer_first {
+	margin-top: 10px;
+}
+.layer_first a {
+	background: rgb(242, 242, 242); padding: 0px 20px; border: 1px solid rgb(170, 170, 170); height: 30px; text-align: center; line-height: 30px; margin-right: 10px; float: left; display: block; cursor: pointer;
+}
+.layer_target a {
+	background: rgb(242, 242, 242); padding: 0px 20px; border: 1px solid rgb(170, 170, 170); height: 30px; text-align: center; line-height: 30px; margin-right: 10px; float: left; display: block; cursor: pointer;
+}
+.layer_first span {
+	background: rgb(242, 242, 242); padding: 0px 20px; border: 1px solid rgb(170, 170, 170); height: 30px; text-align: center; line-height: 30px; margin-right: 10px; float: left; display: block; cursor: pointer;
+}
+.downmore {
+	text-align: center; line-height: 30px;
+}
+.downmore a {
+	padding: 0px 5px;
+}
+.downmore a cite {
+	text-decoration: underline;
+}
+.downmore a:hover {
+	color: rgb(102, 102, 102);
+}
+.runtest {
+	position: absolute;
+}
+.runtest a {
+	position: absolute;
+}
+.runtest {
+	border: 8px solid rgb(79, 79, 79); left: 125px; top: 52px; display: none; z-index: 100;
+}
+.runtest textarea {
+	padding: 2px 10px; border: currentColor; width: 710px; height: 225px; color: rgb(255, 255, 255); line-height: 20px; overflow: auto; font-family: Courier New; font-size: 12px; display: block; background-color: rgb(63, 63, 63);
+}
+.runtest a {
+	right: 25px; bottom: -13px;
+}
+.layer_api {
+	padding-bottom: 20px;
+}
+.layer_apiBox {
+	margin: 20px auto; font-size: 14px; display: none;
+}
+.api_table {
+	
+}
+.api_table tr {
+	line-height: 20px; vertical-align: text-top;
+}
+.api_table tr td {
+	padding: 10px 15px; border: 1px solid rgb(204, 204, 204); line-height: 24px;
+}
+.layer_apiBox tr {
+	height: 50px; background-color: rgb(245, 245, 245);
+}
+.layer_apiBox tr:nth-of-type(2n) {
+	background-color: rgb(255, 255, 255);
+}
+.layer_apiBox thead tr {
+	background-color: rgb(255, 255, 255);
+}
+.layer_apiTitle {
+	line-height: 40px;
+}
+.navlist {
+	line-height: 40px;
+}
+.layer_apiTitle li {
+	text-align: center;
+}
+.navlist li {
+	text-align: center;
+}
+.layer_apiTitle li:hover {
+	cursor: pointer;
+}
+.layer_apiTitle .apinow {
+	color: rgb(255, 255, 255); background-color: rgb(255, 68, 0);
+}
+.navlist .thisnavlist {
+	color: rgb(255, 255, 255); background-color: rgb(255, 68, 0);
+}
+.layer_demo {
+	background: rgb(255, 255, 255); padding: 20px 0px; margin-bottom: 15px; border-bottom-color: rgb(204, 204, 204); border-bottom-width: 1px; border-bottom-style: solid;
+}
+.demo_main {
+	
+}
+.code1 {
+	clear: both;
+}
+.code2 {
+	clear: both;
+}
+.write {
+	padding: 20px; width: auto;
+}
+.layer_text .layer_msg {
+	padding: 0px 10px; border: 1px solid rgb(255, 153, 0); height: 30px; line-height: 30px; font-size: 14px; background-color: rgb(255, 248, 237);
+}
+.demotab {
+	margin: 20px 0px; padding: 0px 20px; height: 36px; line-height: 36px; border-bottom-color: rgb(101, 157, 148); border-bottom-width: 1px; border-bottom-style: solid;
+}
+.demotab li {
+	padding: 0px 30px; text-align: center; float: left; position: relative; cursor: default;
+}
+.demotab .demonow {
+	color: rgb(255, 255, 255); background-color: rgb(101, 157, 148); text-shadow: 1px 1px 0 #393D49;
+}
+.demotab li i {
+	border-width: 6px; left: 50%; bottom: -12px; margin-left: -6px; border-top-color: rgb(101, 157, 148); border-top-style: solid; display: none;
+}
+.demotab .demonow i {
+	display: block;
+}
+.juan {
+	padding: 10px; width: 600px; height: 400px; text-align: center; background-color: rgb(255, 255, 255);
+}
+.juan p {
+	line-height: 23px;
+}
+.juan p a {
+	padding: 0px 10px; font-size: 14px; margin-right: 10px;
+}
+.juanGo {
+	padding: 0px 15px; line-height: 30px; margin-right: 10px; display: inline-block;
+}
+.juanLu {
+	padding: 0px 15px; line-height: 30px; margin-right: 10px; display: inline-block;
+}
+.juanGo {
+	border: 1px solid rgb(246, 118, 0); color: rgb(255, 255, 255); background-color: rgb(255, 161, 0);
+}
+.juanGo:hover {
+	color: rgb(255, 255, 255); background-color: rgb(255, 177, 47);
+}
+.juanLu {
+	padding: 0px 20px; border: 1px solid rgb(179, 179, 179); color: rgb(89, 89, 89); background-color: rgb(253, 253, 253);
+}
+.juanLu:hover {
+	border: 1px solid rgb(136, 136, 136);
+}
+.jiaoliu a {
+	color: rgb(255, 102, 0); padding-right: 10px; font-weight: bold;
+}
+strong {
+	font-weight: bold;
+}
+.newdemo {
+	padding: 10px; border-radius: 0px 3px 3px 0px; left: 0px; top: 50%; width: 20px; color: rgb(255, 255, 255); position: fixed; cursor: pointer; opacity: 0.8; background-color: rgb(223, 53, 17); _position: absolute;
+}
+.newdemo:hover {
+	color: rgb(255, 255, 255); background-color: rgb(35, 131, 171);
+}
+.extbox {
+	padding: 10px; border: 1px solid rgb(204, 204, 204); background-color: rgb(238, 238, 238);
+}
+.extbox strong {
+	line-height: 30px;
+}
+.extimgs {
+	margin: 0px 0px 20px;
+}
+.extimgs img {
+	width: 160px; height: 100px;
+}
+.layer_gotop {
+	background-position: 0px -141px; width: 57px; height: 57px; right: 0px; bottom: 35px; overflow: hidden; display: none; position: fixed;
+}
+.layer_gotop:hover {
+	background-position: -70px -141px;
+}
+.googlead {
+	padding: 1px; border: 1px solid rgb(204, 204, 204); width: 300px; height: 250px; right: -320px; bottom: 1px; position: fixed; z-index: 999999; _position: absolute;
+}
+.layer_title {
+	height: 100px; text-align: center; color: rgb(255, 255, 255); line-height: 100px; font-size: 20px; border-top-color: rgb(40, 44, 53); border-bottom-color: rgb(40, 44, 53); border-top-width: 8px; border-bottom-width: 8px; border-top-style: solid; border-bottom-style: solid; background-color: rgb(57, 61, 73);
+}
+.navlist .thisnavlist a {
+	color: rgb(255, 255, 255); display: block;
+}
+.navlist .thisnavlist a:hover {
+	color: rgb(255, 255, 255); cursor: default;
+}
+.navlist li a:hover {
+	color: rgb(102, 102, 102);
+}
+.otherbtn {
+	top: 20px; right: 0px; font-size: 0px; position: absolute;
+}
+.otherbtn a {
+	padding: 3px 20px; border-radius: 3px; color: rgb(255, 255, 255); line-height: 25px; font-size: 14px; margin-left: 15px; vertical-align: top; display: inline-block; z-index: 100; box-shadow: 1px 1px 1px #ccc; background-color: rgb(255, 68, 0); text-shadow: 1px 1px 0 #393D49;
+}
+.otherbtn a:hover {
+	color: rgb(255, 255, 255); background-color: rgb(232, 64, 0);
+}
+.otherbtn .onlinetest {
+	background-color: rgb(53, 149, 204);
+}
+.otherbtn .onlinetest:hover {
+	background-color: rgb(91, 91, 91);
+}
+.otherbtn .helloLayer {
+	background-color: rgb(120, 186, 50);
+}
+.otherbtn .helloLayer:hover {
+	color: rgb(255, 255, 255); background-color: rgb(105, 160, 44);
+}

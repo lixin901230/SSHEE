@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Basic Tree - jQuery EasyUI Demo</title>
+	<link rel="stylesheet" type="text/css" href="../../themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../../themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="../demo.css">
+	<script type="text/javascript" src="../../jquery.min.js"></script>
+	<script type="text/javascript" src="../../jquery.easyui.min.js"></script>
+</head>
+<body>
+	<h2>Basic Tree</h2>
+	<div class="demo-info">
+		<div class="demo-tip icon-tip"></div>
+		<div>Click the arrow on the left to expand or collapse nodes.</div>
+	</div>
+	<div style="margin:10px 0;"></div>
+	<ul class="easyui-tree">
+		<li>111</li>
+		<li>
+			<span>My Documents</span>
+			
+			<ul>
+				<li data-options="state:'open'">
+					<span>Photos</span>
+					<ul>
+						<li>Friend</li>
+					</ul>
+				</li>
+				<li>111</li>
+				<li>
+					<span>Program Files</span>
+					<ul>
+						<li>Intel</li>
+					</ul>
+				</li>
+				<li>welcome.html</li>
+			</ul>
+		</li>
+	</ul>
+
+</body>
+</html>

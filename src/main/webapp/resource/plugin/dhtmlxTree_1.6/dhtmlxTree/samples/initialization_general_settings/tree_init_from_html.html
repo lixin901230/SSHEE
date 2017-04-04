@@ -1,0 +1,175 @@
+<!--conf
+<sample in_favorites="true">
+              <product version="1.5" edition="std"/>
+                     <modifications>
+                            <modified date="070101"/>
+                     </modifications>
+               <sampledescription><![CDATA[dhtmlxTree object can be initialized easily from html lists. No additional scripting needed. ]]></sampledescription></sample>
+ --> 
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+	<title>Initializae from HTML</title>
+	
+</head>
+
+<body >
+<link rel='STYLESHEET' type='text/css' href='../common/style.css'>
+<table cellspacing="0" cellpadding="0" class="sample_header" border="0">
+	<tr valign="middle">
+		<!-- COMPONENT ICON -->
+		<td width="40" align="center"><img src="../common/dhtmlxtree_icon.gif" border="0"></td>
+		<!-- COMPONENT NAME -->
+		<td width="120" align="left">Sample: dhtmlxTree</td>
+		<!-- SAMPLE TITLE -->
+		<td width="0" align="left"><b>Initializae from HTML</b></td>
+		<!-- LINK TO COMPONENT PAGE -->
+		<td width="0" align="right"><a href="http://www.dhtmlx.com/docs/products/dhtmlxTree/index.shtml">dhtmlxTree main page</a></td>
+		<!-- CLOSE BUTTON -->
+		<td width="50"><div class="sample_close"><a href="javascript:void(0);" onclick="self.close();"><img src="../common/sample_close.gif" width="14" height="14" border="0" alt="X"></a></div></td>
+	</tr>
+</table>
+	
+	<link rel="STYLESHEET" type="text/css" href="../../codebase/dhtmlxtree.css">
+	
+	<script  src="../../codebase/dhtmlxcommon.js"></script>
+	<script  src="../../codebase/dhtmlxtree.js"></script>
+	<script  src="../../codebase/ext/dhtmlxtree_start.js"></script>
+	
+<p>
+	To do automatic initialization:
+	<ul>
+		<li><strong>dhtmlXTree_start.js</strong> should be included into page</li>
+		<li>top DIV element should have <strong>class</strong> attribuyte set to <em>dhtmlxTree</em></li>
+		<li>some attributes of top DIV element will define tree specific properties
+			<ul>
+				<li>setImagePath - set path to images used by tree</li>
+				<li>id - name of javascript variable referenced to tree object</li>
+			</ul>
+		</li>
+	</ul>
+</p>
+<div class="h3">Initilize from list</div>
+	<table>
+		<tr>
+			<td>
+	<div id="treeboxbox_tree" setImagePath="../../codebase/imgs/csh_bluebooks/" xclass="dhtmlxTree" style="width:250px; height:218px; background-color:#f5f5f5;border :1px solid Silver; ">
+		<ul>
+			<li>Root
+			<ul>
+				<li>Child1
+				<ul>
+					<li>Child 1-1</li>
+				</ul>
+				</li>
+				<li>Child2</li>
+				<li><b>Bold</b> <i>Italic</i></li>
+			</ul>
+			</li>
+		</ul></li>
+	</div>
+			</td>
+			<td>
+	<div id="treeboxbox_tree" setImagePath="../../codebase/imgs/csh_bluebooks/" class="dhtmlxTree" style="width:250px; height:218px; background-color:#f5f5f5;border :1px solid Silver;">
+		<ul>
+			<li>Root
+			<ul>
+				<li>Child1
+				<ul>
+					<li>Child 1-1</li>
+				</ul>
+				</li>
+				<li>Child2</li>
+				<li><b>Bold</b> <i>Italic</i></li>
+			</ul>
+			</li>
+		</ul></li>
+	</div>
+			</td>
+		</tr>
+	</table>
+<div class='sample_code'><div class="hl-main"><pre><span class="hl-code"> 
+    &lt;</span><span class="hl-identifier">div</span><span class="hl-code"> 
+        </span><span class="hl-reserved">class</span><span class="hl-code">=</span><span class="hl-quotes">&quot;</span><span class="hl-string">dhtmlxTree</span><span class="hl-quotes">&quot;</span><span class="hl-code"> 
+        </span><span class="hl-identifier">id</span><span class="hl-code">=</span><span class="hl-quotes">&quot;</span><span class="hl-string">treeboxbox_tree</span><span class="hl-quotes">&quot;</span><span class="hl-code"> 
+        </span><span class="hl-identifier">setImagePath</span><span class="hl-code">=</span><span class="hl-quotes">&quot;</span><span class="hl-string">../imgs/</span><span class="hl-quotes">&quot;</span><span class="hl-code"> 
+        </span><span class="hl-identifier">style</span><span class="hl-code">=</span><span class="hl-quotes">&quot;</span><span class="hl-string">width:250px; height:218px;overflow:auto;</span><span class="hl-quotes">&quot;</span><span class="hl-code">&gt;
+        
+        &lt;</span><span class="hl-identifier">ul</span><span class="hl-code">&gt;
+            &lt;</span><span class="hl-identifier">li</span><span class="hl-code">&gt;</span><span class="hl-identifier">Root</span><span class="hl-code">&lt;/</span><span class="hl-identifier">li</span><span class="hl-code">&gt;
+            &lt;</span><span class="hl-identifier">ul</span><span class="hl-code">&gt;
+                &lt;</span><span class="hl-identifier">li</span><span class="hl-code">&gt;</span><span class="hl-identifier">Child1</span><span class="hl-code">
+                &lt;</span><span class="hl-identifier">ul</span><span class="hl-code">&gt;
+                    &lt;</span><span class="hl-identifier">li</span><span class="hl-code">&gt;</span><span class="hl-identifier">Child</span><span class="hl-code"> </span><span class="hl-number">1</span><span class="hl-code">-</span><span class="hl-number">1</span><span class="hl-code">&lt;/</span><span class="hl-identifier">li</span><span class="hl-code">&gt;
+                &lt;/</span><span class="hl-identifier">ul</span><span class="hl-code">&gt;
+                &lt;/</span><span class="hl-identifier">li</span><span class="hl-code">&gt;
+                &lt;</span><span class="hl-identifier">li</span><span class="hl-code">&gt;</span><span class="hl-identifier">Child2</span><span class="hl-code">&lt;/</span><span class="hl-identifier">li</span><span class="hl-code">&gt;
+                &lt;</span><span class="hl-identifier">li</span><span class="hl-code">&gt;&lt;</span><span class="hl-identifier">b</span><span class="hl-code">&gt;</span><span class="hl-identifier">Bold</span><span class="hl-code">&lt;/</span><span class="hl-identifier">b</span><span class="hl-code">&gt; &lt;</span><span class="hl-identifier">i</span><span class="hl-code">&gt;</span><span class="hl-identifier">Italic</span><span class="hl-code">&lt;/</span><span class="hl-identifier">i</span><span class="hl-code">&gt;&lt;/</span><span class="hl-identifier">li</span><span class="hl-code">&gt;
+            &lt;/</span><span class="hl-identifier">ul</span><span class="hl-code">&gt;
+            &lt;/</span><span class="hl-identifier">li</span><span class="hl-code">&gt;
+        &lt;/</span><span class="hl-identifier">ul</span><span class="hl-code">&gt;
+    &lt;/</span><span class="hl-identifier">div</span><span class="hl-code">&gt;</span></pre></div></div>
+	
+<!--- Start --->	
+<div class="h3">Initialize from inline XML structure</div>
+<div class="txt">It is possible to use standard dhtmlxTree XML structure enclosed in <strong>XMP</strong>
+tag inside DIV element which is tree container.<br>
+For more details about dhtmlxTree XML structure see <a href="http://www.scbr.com/docs/products/dhtmlxTree/doc/guide.html#xmlload">User Guide</a></div>
+<br>
+<div id="treeboxbox_tree2" setImagePath="../../codebase/imgs/" class="dhtmlxTree" style="width:250px; height:218px; background-color:#f5f5f5;border :1px solid Silver;;">
+	<xmp container="true">
+	<item text="Root" open="1" id="11">
+		<item text="Child1" select="1" open="1" id="12">
+			<item text="Child1-1" id="13"/>
+		</item>
+		<item text="Child2" id="14"/>
+		<item id="15" text="Text"/>
+	</item>
+	</xmp>
+</div>
+
+<div class='sample_code'><div class="hl-main"><pre><span class="hl-code"> 
+    &lt;</span><span class="hl-identifier">div</span><span class="hl-code"> </span><span class="hl-identifier">id</span><span class="hl-code">=</span><span class="hl-quotes">&quot;</span><span class="hl-string">treeboxbox_tree2</span><span class="hl-quotes">&quot;</span><span class="hl-code"> </span><span class="hl-identifier">setImagePath</span><span class="hl-code">=</span><span class="hl-quotes">&quot;</span><span class="hl-string">../imgs/</span><span class="hl-quotes">&quot;</span><span class="hl-code"> </span><span class="hl-reserved">class</span><span class="hl-code">=</span><span class="hl-quotes">&quot;</span><span class="hl-string">dhtmlxTree</span><span class="hl-quotes">&quot;</span><span class="hl-code"> &gt;
+    &lt;</span><span class="hl-identifier">xmp</span><span class="hl-code">&gt;
+        &lt;</span><span class="hl-identifier">item</span><span class="hl-code"> </span><span class="hl-identifier">text</span><span class="hl-code">=</span><span class="hl-quotes">&quot;</span><span class="hl-string">Root</span><span class="hl-quotes">&quot;</span><span class="hl-code"> </span><span class="hl-identifier">open</span><span class="hl-code">=</span><span class="hl-quotes">&quot;</span><span class="hl-string">1</span><span class="hl-quotes">&quot;</span><span class="hl-code"> </span><span class="hl-identifier">id</span><span class="hl-code">=</span><span class="hl-quotes">&quot;</span><span class="hl-string">11</span><span class="hl-quotes">&quot;</span><span class="hl-code">&gt;
+            &lt;</span><span class="hl-identifier">item</span><span class="hl-code"> </span><span class="hl-identifier">text</span><span class="hl-code">=</span><span class="hl-quotes">&quot;</span><span class="hl-string">Child1</span><span class="hl-quotes">&quot;</span><span class="hl-code"> </span><span class="hl-identifier">select</span><span class="hl-code">=</span><span class="hl-quotes">&quot;</span><span class="hl-string">1</span><span class="hl-quotes">&quot;</span><span class="hl-code"> </span><span class="hl-identifier">open</span><span class="hl-code">=</span><span class="hl-quotes">&quot;</span><span class="hl-string">1</span><span class="hl-quotes">&quot;</span><span class="hl-code"> </span><span class="hl-identifier">id</span><span class="hl-code">=</span><span class="hl-quotes">&quot;</span><span class="hl-string">12</span><span class="hl-quotes">&quot;</span><span class="hl-code">&gt;
+                &lt;</span><span class="hl-identifier">item</span><span class="hl-code"> </span><span class="hl-identifier">text</span><span class="hl-code">=</span><span class="hl-quotes">&quot;</span><span class="hl-string">Child1-1</span><span class="hl-quotes">&quot;</span><span class="hl-code"> </span><span class="hl-identifier">id</span><span class="hl-code">=</span><span class="hl-quotes">&quot;</span><span class="hl-string">13</span><span class="hl-quotes">&quot;</span><span class="hl-code">/&gt;
+            &lt;/</span><span class="hl-identifier">item</span><span class="hl-code">&gt;
+            &lt;</span><span class="hl-identifier">item</span><span class="hl-code"> </span><span class="hl-identifier">text</span><span class="hl-code">=</span><span class="hl-quotes">&quot;</span><span class="hl-string">Child2</span><span class="hl-quotes">&quot;</span><span class="hl-code"> </span><span class="hl-identifier">id</span><span class="hl-code">=</span><span class="hl-quotes">&quot;</span><span class="hl-string">14</span><span class="hl-quotes">&quot;</span><span class="hl-code">/&gt;
+            &lt;</span><span class="hl-identifier">item</span><span class="hl-code"> </span><span class="hl-identifier">id</span><span class="hl-code">=</span><span class="hl-quotes">&quot;</span><span class="hl-string">15</span><span class="hl-quotes">&quot;</span><span class="hl-code"> </span><span class="hl-identifier">text</span><span class="hl-code">=</span><span class="hl-quotes">&quot;</span><span class="hl-string">Text</span><span class="hl-quotes">&quot;</span><span class="hl-code">/&gt;
+        &lt;/</span><span class="hl-identifier">item</span><span class="hl-code">&gt;
+    &lt; /</span><span class="hl-identifier">xmp</span><span class="hl-code">&gt;
+    &lt;/</span><span class="hl-identifier">div</span><span class="hl-code">&gt;</span></pre></div></div>
+
+
+<!--- Start --->	
+<div class="h3">Initialize from HTML using script command</div>
+<div class="txt">It is possible to convert existing html structure with script command</div>
+<div id="listBox" setImagePath="../../codebase/imgs/" style="width:250px; height:218px; background-color:#f5f5f5;border :1px solid Silver;">
+	<ul>
+		<li>Root
+		<ul>
+			<li>Child1
+			<ul>
+				<li>Child 1-1</li>
+			</ul>
+			</li>
+			<li>Child2</li>
+			<li><b>Bold</b> <i>Italic</i></li>
+		</ul>
+		</li>
+	</ul>
+</div>
+<button onclick="var myTree = dhtmlXTreeFromHTML('listBox');">Convert</button>
+
+<div class='sample_code'><div class="hl-main"><pre><span class="hl-code"> 
+    </span><span class="hl-comment">//</span><span class="hl-comment">1st parameter is id of DIV element to initialize tree from.</span><span class="hl-comment"></span><span class="hl-code">
+    </span><span class="hl-reserved">var</span><span class="hl-code"> </span><span class="hl-identifier">myTree</span><span class="hl-code"> = </span><span class="hl-identifier">dhtmlXTreeFromHTML</span><span class="hl-brackets">(</span><span class="hl-quotes">'</span><span class="hl-string">listBox</span><span class="hl-quotes">'</span><span class="hl-brackets">)</span><span class="hl-code">;</span></pre></div></div>
+
+<!-- FOOTER -->
+<table callspacing="0" cellpadding="0" border="0" class="sample_footer"><tr><td style="padding-left: 8px;">&copy; <a href="http://www.dhtmlx.com">DHTMLX LTD</a>. All rights reserved</td></tr></table>
+<!-- FOOTER -->
+
+</body>
+</html>

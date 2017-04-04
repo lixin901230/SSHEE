@@ -1,0 +1,280 @@
+    {
+        "id": "0",
+        "parentId": "ROOT_NODE",
+        "parentName": null,
+        "nodeCode": "welcome",
+        "nodeName": "首页",
+        "url": "${ctx}/view/common/layout/portal.jsp",
+        "nodeSort": 1,
+        "statu": 1
+    },
+    {
+        "id": "1",
+        "parentId": "0",
+        "parentName": null,
+        "nodeCode": "sysMan",
+        "nodeName": "系统管理",
+        "url": null,
+        "nodeSort": 1,
+        "statu": 1
+    },
+    {
+        "id": "101",
+        "parentId": "1",
+        "parentName": null,
+        "nodeCode": "userMan",
+        "nodeName": "用户管理",
+        "url": null,
+        "nodeSort": 1,
+        "statu": 1
+    },
+    {
+        "id": "10101",
+        "parentId": "101",
+        "parentName": null,
+        "nodeCode": "userManList",
+        "nodeName": "用户列表",
+        "url": null,
+        "nodeSort": 1,
+        "statu": 1
+    },
+    {
+        "id": "10201",
+        "parentId": "102",
+        "parentName": null,
+        "nodeCode": "roleManList",
+        "nodeName": "角色列表",
+        "url": null,
+        "nodeSort": 1,
+        "statu": 1
+    },
+    {
+        "id": "10301",
+        "parentId": "103",
+        "parentName": null,
+        "nodeCode": "resourceManList",
+        "nodeName": "资源列表",
+        "url": null,
+        "nodeSort": 1,
+        "statu": 1
+    },
+    {
+        "id": "102",
+        "parentId": "1",
+        "parentName": null,
+        "nodeCode": "roleMan",
+        "nodeName": "角色管理",
+        "url": null,
+        "nodeSort": 2,
+        "statu": 1
+    },
+    {
+        "id": "10102",
+        "parentId": "101",
+        "parentName": null,
+        "nodeCode": "userManDetail",
+        "nodeName": "用户查看",
+        "url": null,
+        "nodeSort": 2,
+        "statu": 1
+    },
+    {
+        "id": "10202",
+        "parentId": "102",
+        "parentName": null,
+        "nodeCode": "roleManDetail",
+        "nodeName": "角色查看",
+        "url": null,
+        "nodeSort": 2,
+        "statu": 1
+    },
+    {
+        "id": "10302",
+        "parentId": "103",
+        "parentName": null,
+        "nodeCode": "resourceManDetail",
+        "nodeName": "资源查看",
+        "url": null,
+        "nodeSort": 2,
+        "statu": 1
+    },
+    {
+        "id": "103",
+        "parentId": "1",
+        "parentName": null,
+        "nodeCode": "resourceMan",
+        "nodeName": "资源管理",
+        "url": null,
+        "nodeSort": 3,
+        "statu": 1
+    },
+    {
+        "id": "10103",
+        "parentId": "101",
+        "parentName": null,
+        "nodeCode": "userManAdd",
+        "nodeName": "用户添加",
+        "url": null,
+        "nodeSort": 3,
+        "statu": 1
+    },
+    {
+        "id": "10203",
+        "parentId": "102",
+        "parentName": null,
+        "nodeCode": "roleManAdd",
+        "nodeName": "角色添加",
+        "url": null,
+        "nodeSort": 3,
+        "statu": 1
+    },
+    {
+        "id": "10303",
+        "parentId": "103",
+        "parentName": null,
+        "nodeCode": "resourceManAdd",
+        "nodeName": "资源添加",
+        "url": null,
+        "nodeSort": 3,
+        "statu": 1
+    },
+    {
+        "id": "10104",
+        "parentId": "101",
+        "parentName": null,
+        "nodeCode": "userManEdit",
+        "nodeName": "用户修改",
+        "url": null,
+        "nodeSort": 4,
+        "statu": 1
+    },
+    {
+        "id": "10204",
+        "parentId": "102",
+        "parentName": null,
+        "nodeCode": "roleManEdit",
+        "nodeName": "角色修改",
+        "url": null,
+        "nodeSort": 4,
+        "statu": 1
+    },
+    {
+        "id": "10304",
+        "parentId": "103",
+        "parentName": null,
+        "nodeCode": "resourceManEdit",
+        "nodeName": "资源修改",
+        "url": null,
+        "nodeSort": 4,
+        "statu": 1
+    },
+    {
+        "id": "10105",
+        "parentId": "101",
+        "parentName": null,
+        "nodeCode": "userManDel",
+        "nodeName": "用户删除",
+        "url": null,
+        "nodeSort": 5,
+        "statu": 1
+    },
+    {
+        "id": "10205",
+        "parentId": "102",
+        "parentName": null,
+        "nodeCode": "roleManDel",
+        "nodeName": "角色删除",
+        "url": null,
+        "nodeSort": 5,
+        "statu": 1
+    },
+    {
+        "id": "10305",
+        "parentId": "103",
+        "parentName": null,
+        "nodeCode": "resourceManDel",
+        "nodeName": "资源删除",
+        "url": null,
+        "nodeSort": 5,
+        "statu": 1
+    },
+    {
+        "id": "10106",
+        "parentId": "101",
+        "parentName": null,
+        "nodeCode": "userAuth",
+        "nodeName": "用户授权",
+        "url": null,
+        "nodeSort": 6,
+        "statu": 1
+    },
+    {
+        "id": "10206",
+        "parentId": "102",
+        "parentName": null,
+        "nodeCode": "roleManAuth",
+        "nodeName": "角色授权",
+        "url": null,
+        "nodeSort": 6,
+        "statu": 1
+    },
+    {
+        "id": "10306",
+        "parentId": "103",
+        "parentName": null,
+        "nodeCode": "resourceManImport",
+        "nodeName": "资源导入",
+        "url": null,
+        "nodeSort": 6,
+        "statu": 1
+    },
+    {
+        "id": "10107",
+        "parentId": "101",
+        "parentName": null,
+        "nodeCode": "userManImport",
+        "nodeName": "用户导入",
+        "url": null,
+        "nodeSort": 7,
+        "statu": 1
+    },
+    {
+        "id": "10207",
+        "parentId": "102",
+        "parentName": null,
+        "nodeCode": "roleManImport",
+        "nodeName": "角色导入",
+        "url": null,
+        "nodeSort": 7,
+        "statu": 1
+    },
+    {
+        "id": "10307",
+        "parentId": "103",
+        "parentName": null,
+        "nodeCode": "resourceManExport",
+        "nodeName": "资源导出",
+        "url": null,
+        "nodeSort": 7,
+        "statu": 1
+    },
+    {
+        "id": "10108",
+        "parentId": "101",
+        "parentName": null,
+        "nodeCode": "userManExport",
+        "nodeName": "用户导出",
+        "url": null,
+        "nodeSort": 8,
+        "statu": 1
+    },
+    {
+        "id": "10208",
+        "parentId": "102",
+        "parentName": null,
+        "nodeCode": "roleManExport",
+        "nodeName": "角色导出",
+        "url": null,
+        "nodeSort": 8,
+        "statu": 1
+    }

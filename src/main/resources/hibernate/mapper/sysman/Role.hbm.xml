@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.zl.frame.sysman.roleman.bean">
+    <class name="com.zl.frame.sysman.roleman.bean.Role" table="t_sys_role" >
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="native"></generator>
+        </id>
+        <property name="roleName" type="java.lang.String">
+            <column name="roleName" />
+        </property>
+        <property name="roleType" type="java.lang.String">
+            <column name="roleType" />
+        </property>
+        <property name="createTime" type="java.sql.Timestamp">
+            <column name="createTime" length="0" />
+        </property>
+        <property name="lastUpdateTime" type="java.sql.Timestamp">
+            <column name="lastUpdateTime" length="0" />
+        </property>
+        <property name="state" type="java.lang.Integer">
+            <column name="state" />
+        </property>
+        <property name="remark" type="java.lang.String">
+            <column name="remark" />
+        </property>
+        
+        <!-- many to many of user$role 
+		<bag name="userList" table="t_sys_user$role" inverse="true" lazy="true" >
+			<key column="roleId" />
+			<many-to-many column="userId" class="com.zl.frame.sysman.userman.bean.User" />
+		</bag>
+		-->
+		<!-- many to many of role$node -->
+		<bag name="resourceList" table="t_sys_role$resource" lazy="false">
+			<key column="roleId" />
+			<many-to-many column="resourceId" class="com.zl.frame.sysman.resourceman.bean.Resource" />
+		</bag>
+        
+    </class>
+</hibernate-mapping>

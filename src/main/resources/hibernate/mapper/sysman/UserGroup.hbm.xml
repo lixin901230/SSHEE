@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.zl.frame.sysman.orgman.bean">
+    <class name="com.zl.frame.sysman.usergroupman.bean.UserGroup" table="t_sys_user_group" >
+        <id name="id" type="java.lang.String">
+            <column name="id" />
+<!--             <generator class="assigned"/> -->
+            <generator class="uuid"/>
+        </id>
+        <property name="groupCode" type="java.lang.String">
+            <column name="groupCode" />
+        </property>
+        <property name="groupName" type="java.lang.String">
+            <column name="groupName" />
+        </property>
+        <property name="createTime" type="java.sql.Timestamp">
+            <column name="createTime" length="0" />
+        </property>
+        <property name="lastUpdateTime" type="java.sql.Timestamp">
+            <column name="lastUpdateTime" length="0" />
+        </property>
+        <property name="statu" type="java.lang.Integer">
+            <column name="statu" />
+        </property>
+        <property name="remark" type="java.lang.String">
+            <column name="remark" />
+        </property>
+        
+		<!-- many to many of t_sys_user$user_group -->
+		<bag name="userList" table="t_sys_user$user_group" inverse="true" lazy="false" >
+			<key column="userGroupId" />
+			<many-to-many column="userId" class="com.zl.frame.sysman.userman.bean.User" />
+		</bag>
+
+    </class>
+</hibernate-mapping>

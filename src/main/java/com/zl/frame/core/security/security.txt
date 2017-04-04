@@ -1,0 +1,14 @@
+Security filter chain: [
+  ConcurrentSessionFilter
+  SecurityContextPersistenceFilter
+  LogoutFilter
+  UsernamePasswordAuthenticationFilter
+  DefaultLoginPageGeneratingFilter
+  RequestCacheAwareFilter
+  SecurityContextHolderAwareRequestFilter
+  RememberMeAuthenticationFilter
+  AnonymousAuthenticationFilter
+  SessionManagementFilter
+  ExceptionTranslationFilter
+  FilterSecurityInterceptor
+]

@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>更新记录 - 弹出窗口组件</title>
+    <meta name="keywords" content="lhgdialog,dialog,弹出窗口,js窗口,js弹出窗口,js库,对话框,alert,提示,警告,确认,提问,ajax,tip,confirm,open,prompt,lhgcore,javascript,jquery,window,clientside,control,open source,LGPL,dhtml,html,xhtml,plugins"/>
+    <meta name="description" content="lhgdialog是一功能强大的简单迷你并且高效的弹出窗口插件,基于网络访问并且兼容IE 6.0+,Firefox 3.0+,Opera 9.6+,Chrome 1.0+,Safari 3.22+."/>
+    <meta name="copyright" content="lhgcore.com"/>
+    <link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+    <link href="common.css" type="text/css" rel="stylesheet"/>
+</head>
+
+<body>
+    <div class="container">
+	    <div class="header">
+		    <div class="hd_logo"><a href="../index.html"><img border="0" src="images/hd_logo.gif" alt="lhgdialog"/></a></div>
+			<div class="hd_nav">
+			    <a href="../index.html">首页</a> | <a href="api.html">API文档</a> | <a href="../_demo/demo.html">基础示例</a> | <a href="../_demo/value.html">传值示例</a> | <a href="../_demo/animate.html">动画示例</a> | <a href="../_demo/frameset.html">框架示例</a> | 更新记录
+			</div>
+		</div>
+		<div class="line">&nbsp;</div>
+		<div class="cbody">
+		    <h2>更新记录</h2>
+			<p></p>
+	<dl>
+		<dt>4.2.0</dt>
+		<dd>新增更多使用示例，将不同示例进行分类演示，超详细的演示示例</dd>
+		<dd>增加对IE6文档模型为怪异模式的支持</dd>
+		<dd>新增三款简洁的半透明的皮肤</dd>
+		<dd>增加focus焦点参数，用来控制弹出窗口是否自动获取焦点</dd>
+		<dd>增加data参数，用来在窗口中传递任意数据</dd>
+		<dd>修正有时打开窗口浏览器发出2次请求的BUG</dd>
+		<dd>修正了独立组件获取页面尺寸的BUG</dd>
+		<dd>修改内部属性iwin改名为content</dd>
+		<dd>锁屏层的background 参数和 opacity 参数被取消, 由 CSS 文件定义</dd>
+		<dd>去掉了使用传统参数方法，统一使用字面量参数的方法</dd>
+		<dd>去掉了$.dialog.data外部方法，由内部参数data代替</dd>
+		<dd>代码进行了优化</dd>
+	</dl>			
+	<dl>
+		<dt>4.1.1</dt>
+		<dd>修正在框架中使用时皮肤文件有时不能正确加载的BUG</dd>
+		<dd>独立组件的lhgcore库做了极大的修改，专门为组件定制，压缩后才6K与组件合在一起总大小才不到20K</dd>
+		<dd>代码做了些小的调整</dd>
+	</dl>			
+	<dl>
+		<dt>4.1.0</dt>
+		<dd>简化窗口的html结构，简化了皮肤css文件，去掉了最外层div，去掉了标题小图标，去掉了最小化后还原的div</dd>
+		<dd>去掉了minWidth和minHeight鸡肋参数</dd>
+		<dd>优化了size方法和拖动部分代码</dd>
+		<dd>强制规定创建窗口的页面必须使用标准文档渲染模式，不支持怪异模式，请用主流的XHTML1.0或者HTML5的DOCTYPE申明</dd>
+		<dd>简化了代码的一些无谓的判断，同时代码尽量使用了js原生代码，整体性能提高10%以上</dd>
+	</dl>			
+	<dl>
+		<dt>4.0.2</dt>
+		<dd>对核心代码做了一些细小的优化和整理</dd>
+		<dd>修正了一些CSS文件中样式设置的问题</dd>
+		<dd>增加了一个皮肤共用CSS文，里面有皮肤的共用代码和皮肤制做及多皮肤共存说明。</dd>
+	</dl>			
+	<dl>
+		<dt>4.0.0 Full Version</dt>
+		<dd>去掉内部_runScript()方法，防止因改变script片断内的this指针引起异常问题</dd>
+		<dd>去掉$.dialog.load()方法</dd>
+		<dd>修正$.dialog.data方法，将对象附加到lhgdialog上，而不是top上，这样可以防止在框架页面中造成内存堆积</dd>
+		<dd>增加$.dialog.removeDate方法</dd>
+		<dd>修正css里的ui_scroll_lock类，加上padding-right:17px和ui_max_fixed类，防止弹出锁屏窗口时，页面中的内容向右移动</dd>
+		<dd>修正IE6下png的背景图片不平铺的bug</dd>
+		<dd>修改底部按钮由button标签改为input标签</dd>
+		<dd>修正IE下双击选中标题文本的bug</dd>
+		<dd>全部重新整理了所有皮肤样式css文件</dd>
+		<dd>新增原3.5.2版本中的默认蓝色透皮肤和chrome浏览器皮肤</dd>
+	</dl>			
+		</div>
+		<div class="line">&nbsp;</div>
+		<div class="footer">
+		    <div class="ft_copy">Copyright &copy <a href="http://www.lhgcore.com/" target="_blank">lhgcore.com</a>. All rights reserved. | 豫ICP备06002782号 | <a href="http://t.qq.com/lhgcore" target="_blank">官方微博</a></div>
+		</div>
+	</div>
+</body>
+</html>

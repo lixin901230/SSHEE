@@ -1,0 +1,185 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>动画示例 - LHGDIALOG</title>
+    <meta name="keywords" content="lhgdialog,dialog,弹出窗口,js窗口,js弹出窗口,js库,对话框,alert,提示,警告,确认,提问,ajax,tip,confirm,open,prompt,lhgcore,javascript,jquery,window,clientside,control,open source,LGPL,dhtml,html,xhtml,plugins"/>
+    <meta name="description" content="lhgdialog是一功能强大的简单迷你并且高效的弹出窗口插件,基于网络访问并且兼容IE 6.0+,Firefox 3.0+,Opera 9.6+,Chrome 1.0+,Safari 3.22+."/>
+    <meta name="copyright" content="lhgcore.com"/>
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<link href="../_doc/common.css" type="text/css" rel="stylesheet"/>
+	<link href="../_doc/prettify/prettify.css" type="text/css" rel="stylesheet"/>
+	<script type="text/javascript" src="../_doc/prettify/prettify.js"></script>
+	<script type="text/javascript" src="jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="lhgdialog.min.js"></script>
+	<script type="text/javascript" src="demo.js"></script>
+</head>
+
+<body>
+    <div class="container">
+	    <div class="header">
+		    <div class="hd_logo"><a href="../index.html"><img border="0" src="../_doc/images/hd_logo.gif" alt="lhgdialog"/></a></div>
+			<div class="hd_nav">
+			    <a href="../index.html">首页</a> | <a href="../_doc/api.html">API文档</a> | <a href="demo.html">基础示例</a> | <a href="value.html">传值示例</a> | 动画示例 | <a href="frameset.html">框架示例</a> | <a href="../_doc/update.html">更新记录</a>
+			</div>
+		</div>
+		<div class="line">&nbsp;</div>
+		<div class="cbody">
+			<h2>ajax扩展示例</h2>
+			<p>注：本页面中的示例使有的动画和ajax部分方法都使用jQuery库中相关的方法，所以使用本页面中的示例必须加载jQuery库，而独立版本的lhgDialog窗口组件不支持动画和ajax。</p>
+			<ol>
+				<li>
+			        <h3>AJAX高级应用：执行HTML片段中标准script的标签</h3>
+					<p>备注：HTML片段中的<span style=" padding:1px; margin:0 3px; color:#03C; background:#F8F8F8">&lt;script type="<span style="color:#090">text/javascript</span>"&gt;&lt;/script&gt;</span>标签包裹的javascript将会在窗口内容加载后执行。<br/>注：独立版本的组件里不支持ajax调用，你得单独写ajax调用代码。</p>
+					<p>(本例子使用了AJAX，需要在服务器上运行。可打开 <a href="content/login.html" target="_blank">content/login.html</a> 查看源码中的自定义脚本)</p>
+<pre class="prettyprint" id="demo_api_8">
+var api = $.dialog({id:'L1360'});
+
+/* jQuery ajax */
+$.ajax({
+    url:'content/login.html',
+    success:function(data){
+        api.content(data);
+    },
+    cache:false
+});
+</pre>
+					<p><button class="runcode" name="demo_api_8">运行»</button></p>
+				</li>
+			</ol>
+			<h2>动画扩展演示</h2>
+			<p>备注：<em style="color:#f00;font-style:normal;">动画部分只能在加载了jQuery库文件下才能使用，独立版本的lhgDialog组件不支持动画效果。</em></p>
+			<ol>
+				<li>
+			        <h3>向上逐渐透明关闭窗口</h3>
+					<p></p>
+<pre class="prettyprint" id="demo_animate_1">
+$.dialog({content:'向上逐渐透明关闭窗口',time:3,close:function(){
+    var duration = 400, /*动画时长*/
+        api = this,
+        opt = api.config,
+        wrap = api.DOM.wrap,
+        top = $(window).scrollTop() - wrap[0].offsetHeight;
+	
+    wrap.animate({top:top + 'px', opacity:0}, duration, function(){
+        opt.close = function(){};
+        api.close();
+    });
+	
+    return false;
+} });
+</pre>
+					<p><button class="runcode" name="demo_animate_1">运行»</button></p>
+				</li>
+				<li>
+			        <h3>右下脚滑动通知</h3>
+					<p></p>
+<pre class="prettyprint" id="demo_animate_2">
+/* 扩展窗口外部方法 */
+$.dialog.notice = function( options )
+{
+    var opts = options || {},
+        api, aConfig, hide, wrap, top,
+        duration = opts.duration || 800;
+	
+    var config = {
+        id: 'Notice',
+        left: '100%',
+        top: '100%',
+        fixed: true,
+        drag: false,
+        resize: false,
+        init: function(here){
+            api = this;
+            aConfig = api.config;
+            wrap = api.DOM.wrap;
+            top = parseInt(wrap[0].style.top);
+            hide = top + wrap[0].offsetHeight;
+			
+            wrap.css('top', hide + 'px')
+            .animate({top: top + 'px'}, duration, function(){
+                opts.init && opts.init.call(api, here);
+            });
+        },
+        close: function(here){
+            wrap.animate({top: hide + 'px'}, duration, function(){
+                opts.close && opts.close.call(this, here);
+                aConfig.close = $.noop;
+                api.close();
+            });
+			
+            return false;
+        }
+    };
+	
+    for(var i in opts)
+    {
+        if( config[i] === undefined ) config[i] = opts[i];
+    }
+	
+    return $.dialog( config );
+};
+
+/* 调用示例 */
+$.dialog.notice({
+    title: '商业定制',
+    width: 220,  /*必须指定一个像素宽度值或者百分比，否则浏览器窗口改变可能导致lhgDialog收缩 */
+    content: '若需要商业定制，记得联系我噢',
+    time: 5
+});
+</pre>
+					<p><button class="runcode" name="demo_animate_2">运行»</button></p>
+				</li>
+				<li>
+			        <h3>摇头效果</h3>
+					<p></p>
+<pre class="prettyprint" id="demo_animate_3">
+/* 下面的代码为组件扩展方法 */
+$.dialog.fn.shake = function()
+{
+    var style = this.DOM.wrap[0].style,
+        p = [4, 8, 4, 0, -4, -8, -4, 0],
+        fx = function(){
+            style.marginLeft = p.shift() + 'px';
+            if(p.length &lt;= 0){
+                style.marginLeft = 0;
+                clearInterval(timerId);
+            }
+        };
+    p = p.concat(p.concat(p));
+    timerId = setInterval(fx, 13);
+    return this;
+};
+/* 调用方法演示 */
+$.dialog({
+    id:'shake-demo',
+    title:'登录',
+    content:'帐号：&lt;input type="text" value="guest" style="margin:5px 0;" /&gt;&lt;br /&gt;'
+        + '密码：&lt;input id="login-pw" type="text" value="****" /&gt;',
+    lock:true,
+	fixed:true,
+    ok:function(){
+        var pw = document.getElementById('login-pw');
+        pw.select();
+        pw.focus();
+        this.shake();
+        return false;
+    },
+    okVal:'登录',
+	cancel:function(){}
+});
+</pre>					
+					<p><button class="runcode" name="demo_animate_3">运行»</button></p>
+				</li>
+			</ol>
+		</div>
+		<div class="line">&nbsp;</div>
+		<div class="footer">
+		    <div class="ft_copy">Copyright &copy <a href="http://www.lhgcore.com/" target="_blank">lhgcore.com</a>. All rights reserved. | 豫ICP备06002782号 | <a href="http://t.qq.com/lhgcore" target="_blank">官方微博</a></div>
+		</div>
+	</div>
+	<script type="text/javascript">prettyPrint();</script>
+	</div>
+</body>
+</html>

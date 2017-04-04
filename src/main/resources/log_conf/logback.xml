@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
+
+<configuration debug="false">
+	
+	<jmxConfigurator />
+	
+<!--	file:绝对路径	
+	<property file="/slf4j_conf.properties"/>-->
+<!-- resource相对路径 -->
+	<property resource="log_conf/slf4j_conf.properties"/>
+	
+	<!-- 控制台输出日志 encoder 可以指定字符集，对于中文输出有意义 -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		
+<!--		<filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+<!--			<level>${gui.log.filter.leval}</level>-->
+<!--			<onMatch>ACCEPT</onMatch>-->
+<!--			<onMismatch>DENY</onMismatch>-->
+<!--		</filter>-->
+	
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<encoder charset="UTF-8">
+				<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS}-IM-[%thread] %-5level %logger{36} -%L- %msg%n</pattern>
+			</encoder>
+		</layout>
+	</appender>
+	
+	<!-- 输出到文件 -->
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+<!--		<filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+<!--			<level>${gui.log.filter.leval}</level>-->
+<!--			<onMatch>ACCEPT</onMatch>-->
+<!--			<onMismatch>DENY</onMismatch>-->
+<!--		</filter>-->
+		<file>${gui.log.dir}/${gui.log.name}</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<fileNamePattern>${gui.log.dir}/${gui.log.rolling.format}</fileNamePattern>
+			<minIndex>${gui.log.file.min}</minIndex>
+			<maxIndex>${gui.log.file.max}</maxIndex>
+		</rollingPolicy>
+		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<maxFileSize>${gui.log.max.file.size}</maxFileSize>
+		</triggeringPolicy>
+		
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<encoder charset="UTF-8">
+				<pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+			</encoder>
+		</layout>
+	</appender>
+	
+	<root level="DEBUG">
+		<appender-ref ref="STDOUT"/>
+		<appender-ref ref="FILE"/>
+	</root>
+	
+	<root level="INFO">
+		<appender-ref ref="FILE"/>
+	</root>
+	
+	
+	<appender name="FILE2" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		
+<!--		<filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+<!--			<level>${gui.time.log.filter.leval}</level>-->
+<!--			<onMatch>ACCEPT</onMatch>-->
+<!--			<onMismatch>DENY</onMismatch>-->
+<!--		</filter>-->
+	
+	   	<file>${gui.log.dir}/${gui.time.log.name}</file>
+	   	<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+		    <!-- daily rollover -->
+		    <fileNamePattern>${gui.log.dir}/${gui.time.log.rolling.format}</fileNamePattern>
+		    <!-- keep 30 days worth of history -->
+		    <maxHistory>${gui.time.log.history}</maxHistory> 
+	   	</rollingPolicy>
+		
+		<layout class="ch.qos.logback.classic.PatternLayout">
+		   	<encoder>
+		     	<pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+		   	</encoder>
+		</layout>	
+ 	</appender> 
+	
+ 	<root level="DEBUG">
+   		<appender-ref ref="FILE2" />
+ 	</root>
+ 	
+ 	 <!-- 输出到控制台和文件，可定义更多的 Appender -->
+   	<root level="DEBUG">
+      	<appender-ref ref="STDOUT" />
+      	<appender-ref ref="FILE" />
+   	</root>
+    
+    <!-- 下面配置一些第三方包的日志过滤级别，用于避免刷屏-->
+   	<logger name="org.apache.ibatis" level="DEBUG" />
+   	<logger name="org.springframework" level="DEBUG" />
+   	<logger name="com.lx.ssiTest" level="DEBUG" />
+   
+    <!--这里指定logger name 是为jmx设置日志级别做铺垫       -->        
+    <logger name="com.lx.ssiTest">
+        <level value="DEBUG" />
+        <appender-ref ref="STDOUT" /> 
+        <appender-ref ref="FILE" />
+    </logger>
+	
+</configuration>

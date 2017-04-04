@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+	PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"file:/Program Files/MyEclipse-8.6/Workspaces_work1-GRSM/SSI/WebRoot/dtd/mybatis-3-config.dtd">
+
+	<!-- 该mybatis核心配置文件必须按照如下顺序配置，否则无法解析 
+	The content of element type "configuration" must match 
+		"(properties?,settings?,typeAliases?,typeHandlers?,objectFactory?,
+		plugins?,environments?,mappers?)" -->
+	<configuration>
+		<settings>
+			<setting name="cacheEnabled" value="true"/>  
+			<setting name="lazyLoadingEnabled" value="true"/>  
+			<setting name="multipleResultSetsEnabled" value="true"/>  
+			<setting name="useColumnLabel" value="true"/>  
+			<setting name="useGeneratedKeys" value="true"/>  
+			<setting name="defaultExecutorType" value="SIMPLE"/>  
+			<setting name="defaultStatementTimeout" value="25000"/>  
+		</settings>
+			
+		<!-- 类别名配置 -->
+<!-- 		<typeAliases> -->
+<!-- 			<typeAlias type="com.zl.frame.sysman.userman.bean.User" alias="User"/> -->
+<!-- 		</typeAliases> -->
+		
+		<!-- 数据源有proxool连接池取代 -->
+		<!-- <environments default="MySQL">
+			<environment id="MySQL">
+				<transactionManager type="JDBC" />
+				<dataSource type="POOLED">
+					<property name="driver" value="${driver}" />
+					<property name="url" value="${url}" />
+					<property name="username" value="${username}" />
+					<property name="password" value="${password}" />
+				</dataSource>
+			</environment>
+		</environments> -->
+			
+		<!-- 引入orm关系映射配置 -->
+<!-- 		<mappers> -->
+<!-- 			<mapper resource="com/lx/ssiTest/entity/StudentInfo.xml"/> -->
+<!-- 			<mapper resource="com/lx/ssiTest/entity/ClassesInfo.xml"/> -->
+<!-- 		</mappers> -->
+			
+	</configuration>

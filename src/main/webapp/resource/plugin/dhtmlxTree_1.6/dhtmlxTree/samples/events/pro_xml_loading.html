@@ -1,0 +1,83 @@
+<!--#exclude#conf
+       <sample>
+              <product version="1.5" edition="pro"/>
+                     <modifications>
+                            <modified date="070101"/>
+                     </modifications>
+               </sample>
+--> 
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+	<title>XML loading events</title>
+</head>
+	<link rel="STYLESHEET" type="text/css" href="../../codebase/dhtmlxtree.css">
+	
+	<script  src="../../codebase/dhtmlxcommon.js"></script>
+	<script  src="../../codebase/dhtmlxtree.js"></script>
+<body>
+<link rel='STYLESHEET' type='text/css' href='../common/style.css'>
+<table cellspacing="0" cellpadding="0" class="sample_header" border="0">
+	<tr valign="middle">
+		<!-- COMPONENT ICON -->
+		<td width="40" align="center"><img src="../common/dhtmlxtree_icon.gif" border="0"></td>
+		<!-- COMPONENT NAME -->
+		<td width="120" align="left">Sample: dhtmlxTree</td>
+		<!-- SAMPLE TITLE -->
+		<td width="0" align="left"><b>XML loading events</b></td>
+		<!-- LINK TO COMPONENT PAGE -->
+		<td width="0" align="right"><a href="http://www.dhtmlx.com/docs/products/dhtmlxTree/index.shtml">dhtmlxTree main page</a></td>
+		<!-- CLOSE BUTTON -->
+		<td width="50"><div class="sample_close"><a href="javascript:void(0);" onclick="self.close();"><img src="../common/sample_close.gif" width="14" height="14" border="0" alt="X"></a></div></td>
+	</tr>
+</table>
+	
+	
+    <p>Open/close nodes or refresh tree (hardly detectable on fast connection)</p>
+	<table>
+		<tr>
+			<td valign="top">
+				<div id="treeboxbox_tree" style="width:250; height:218;background-color:#f5f5f5;border :1px solid Silver; "></div>
+			</td>
+			<td rowspan="2" style="padding-left:25" valign="top">
+				
+				<div style="display:none" id="b_1"><h1 style="color:red">Loading</h1></div>
+			</td>
+		</tr>
+		
+	</table>
+	<div class='sample_code'><div class="hl-main"><pre><span class="hl-code"> 
+            </span><span class="hl-identifier">tree</span><span class="hl-code">=</span><span class="hl-reserved">new</span><span class="hl-code"> </span><span class="hl-identifier">dhtmlXTreeObject</span><span class="hl-brackets">(</span><span class="hl-quotes">&quot;</span><span class="hl-string">treeboxbox_tree</span><span class="hl-quotes">&quot;</span><span class="hl-code">,</span><span class="hl-quotes">&quot;</span><span class="hl-string">100%</span><span class="hl-quotes">&quot;</span><span class="hl-code">,</span><span class="hl-quotes">&quot;</span><span class="hl-string">100%</span><span class="hl-quotes">&quot;</span><span class="hl-code">,</span><span class="hl-number">0</span><span class="hl-brackets">)</span><span class="hl-code">;
+            </span><span class="hl-identifier">tree</span><span class="hl-code">.</span><span class="hl-identifier">setImagePath</span><span class="hl-brackets">(</span><span class="hl-quotes">&quot;</span><span class="hl-string">../../codebase/imgs/csh_bluebooks/</span><span class="hl-quotes">&quot;</span><span class="hl-brackets">)</span><span class="hl-code">;
+            </span><span class="hl-identifier">tree</span><span class="hl-code">.</span><span class="hl-identifier">enableSmartXMLParsing</span><span class="hl-brackets">(</span><span class="hl-reserved">true</span><span class="hl-brackets">)</span><span class="hl-code">;
+            </span><span class="hl-comment">//</span><span class="hl-comment">xml loading events</span><span class="hl-comment"></span><span class="hl-code">
+            </span><span class="hl-identifier">tree</span><span class="hl-code">.</span><span class="hl-identifier">setOnLoadingStart</span><span class="hl-brackets">(</span><span class="hl-identifier">func_a</span><span class="hl-brackets">)</span><span class="hl-code">;
+            </span><span class="hl-identifier">tree</span><span class="hl-code">.</span><span class="hl-identifier">setOnLoadingEnd</span><span class="hl-brackets">(</span><span class="hl-identifier">func_b</span><span class="hl-brackets">)</span><span class="hl-code">;
+            </span><span class="hl-identifier">tree</span><span class="hl-code">.</span><span class="hl-identifier">loadXML</span><span class="hl-brackets">(</span><span class="hl-quotes">&quot;</span><span class="hl-string">tree3.xml</span><span class="hl-quotes">&quot;</span><span class="hl-brackets">)</span><span class="hl-code">;</span></pre></div></div>
+	
+
+	<script>
+			function func_a(){
+				document.getElementById("b_1").style.display="";
+			}
+			function func_b(){
+                //timeout set for testing on local PC,where XML loaded quite fast
+                window.setTimeout('document.getElementById("b_1").style.display="none"',300);
+			}
+
+			tree=new dhtmlXTreeObject("treeboxbox_tree","100%","100%",0);
+			tree.setImagePath("../../codebase/imgs/csh_bluebooks/");
+			tree.enableSmartXMLParsing(true);
+			tree.setOnLoadingStart(func_a);
+			tree.setOnLoadingEnd(func_b);
+			tree.loadXML("tree3.xml");								
+	</script>
+
+
+<!-- FOOTER -->
+<table callspacing="0" cellpadding="0" border="0" class="sample_footer"><tr><td style="padding-left: 8px;">&copy; <a href="http://www.dhtmlx.com">DHTMLX LTD</a>. All rights reserved</td></tr></table>
+<!-- FOOTER -->
+
+</body>
+</html>

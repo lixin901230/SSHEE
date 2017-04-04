@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+   <title>DHTML Tree v.1.4 guide and samples</title>
+   <link rel="STYLESHEET" type="text/css" href="common/styles.css">
+</head>
+
+<body>
+
+
+<body>
+
+
+     <a name="imcach"><h4 >Image caching in IE</h4
+      ></a><div class="block">
+
+	Common issues for users of IE6+ is image caching. All version of IE6 share this issue -
+	the same image can be fetched from server multiple times ( based on server response and
+	settings of browser ), such can cause can cause performance issues for both server and client.
+<br>
+	Starting from dhtmlxTree 1.5, special image loading mode available, it can be enabled by
+<xmp>
+	tree.enableIEImageFix(true);
+</xmp>
+	In such mode IE load images through CSS, instead of native IMG elements. As result problem
+	solved for most version of IE6 ( still can occur in some version of IE6 SP1 )
+<br><br><br>
+Benefits of "IE Image Fix" mode
+	<ol>
+		<li>Images cached on client</li>
+		<li>About 1.5 times loading speed improvement in FF</li>
+	</ol>
+Disadvantages of "IE Image Fix" mode
+	<ol>
+		<li>About 1.5 times loading speed decreasing in IE</li>
+	</ol>
+
+
+
+
+
+</body>
+
+</html>

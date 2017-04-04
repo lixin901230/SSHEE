@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+						http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+<!-- 	default-autowire="byType"> -->
+	
+<!-- 	<import resource="applicationContext-pool.xml"/> -->
+	
+	<!-- 导入action,service,dao的注入配置 -->
+	<import resource="applicationContext-bean-*.xml"/>
+	
+	<!-- 导入spring security 鉴权配置 -->
+	<import resource="applicationContext-security.xml"/>
+	
+	<!-- ============================== 外部属性文件加载 ==================== -->
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<!-- file开头代表以绝对路径查找，以classpath开头代表以类路径查找。-->
+	            <value>classpath:properties/system_config.properties</value>
+	            <!-- 标准配置 --> 
+<!-- 				<value>classpath*:/application.properties</value>  -->
+            </list>
+        </property>
+    </bean>
+	
+    <bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
+        <property name="driverClass">
+            <value>${datasource.driverClassName}</value>
+        </property>
+        <property name="jdbcUrl">
+            <value>${datasource.url}</value>
+        </property>
+        <property name="username">
+            <value>${datasource.username}</value>
+        </property>
+        <property name="password">
+            <value>${datasource.password}</value>
+        </property>
+        <property name="idleConnectionTestPeriod">
+            <value>${boneCP.idleConnectionTestPeriod}</value>
+        </property>
+        <property name="idleMaxAge">
+            <value>${boneCP.idleMaxAge}</value>
+        </property>
+        <property name="maxConnectionsPerPartition">
+            <value>${boneCP.maxConnectionsPerPartition}</value>
+        </property>
+        <property name="minConnectionsPerPartition">
+            <value>${boneCP.minConnectionsPerPartition}</value>
+        </property>
+        <property name="partitionCount">
+            <value>${boneCP.partitionCount}</value>
+        </property>
+        <property name="acquireIncrement">
+            <value>${boneCP.acquireIncrement}</value>
+        </property>
+        <property name="statementsCacheSize">
+            <value>${boneCP.statementsCacheSize}</value>
+        </property>
+        <property name="statementsCachedPerConnection">
+            <value>${boneCP.statementsCachedPerConnection}</value>
+        </property>
+        <property name="releaseHelperThreads">
+            <value>${boneCP.releaseHelperThreads}</value>
+        </property>
+    </bean>
+	
+	<!-- LocalSessionFactoryBean有好几个属性用来查找hibernate映射文件：mappingResources、mappingLocations、mappingDirectoryLocations与mappingJarLocations -->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        <property name="dataSource"><ref local="dataSource" /></property>
+        <property name="mappingDirectoryLocations">
+        	<list>
+        		<value>classpath:/hibernate/mapper/</value>
+        	</list>
+        </property>
+        <property name="hibernateProperties">
+			<props>
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+                <prop key="hibernate.jdbc.fetch_size">${hibernate.jdbc.fetch_size}</prop>
+                <prop key="hibernate.jdbc.batch_size">${hibernate.jdbc.batch_size}</prop>
+                <prop key="hibernate.connection.release_mode">after_transaction</prop>
+                
+<!--                 <prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop> -->
+<!--                 <prop key="hibernate.cache.use_query_cache">false</prop> -->
+<!--                 <prop key="hibernate.cache.use_second_level_cache">false</prop> -->
+<!--                 <prop key="hibernate.hbm2ddl.auto">update</prop> -->
+            </props>
+        </property>
+    </bean>
+
+    <!-- <bean abstract="true" lazy-init="true" id="hibernateDao">
+        <property name="sessionFactory"><ref local="sessionFactory" /></property>
+    </bean> -->
+    
+    <!-- 使用annotation定义事务 --> 
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" /> 
+
+    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+<!--         <property name="dataSource"><ref local="dataSource" /></property> -->
+    </bean>
+    
+    <!-- 拦截器方式配置事物 事务隔离级别propagation取值：[REQUIRED, SUPPORTS, MANDATORY, REQUIRES_NEW, NOT_SUPPORTED, NEVER, NESTED] -->
+	<tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="append*" propagation="REQUIRED" />
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="modify*" propagation="REQUIRED" />
+			<tx:method name="edit*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="del*" propagation="REQUIRED" />
+			<tx:method name="remove*" propagation="REQUIRED" />
+			<tx:method name="repair" propagation="REQUIRED" />
+			<tx:method name="delAndRepair" propagation="REQUIRED" />
+
+			<tx:method name="get*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="find*" propagation="NEVER" read-only="true" />
+			<tx:method name="load*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="search*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="datagrid*" propagation="REQUIRED" read-only="true" />
+
+			<tx:method name="*" propagation="REQUIRED" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+	<aop:config>
+		<aop:pointcut id="transactionPointcut" expression="execution(* *..service.*.*(..))" />
+		<aop:advisor pointcut-ref="transactionPointcut" advice-ref="transactionAdvice" />
+	</aop:config>
+
+    <!-- <bean id="txProxyTemplate" scope="prototype" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager"><ref bean="transactionManager" /></property>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="create*">PROPAGATION_REQUIRED,-com.lx.system.exception.ApplyException</prop>
+                <prop key="save*">PROPAGATION_REQUIRED,-com.lx.system.exception.ApplyException</prop>
+                <prop key="add*">PROPAGATION_REQUIRED,-com.lx.system.exception.ApplyException</prop>
+                <prop key="update*">PROPAGATION_REQUIRED,-com.lx.system.exception.ApplyException</prop>
+                <prop key="edit*">PROPAGATION_REQUIRED,-com.lx.system.exception.ApplyException</prop>
+                <prop key="modify*">PROPAGATION_REQUIRED,-com.lx.system.exception.ApplyException</prop>
+                <prop key="delete*">PROPAGATION_REQUIRED,-com.lx.system.exception.ApplyException</prop>
+                <prop key="remove*">PROPAGATION_REQUIRED,-com.lx.system.exception.ApplyException</prop>
+                <prop key="batch*">PROPAGATION_REQUIRED,-com.lx.system.exception.ApplyException</prop>
+                <prop key="*">PROPAGATION_REQUIRED,readOnly</prop>
+            </props>
+        </property>
+    </bean> -->
+    
+    
+   	<!-- <bean name="transactionIterceptor" 
+	      class="org.springframework.transaction.interceptor.TransactionInterceptor">
+	    <property name="transactionManager" ref="transactionManager"></property>   
+	    <property name="transactionAttributes">   
+	     <props>   
+	     	 
+     		凡是涉及DML语句的方法，要求事务传播属性为REQUIRED
+     		REQUIRED含义：如果无事务，新建；如果有，加入。
+			注：delete*方法的参数：
+			+java.lang.RuntimeException代表忽略此方法运行时产生的RuntimeException，
+			仍然能够提交，适用于出错日志的数据持久化。
+			如果写为：-Exception，代表不忽略任何异常，全部回滚。
+			 
+			<prop key="insert*">PROPAGATION_REQUIRED</prop>
+			<prop key="delete*">PROPAGATION_REQUIRED</prop>  
+			<prop key="del*">PROPAGATION_REQUIRED</prop> 
+			<prop key="remove*">PROPAGATION_REQUIRED</prop> 
+			<prop key="update*">PROPAGATION_REQUIRED</prop> 
+			<prop key="edit*">PROPAGATION_REQUIRED</prop> 
+			<prop key="modify*">PROPAGATION_REQUIRED</prop> 
+			<prop key="repair*">PROPAGATION_REQUIRED</prop> 
+			<prop key="add*">PROPAGATION_REQUIRED</prop> 
+			<prop key="save*">PROPAGATION_REQUIRED</prop> 
+			
+				其他语句可以考虑传播属性为SUPPORTS
+				SUPPORTS含义：如果无事务，不新建；如果有，加入。 
+			
+			<prop key="find*">PROPAGATION_SUPPORTS</prop>  
+			<prop key="load*">PROPAGATION_SUPPORTS</prop>
+			<prop key="get*">PROPAGATION_SUPPORTS</prop>
+			<prop key="select*">PROPAGATION_SUPPORTS</prop>
+	  	</props>   
+		</property>   
+	</bean>
+   	
+   	AOP方式将事务拦截器织入到需要的结构中
+	<bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">   
+        <property name="beanNames">   
+        	下面的List中的参数为要求被事务管理器管理的Spring bean的名称 
+		    <list>   
+		        <value>*Service</value>   
+		    </list>   
+        </property>   
+        <property name="interceptorNames"> 
+            <list>
+            	 使用的事务拦截器 
+                <value>transactionIterceptor</value>   
+            </list>   
+        </property>
+	</bean> -->
+
+
+</beans>

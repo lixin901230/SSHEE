@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+	"http://struts.apache.org/dtds/struts-2.0.dtd" >
+<struts>
+	
+<!-- 	<package name="sysman" namespace="/" extends="baseStruts"> -->
+	<package name="sysman" namespace="/sysman" extends="struts-default">
+	
+		<!-- 用户管理 -->
+		<action name="userAction" class="userAction">
+			<result name="input">/view/common/error/404.jsp</result>
+			<result name="userList">/view/sysman/userman/userList.jsp</result>
+			<result name="userAdd">/view/sysman/userman/userAdd.jsp</result>
+			<result name="userEdit">/view/sysman/userman/userEdit.jsp</result>
+			<result name="userDetail">/view/sysman/userman/userDetail.jsp</result>
+			<result name="userAuth">/view/sysman/userman/userAuth.jsp</result>
+			
+			<!-- jquery ajax分页插件demo -->
+			<result name="userlist">/view/study/pagerdemo/userlist.jsp</result>
+			<result name="userlist_data">/view/study/pagerdemo/userlist_data.jsp</result>
+			<result name="userlist_data2">/view/study/pagerdemo/userlist_data2.jsp</result>
+			
+		</action>
+		
+		<!-- 角色管理 -->
+		<action name="roleAction" class="roleAction">
+			<result name="input">/view/common/error/404.jsp</result>
+			<result name="roleList">/view/sysman/roleman/roleList.jsp</result>
+			<result name="roleAdd">/view/sysman/roleman/roleAdd.jsp</result>
+			<result name="roleEdit">/view/sysman/roleman/roleEdit.jsp</result>
+			<result name="roleDetail">/view/sysman/userman/roleDetail.jsp</result>
+		</action>
+		
+		<!-- 资源管理 -->
+		<action name="resourceAction" class="resourceAction">
+			<result name="input">/view/common/error/404.jsp</result>
+			<result name="resourceList">/view/sysman/resourceman/resourceList.jsp</result>
+			<result name="resourceAdd">/view/sysman/resourceman/resourceAdd.jsp</result>
+			<result name="resourceEdit">/view/sysman/resourceman/resourceEdit.jsp</result>
+			<result name="resourceDetail">/view/sysman/resourceman/resourceDetail.jsp</result>
+		</action>
+	
+		<!-- 授权管理 -->
+		<action name="authAction" class="authAction">
+			<result name="input">/view/common/error/404.jsp</result>
+			<result name="authUserList">/view/sysman/authorizationman/authUserList.jsp</result>
+			<result name="authAdd">/view/sysman/authorizationman/authAdd.jsp</result>
+		</action>
+		
+		<!-- 用户组管理 -->
+		<action name="userGroupAction" class="userGroupAction">
+			<result name="input">/view/common/error/404.jsp</result>
+			<result name="userGroupList">/view/sysman/usergroupman/userGroupList.jsp</result>
+			<result name="userGroupAdd">/view/sysman/usergroupman/userGroupAdd.jsp</result>
+			<result name="userGroupEdit">/view/sysman/usergroupman/userGroupEdit.jsp</result>
+			<result name="userGroupDetail">/view/sysman/usergroupman/userGroupDetail.jsp</result>
+			<result name="addUserToUserGroup">/view/sysman/usergroupman/addUserToUserGroup.jsp</result>
+		</action>
+		
+		<!-- 组织机构管理 -->
+		<action name="orgInfoAction" class="orgInfoAction">
+			<result name="input">/view/common/error/404.jsp</result>
+			<result name="orgInfoList">/view/sysman/orgman/orgInfoList.jsp</result>
+			<result name="orgInfoAdd">/view/sysman/orgman/orgInfoAdd.jsp</result>
+			<result name="orgInfoEdit">/view/sysman/orgman/orgInfoEdit.jsp</result>
+			<result name="orgInfoDetail">/view/sysman/orgman/orgInfoDetail.jsp</result>
+		</action>
+		
+	</package>
+	
+</struts>

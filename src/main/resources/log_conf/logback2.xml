@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration>
+<configuration>
+    <jmxConfigurator />
+    <!-- 控制台输出日志 encoder 可以指定字符集，对于中文输出有意义 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <encoder charset="UTF-8">
+                <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} -STL-[%thread] %-5level %logger{36} -%L- %msg%n</pattern>
+            </encoder>
+        </layout>
+    </appender>
+    <File>/var/log/bigdt_authman.log</File>
+    <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+        <FileNamePattern>/var/log/bigdt_stl_web.log.%i.zip</FileNamePattern>
+        <MinIndex>1</MinIndex>
+        <MaxIndex>12</MaxIndex>
+    </rollingPolicy>
+    <triggeringPolicy
+        class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+        <MaxFileSize>5MB</MaxFileSize>
+    </triggeringPolicy>
+    <layout class="ch.qos.logback.classic.PatternLayout">
+        <encoder charset="UTF-8"><!-- encoder 可以指定字符集，对于中文输出有意义 -->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} -STL-[%thread] %-5level %logger{36}
+                -%L- %msg%n</pattern>
+        </encoder>
+    </layout>
+    <!-- 输出到控制台和文件，可定义更多的 Appender
+     -->
+      
+    <root level="DEBUG">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILE" />
+        <appender-ref ref="FILE-ERROR" />
+    </root>
+ 
+    <!-- 下面配置一些第三方包的日志过滤级别，用于避免刷屏 -->
+    <logger name="org" level="WARN" />
+    <logger name="java.sql" level="DEBUG" />
+    <logger name="org.apache.ibatis" level="WARN" />
+    <logger name="org.springframework" level="WARN" />
+    <logger name="com.ncs" level="WARN" />
+    <!--这里指定logger name 是为jmx设置日志级别做铺垫 -->
+    <logger name="java">
+        <level value="WARN" />
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILE" />
+        <appender-ref ref="FILE-ERROR" />
+    </logger>
+    <!--这里指定logger name 是为jmx设置日志级别做铺垫 -->
+    <logger name="com.ncs">
+        <level value="WARN" />
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILE" />
+        <appender-ref ref="FILE-ERROR" />
+    </logger>
+</configuration>

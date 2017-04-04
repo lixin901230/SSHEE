@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<style type="text/css">
+body{margin:0;padding:0;}
+p{margin:5px 0;}
+.btninp{border:1px solid #ddd;background:#f3f3f3;cursor:pointer;padding:2px 8px;_padding:0 5px;font-size:12px;margin:0;}
+.txtinp{font-size:12px;margin:0;padding:2px;}
+	</style>
+	<script type="text/javascript" src="../jquery-1.7.2.min.js"></script>
+	<script type="text/javascript">
+var api = frameElement.api, W = api.opener, cDG;
+
+function child()
+{
+    // 下面的代码取B窗口在页面中的位置坐标和宽度，使C窗口弹出位置在B窗口的右边
+	var offset = api.DOM.wrap.offset(),
+	    width = api.DOM.wrap[0].offsetWidth,
+		pLeft = offset.left + width + 3 + 'px';
+	
+	cDG = W.$.dialog({ id:'demo_ZC', title:'C窗口', content:'url:value/value12.html', left:pLeft });
+};
+
+function BB()
+{
+    alert( '我是B窗口中的一个函数' );
+};
+
+// cDG 为C窗口的实例对象
+function getValue1()
+{
+    if( !cDG || cDG.closed )
+	    alert( '请先打开C窗口' );
+	else // cDG.content 为C窗口的window对象
+	    alert( cDG.content.document.getElementById('ctxt').value );
+};
+
+function getFunc1()
+{
+    if( !cDG || cDG.closed )
+	    alert( '请先打开C窗口' );
+	else
+	    cDG.content.CC();
+};
+
+function getValue2()
+{
+    alert( W.document.getElementById('txt5').value );
+};
+
+function closeC()
+{
+    if( !cDG || cDG.closed )
+	    alert( '请先打开C窗口' );
+	else
+	    cDG.close();
+};
+
+function reloadC()
+{
+    if( !cDG || cDG.closed )
+	    alert( '请先打开C窗口' );
+	else
+		cDG.reload(cDG.content);
+};
+	</script>
+</head>
+
+<body>
+<p style="text-align:center;"><input class="btninp" id="B_btn1" type="button" value="打开C窗口»" onclick="child();"/></p>
+<p style="text-align:center;"><input class="txtinp" id="btxt" type="text" value="B窗口中的文本框"/></p>
+<p style="text-align:center;"><input class="btninp" id="B_btn2" type="button" value="调用C窗口中文本框的值»" onclick="getValue1();"/></p>
+<p style="text-align:center;"><input class="btninp" id="B_btn3" type="button" value="调用C窗口中的函数»" onclick="getFunc1();"/></p>
+<p style="text-align:center;"><input class="btninp" id="B_btn4" type="button" value="调用加载组件页面文本框的值»" onclick="getValue2();"/></p>
+<p style="text-align:center;"><input class="btninp" id="B_btn5" type="button" value="调用加载组件页面中的函数»" onclick="W.AA();"/></p>
+<p style="text-align:center;"><input class="btninp" id="B_btn6" type="button" value="关闭C窗口»" onclick="cDG.close();"/></p>
+<p style="text-align:center;"><input class="btninp" id="B_btn7" type="button" value="关闭B窗口»" onclick="api.close();"/></p>
+<p style="text-align:center;"><input class="btninp" id="B_btn8" type="button" value="刷新C窗口»" onclick="reloadC();"/></p>
+<p style="text-align:center;"><input class="btninp" id="B_btn9" type="button" value="刷新B窗口»" onclick="api.reload(window);;"/></p>
+</body>
+</html>

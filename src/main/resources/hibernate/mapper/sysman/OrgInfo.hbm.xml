@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.zl.frame.sysman.orgman.bean">
+    <class name="com.zl.frame.sysman.orgman.bean.OrgInfo" table="t_sys_organization" >
+        <id name="id" type="java.lang.String">
+            <column name="id" />
+<!--             <generator class="assigned"/> -->
+            <generator class="uuid"/>
+        </id>
+        <property name="parentId" type="java.lang.String">
+            <column name="parentId" />
+        </property>
+        <property name="orgCode" type="java.lang.String">
+            <column name="orgCode" />
+        </property>
+        <property name="orgName" type="java.lang.String">
+            <column name="orgName" />
+        </property>
+        <property name="createTime" type="java.sql.Timestamp">
+            <column name="createTime" length="0" />
+        </property>
+        <property name="lastUpdateTime" type="java.sql.Timestamp">
+            <column name="lastUpdateTime" length="0" />
+        </property>
+        <property name="statu" type="java.lang.Integer">
+            <column name="statu" />
+        </property>
+        <property name="iconCls" type="java.lang.String">
+            <column name="iconCls" />
+        </property>
+        <property name="nodeSort" type="java.lang.Integer">
+            <column name="nodeSort" />
+        </property>
+        <property name="state" type="java.lang.String">
+            <column name="state" />
+        </property>
+        <property name="remark" type="java.lang.String">
+            <column name="remark" />
+        </property>
+        
+        <!-- one to one of orgInfo$parentOrgInfo -->
+<!-- 		<many-to-one name="orgInfo" column="parentId" class="com.zl.frame.sysman.orgman.bean.OrgInfo" lazy="false" cascade="all" /> -->
+        
+<!--         <many-to-one name="resource" column="parentId" lazy="false" insert="false" update="false"></many-to-one> -->
+        
+		<!-- one to many of resource$childResourceList -->
+		<bag name="childOrgList" lazy="false" inverse="true" >
+			<key column="parentId"/>
+			<one-to-many class="com.zl.frame.sysman.orgman.bean.OrgInfo" />
+		</bag>		
+		
+		<!-- many to many of orgInfo$user -->
+		<bag name="userList" table="t_sys_user$organization" inverse="true" lazy="false" >
+			<key column="orgId" />
+			<many-to-many column="userId" class="com.zl.frame.sysman.userman.bean.User" />
+		</bag>
+
+    </class>
+</hibernate-mapping>

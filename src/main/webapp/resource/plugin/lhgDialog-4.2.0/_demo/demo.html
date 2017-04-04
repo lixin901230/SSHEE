@@ -1,0 +1,492 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>基础示例 - LHGDIALOG</title>
+    <meta name="keywords" content="lhgdialog,dialog,弹出窗口,js窗口,js弹出窗口,js库,对话框,alert,提示,警告,确认,提问,ajax,tip,confirm,open,prompt,lhgcore,javascript,jquery,window,clientside,control,open source,LGPL,dhtml,html,xhtml,plugins"/>
+    <meta name="description" content="lhgdialog是一功能强大的简单迷你并且高效的弹出窗口插件,基于网络访问并且兼容IE 6.0+,Firefox 3.0+,Opera 9.6+,Chrome 1.0+,Safari 3.22+."/>
+    <meta name="copyright" content="lhgcore.com"/>
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<link href="../_doc/common.css" type="text/css" rel="stylesheet"/>
+	<link href="../_doc/prettify/prettify.css" type="text/css" rel="stylesheet"/>
+	<script type="text/javascript" src="../_doc/prettify/prettify.js"></script>
+	<script type="text/javascript" src="jquery-1.7.2.min.js"></script>
+<script>
+// skin demo
+(function() {
+	var _skin, _lhgcore;
+	var _search = window.location.search;
+	if (_search) {
+		_skin = _search.split('demoSkin=')[1];
+	};
+	
+	document.write('<scr'+'ipt src="lhgdialog.min.js?skin=' + (_skin || 'default') +'"></sc'+'ript>');
+	window._isDemoSkin = !!_skin;
+})();
+</script>
+	<script type="text/javascript" src="demo.js"></script>
+</head>
+
+<body>
+    <div class="container">
+	    <div class="header">
+		    <div class="hd_logo"><a href="../index.html"><img border="0" src="../_doc/images/hd_logo.gif" alt="lhgdialog"/></a></div>
+			<div class="hd_nav">
+			    <a href="../index.html">首页</a> | <a href="../_doc/api.html">API文档</a> | 基础示例 | <a href="value.html">传值示例</a> | <a href="animate.html">动画示例</a> | <a href="frameset.html">框架示例</a> | <a href="../_doc/update.html">更新记录</a>
+			</div>
+		</div>
+		<div class="line">&nbsp;</div>
+		<div class="cbody">
+		    <h2>皮肤切换演示</h2>
+			<p style="color:#00f;">&nbsp;&nbsp;&nbsp;&nbsp;<button class="runcode" id="demo_skin">运行»</button>&nbsp;&nbsp;&nbsp;&nbsp;如您需要定制个性皮肤可以联系我们进行定制，联系方式为 QQ：463214570&nbsp;&nbsp;验证：皮肤定制</p>
+			<h2>配置参数演示</h2>
+			<p></p>
+			<ol>
+			    <li>
+			        <h3>标题 [title]</h3>
+					<p></p>
+<pre class="prettyprint" id="demo_title">
+$.dialog({title:'我是新标题'});
+</pre>
+					<p><button class="runcode" name="demo_title">运行»</button></p>
+				</li>
+			    <li>
+			        <h3>内容 [content]</h3>
+					<p>1. 传入字符串</p>
+<pre class="prettyprint" id="demo_content">
+$.dialog({content: '我支持HTML'});
+</pre>
+					<p><button class="runcode" name="demo_content">运行»</button></p>
+					<p>2. 使用iframe方式加载单独的内容页</p>
+<pre class="prettyprint" id="demo_content_frm">
+$.dialog({content: 'url:content/content.html'});
+</pre>
+					<p><button class="runcode" name="demo_content_frm">运行»</button></p>
+				</li>
+			    <li>
+			        <h3>确定取消按钮 [ok & cancel]</h3>
+					<p>备注：回调函数this指向扩展接口，如果返回false将阻止对话框关闭</p>
+<pre class="prettyprint" id="demo_yes_no">
+$.dialog({
+    content: '如果定义了回调函数才会出现相应的按钮',
+    ok: function(){
+    	this.title('3秒后自动关闭').time(3);
+        return false;
+    },
+    cancelVal: '关闭',
+    cancel: true /*为true等价于function(){}*/
+});
+</pre>
+					<p><button class="runcode" name="demo_yes_no">运行»</button></p>
+				</li>
+				<li>
+			        <h3 >最大化最小化按钮 [max & min]</h3>
+					<p>备注：此参数是用来显示或隐藏最大化最小化按钮</p>
+<pre class="prettyprint" id="demo_max_min">
+$.dialog({
+    content: '不显示最大化和最小化按钮',
+    max: false,
+    min: false
+});
+</pre>
+					<p><button class="runcode" name="demo_max_min">运行»</button></p>
+				</li>
+				<li>
+			        <h3>自定义按钮 [button]</h3>
+					<p>备注：回调函数this指向扩展接口，如果返回false将阻止对话框关闭；button参数对应的扩展方法名称也是"button"</p>
+<pre class="prettyprint" id="demo_button">
+$.dialog({
+    id: 'testID',
+    content: 'hello world!',
+    button: [
+        {
+            name: '同意',
+            callback: function(){
+                this.content('你同意了')
+                .button({
+                    id:'disBtn',
+                    name:'我变成有效按钮了',
+                    disabled: false
+                });
+                return false;
+            },
+            focus: true
+        },
+        {
+            name: '不同意',
+            callback: function(){
+                alert('你不同意')
+            }
+        },
+        {
+            id: 'disBtn',
+            name: '无效按钮',
+            disabled: true
+        },
+        {
+            name: '关闭我'
+        }
+    ]
+});
+</pre>
+					<p><button class="runcode" name="demo_button">运行»</button></p>
+				</li>
+				<li>
+			        <h3 >设置大小 [width & height]</h3>
+					<p>备注：尺寸可以带单位或使用百分比%</p>
+<pre class="prettyprint" id="demo_size">
+$.dialog({
+    width: '700px',
+    height: 500,
+    content: 'url:http://www.baidu.com'
+});
+</pre>
+					<p><button class="runcode" name="demo_size">运行»</button></p>
+				</li>
+				<li>
+			        <h3>静止定位 [fixed]</h3>
+					<p></p>
+<pre class="prettyprint" id="demo_fixed">
+$.dialog({
+    fixed: true,
+    content: '请拖动滚动条查看'
+});
+</pre>
+					<p><button class="runcode" name="demo_fixed">运行»</button></p>
+				</li>
+				<li>
+			        <h3>自定义坐标 [left & top]</h3>
+					<p>备注：尺寸可以带单位或使用百分比%</p>
+<pre class="prettyprint" id="demo_position">
+$.dialog({
+    left: 100,
+    top: '60%',
+    content: '我改变坐标了'
+});
+</pre>
+					<p><button class="runcode" name="demo_position">运行»</button></p>
+					<p>创建一个右下角浮动的消息窗口</p>
+<pre class="prettyprint" id="demo_position2">
+$.dialog({
+    id: 'msg',
+    title: '公告',
+    content: '欢迎使用lhgdialog窗口!',
+    width: 200,
+    height: 100,
+    left: '100%',
+    top: '100%',
+    fixed: true,
+    drag: false,
+    resize: false
+});
+</pre>
+					<p><button class="runcode" name="demo_position2">运行»</button></p>
+				<li>
+			        <h3>锁屏 [lock & background & opacity]</h3>
+					<p></p>
+<pre class="prettyprint" id="demo_lock">
+$.dialog({
+    lock: true,
+    content: '中断用户在对话框以外的交互，展示重要操作与消息',
+    icon: 'error.gif',
+    ok: function () {
+        /* 这里要注意多层锁屏一定要加parent参数 */
+        $.dialog({content: '再来一个锁屏', lock: true, parent:this});
+        return false;
+    },
+    cancel: true
+});
+</pre>
+					<p><button class="runcode" name="demo_lock">运行»</button></p>
+				</li>
+				<li>
+			        <h3>定义消息图标 [icon]</h3>
+					<p></p>
+<pre class="prettyprint" id="demo_icon">
+$.dialog({
+    icon: 'success.gif',
+    content: '我可以定义消息图标哦'
+});
+</pre>
+					<p><button class="runcode" name="demo_icon">运行»</button></p>
+				</li>
+				<li>
+			        <h3>内容与边界填充边距 [padding]</h3>
+					<p>备注：注意图片加上width和height，否则出现位置偏移</p>
+<pre class="prettyprint" id="demo_padding">
+$.dialog({
+    id: 'a15',
+    title: 'Android4.0照片',
+    lock: true,
+    content: '&lt;img src="../_doc/images/android.jpg" width="600" height="404" /&gt;',
+    padding: 0
+});
+</pre>
+					<p><button class="runcode" name="demo_padding">运行»</button></p>
+				</li>
+				<li>
+			        <h3>定时关闭的消息 [time]</h3>
+					<p></p>
+<pre class="prettyprint" id="demo_time">
+$.dialog({
+    time: 2,
+    content: '两秒后关闭'
+});
+</pre>
+					<p><button class="runcode" name="demo_time">运行»</button></p>
+				</li>
+				<li>
+			        <h3>不许拖拽 [drag & resize]</h3>
+					<p></p>
+<pre class="prettyprint" id="demo_drag">
+$.dialog({
+    drag: false,
+    resize: false,
+    content: '禁止拖拽'
+});
+</pre>
+					<p><button class="runcode" name="demo_drag">运行»</button></p>
+				</li>
+				<li>
+			        <h3>防止重复弹出 [id]</h3>
+					<p></p>
+<pre class="prettyprint" id="demo_id">
+$.dialog({
+    id: 'testID2',
+    content: '再次点击运行看看'
+});
+$.dialog({id: 'testID2'}).title('3秒后关闭').time(3);
+</pre>
+					<p><button class="runcode" name="demo_id">运行»</button></p>
+				</li>
+				<li>
+			        <h3>初始化和关闭回调函数 [init & close]</h3>
+					<p>备注：回调函数中this指向窗口实例对象本身</p>
+<pre class="prettyprint" id="demo_init_close">
+$.dialog({
+    content: '初始化函数执行前窗口的内容',
+    left: '20%',
+    init: function(){
+        alert('正在执行初始化函数，此时你可看到窗口内容没有发生变化');
+        this.content('我是初始化函数执行后的窗口中的内容');
+    },
+    close: function(){
+        alert('我是窗口关闭前执行的函数，如果返回false将阻止窗口关闭');
+    }
+});
+</pre>
+					<p><button class="runcode" name="demo_init_close">运行»</button></p>
+				</li>
+				<li>
+			        <h3>父窗口对象 [parent]</h3>
+					<p>备注：此参数只用在打开多层窗口都使用遮罩层时才会用到此参数，<b style="color:#f00">注意多层窗口锁屏时一定要加此参数</b></p>
+<pre class="prettyprint" id="demo_parent">
+$.dialog({
+    id: 'LHG1976D',
+    /* ifrst.html 和 second.html 中的代码请自行查看 */
+    content: 'url:content/first.html',
+    lock:true
+});
+</pre>
+					<p><button class="runcode" name="demo_parent">运行»</button></p>
+				</li>
+			</ol>
+			<h2>扩展方法演示</h2>
+			<p>备注：扩展方法支持链式操作</p>
+			<ol>
+				<li>
+			        <h3>直接引用返回 [content() & title()]</h3>
+					<p></p>
+<pre class="prettyprint" id="demo_api_1">
+var api = $.dialog({
+    title: '我是对话框',
+    content: '我是初始化的内容'
+});
+api.content('对话框内容被扩展方法改变了').title('提示');
+</pre>
+					<p><button class="runcode" name="demo_api_1">运行»</button></p>
+				</li>
+				<li>
+			        <h3>刷新跳转页面 [reload()]</h3>
+					<p></p>
+<pre class="prettyprint" id="demo_api_2">
+$.dialog({
+    content: '点确定按钮后将刷新窗口调用页面',
+    ok: function(){
+        this.reload();
+    }
+});
+</pre>
+					<p><button class="runcode" name="demo_api_2">运行»</button></p>
+				</li>
+				<li>
+			        <h3>按钮接口演示 [button()]</h3>
+					<p>备注：回调函数如果返回false将阻止对话框关闭</p>
+<pre class="prettyprint" id="demo_api_3">
+var dialog = $.dialog({
+    title: '警告',
+    content: '点击管理按钮将让删除按钮可用',
+    width: '20em',
+    button: [{
+    	name: '管理',
+        callback: function () {
+            this
+            .content('我更改了删除按钮')
+            .button({
+                name: '删除',
+                disabled: false
+            })
+            .lock();
+            return false;
+        },
+        focus: true
+    }]
+});
+
+dialog.button(
+    {
+        name: '删除',
+        callback: function () {
+            alert('delect')
+        },
+        disabled: true
+    }
+)
+</pre>
+					<p><button class="runcode" name="demo_api_3">运行»</button></p>
+				</li>
+				<li>
+			        <h3>通过对话框ID引用 [get()]</h3>
+					<p></p>
+<pre class="prettyprint" id="demo_api_4">
+var api1 = $.dialog({
+    content: '我是窗口中的内容',
+    id: 'LHG76D'
+});
+api1.get('LHG76D',1).content('我改变了窗口内容，并在2秒后关闭').time(2);
+</pre>
+					<p><button class="runcode" name="demo_api_4">运行»</button></p>
+				</li>
+				<li>
+			        <h3>最大化和最小化 [max() & min()]</h3>
+					<p></p>
+<pre class="prettyprint" id="demo_api_5">
+$.dialog({
+    content: '我现在是最大化窗口，点确定按钮最小化窗口',
+    id: 'LHG78D',
+    ok: function(){
+        this.min(); /* 这里调用了最小化方法 */
+        return false;
+    }
+}).max();
+</pre>
+					<p><button class="runcode" name="demo_api_5">运行»</button></p>
+				</li>
+				<li>
+			        <h3>标题倒计时</h3>
+					<p></p>
+<pre class="prettyprint" id="demo_api_6">
+var timer;
+$.dialog({
+    content: '时间越来越少，越来越少..',
+    init: function () {
+    	var that = this, i = 5;
+        var fn = function () {
+            that.title(i + '秒后关闭');
+            !i && that.close();
+            i --;
+        };
+        timer = setInterval(fn, 1000);
+        fn();
+    },
+    close: function () {
+    	clearInterval(timer);
+    }
+});
+</pre>
+					<p><button class="runcode" name="demo_api_6">运行»</button></p>
+				</li>
+				<li>
+			        <h3>关闭不删除内容 [hide() & show()]</h3>
+					<p></p>
+<pre class="prettyprint" id="demo_api_7">
+$.dialog({
+    id: 'show-hide',
+    content: '关闭后阻止对话框被删除，只隐藏对话框',
+    close: function () {
+        this.hide();
+        return false;
+    }
+})
+</pre>
+					<p><button class="runcode" name="demo_api_7">运行»</button></p>
+				</li>
+			</ol>
+			<h2>外部方法演示</h2>
+			<p></p>
+			<ol>
+				<li>
+			        <h3>$.dialog.alert() 方法</h3>
+					<p></p>
+<pre class="prettyprint" id="demo_api_10">
+$.dialog.alert('您正在使用lhgDialog弹出窗口组件。',function(){
+    alert('谢谢您的使用！');
+});
+</pre>
+					<p><button class="runcode" name="demo_api_10">运行»</button></p>
+				</li>
+				<li>
+			        <h3>$.dialog.confirm() 方法</h3>
+					<p></p>
+<pre class="prettyprint" id="demo_api_11">
+$.dialog.confirm('你确定要删除这个消息吗？', function(){
+    $.dialog.tips('执行确定操作');
+}, function(){
+    $.dialog.tips('执行取消操作');
+});
+</pre>
+					<p><button class="runcode" name="demo_api_11">运行»</button></p>
+				</li>
+				<li>
+			        <h3>$.dialog.prompt() 方法</h3>
+					<p></p>
+<pre class="prettyprint" id="demo_api_12">
+$.dialog.prompt('请输入图片网址',
+    function(val){
+        $.dialog.tips(val);
+    },
+    'http://'
+);
+</pre>
+					<p><button class="runcode" name="demo_api_12">运行»</button></p>
+				</li>
+				<li>
+			        <h3>$.dialog.tips() 方法</h3>
+					<p></p>
+<pre class="prettyprint" id="demo_api_13">
+/* 下面的只是演示代码，实际应用中一般这样写：
+ * $.dialog.tips('数据加载中...',600,'loading.gif');
+ * [这里是你要执行的代码]
+ * $.dialog.tips('数据加载完毕',1,'success.gif',function(){ 这里写完成后执行的其它代码 });
+ */
+$.dialog.tips('数据加载中...',600,'loading.gif');
+
+setTimeout(function(){
+    $.dialog.tips('数据加载完毕',1,'tips.gif',function(){alert('加载完成后你要做什么？');});
+}, 5000 );
+</pre>
+					<p><button class="runcode" name="demo_api_13">运行»</button></p>
+				</li>
+			</ol>
+		</div>
+		<div class="line">&nbsp;</div>
+		<div class="footer">
+		    <div class="ft_copy">Copyright &copy <a href="http://www.lhgcore.com/" target="_blank">lhgcore.com</a>. All rights reserved. | 豫ICP备06002782号 | <a href="http://t.qq.com/lhgcore" target="_blank">官方微博</a></div>
+		</div>
+	</div>
+	<script type="text/javascript">prettyPrint();</script>
+	<script>_isDemoSkin && window._demoSkin && _demoSkin();</script>
+	</div>
+</body>
+</html>

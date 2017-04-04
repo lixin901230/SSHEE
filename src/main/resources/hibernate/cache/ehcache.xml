@@ -1,0 +1,81 @@
+<ehcache>
+
+    <diskStore path="java.io.tmpdir" />
+
+
+    <defaultCache
+            maxElementsInMemory="10000"
+            eternal="false"
+            overflowToDisk="false"
+            timeToIdleSeconds="0"
+            timeToLiveSeconds="0"
+            diskPersistent="false"
+            diskExpiryThreadIntervalSeconds="120" />
+
+    <!-- acegi cache-->
+    <cache name="userCache"
+           maxElementsInMemory="10000"
+           eternal="false"
+           overflowToDisk="false" />
+
+    <!-- acegi cache-->
+    <cache name="resourceCache"
+           maxElementsInMemory="10000"
+           eternal="true"
+           overflowToDisk="false" />
+
+    <!-- dict cache-->
+    <cache name="dictCache"
+           maxElementsInMemory="10000"
+           eternal="true"
+           overflowToDisk="false" />
+
+    <cache name="parameterCache"
+           maxElementsInMemory="10000"
+           eternal="true"
+           overflowToDisk="false" />
+
+    <cache name="staffCache"
+           maxElementsInMemory="10000"
+           eternal="true"
+           overflowToDisk="false" />
+
+    <cache name="alarmDataCache"
+           maxElementsInMemory="10000"
+           eternal="true"
+           overflowToDisk="false" />
+
+    <cache name="alarmLevelCache"
+           maxElementsInMemory="100"
+           eternal="true"
+           overflowToDisk="false" />
+    <cache name="topoFileCache"
+           maxElementsInMemory="10000"
+           eternal="true"
+           overflowToDisk="false" />
+    <cache name="neNodeCache"
+           maxElementsInMemory="100000"
+           eternal="true"
+           overflowToDisk="false" />
+    <cache name="flowCache"
+           maxElementsInMemory="150000"
+           eternal="true"
+           overflowToDisk="false" />
+    <cache name="pingCache"
+           maxElementsInMemory="50000"
+           eternal="true"
+           overflowToDisk="false" />
+    <cache name="statusKpiCache"
+           maxElementsInMemory="1000"
+           eternal="true"
+           overflowToDisk="false" />
+    <cache name="halfHourRRdCache"
+           maxElementsInMemory="150000"
+           eternal="true"
+           overflowToDisk="false" />
+    <cache name="hourRRdCache"
+           maxElementsInMemory="150000"
+           eternal="true"
+           overflowToDisk="false" />
+
+</ehcache>

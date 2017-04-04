@@ -1,0 +1,19 @@
+@charset "utf-8";
+
+/* 翻页 */
+/* .paging { height:37px; border-top:1px #ececec solid; background:#f8f8f8; padding:13px 0 0 80px;} */
+.paging { width:1030px; height:37px; line-height: 24px; text-align: center; vertical-align: middle;}
+.paging ul li { float: left; vertical-align: middle; line-height: 22px; list-style: none;}
+.paging ul li a { height:22px; border:1px #e7ecf0 solid; background:#fff; text-align:center; margin:0 5px 0 0; display:inline-block; color:#2d64b3; text-decoration: none;}
+.paging ul li a:hover { background:#f2f6fa;text-decoration: none;}
+.p1 { width:40px;}
+.p2 { width:52px;}
+.p3 { width:24px;}
+.p4 { width:43px; border-radius:2px; float: none;}
+.paging span { margin:0 1px 0 1px; color:#ff4128; float: none;}
+.paging font { color:#ff4128; margin:0 5px;}
+.paging input { width:30px; height:20px; text-align: center; vertical-align: middle; border-top:1px #bdbdbd solid; border-right:1px #dedede solid; border-left:1px #bdbdbd solid; border-bottom:1px #dedede solid; background:#fff; margin:0 5px;}
+.paging .p_current,
+.paging .p_current:hover { border:1px #4ba9e6 solid; background:#4ba9e6; color:#fff;}
+.paging .p_disable,
+.paging .p_disable:hover { color:#a0a0a0; background:#fff; cursor:default;}

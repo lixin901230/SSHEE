@@ -1,0 +1,212 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0041)http://sentsin.com/jquery/layer/test.html -->
+<!DOCTYPE html><HTML class="layer_html"><HEAD>
+<META content="text/html; charset=utf-8" http-equiv="Content-Type">
+<TITLE>layer各类场景实战</TITLE>
+<META name="keywords" content="弹出层,jQuery弹出层插件,layer">
+<META name="description" content=" layer是一枚可以让你想到即可做到的web弹窗/层js组件，它侧重于用户灵活的自定义，为不同人的使用习惯提供全方位设计，您的页面会因此拥有更丰富、友好的操作体验，而您只需在调用时简单地配置相关参数，即可轻松实现各类交互。">
+<LINK rel="stylesheet" type="text/css" href="layer各类场景实战_files/xu.css"><LINK 
+rel="stylesheet" type="text/css" href="layer各类场景实战_files/demo.css">
+<STYLE>
+html,body{background-color:#fff;}
+.button{padding:0 15px; margin-left:10px; line-height:30px; border:none; background-color:#F26C4F; color:#fff; border-radius:3px; cursor:pointer;}
+.button:hover{background-color:#EF502E; color:#fff;}
+.msg{ padding:20px; border:1px dashed #999;}
+.codelist{margin:15px 0;}
+
+
+
+/*********************** 自定义模式 ***********************/
+.diybox{width:800px; height:800px; background:url(http://place.weibo.com/sysapp/static/images/bg/place_wb_addAttention_bg_20121023.png);}
+#pageclose{position:absolute; right:0; top:0; width:16px; height:16px; cursor:pointer;}
+.pagekuai{position:absolute; display:none; width:120px; height:100px; line-height:100px; text-align:center; background-color:#47A9D8; color:#fff;}
+.button{display:inline-block; line-height:30px;}
+
+/* tab模式 */
+.tab{position:relative; display:none; width:600px; height:350px; border:1px solid #ccc;}
+.tabmove{position:absolute; width:600px; height:30px; top:0; left:0;}
+.tabtit{ display:block; height:30px; border-bottom:1px solid #ccc; background-color:#eee;}
+.tabtit span{position:relative; float:left; width:120px; height:30px; line-height:30px; text-align:center; cursor:pointer;}
+.tabtit span.tabnow{left:-1px; _top:1px; height:31px; border-left:1px solid #ccc; border-right:1px solid #ccc; background-color:#fff; z-index:10;}
+.tab_main{padding:20px; line-height:24px; clear:both;}
+.tab_main li{display:none;}
+.tab_main li.tab_layer{display:block;}
+.tabclose{position:absolute; right:10px; top:7px; cursor:pointer;}
+
+/* 无限层中层 */
+.next{display:block; float:left; padding:10px;}
+
+/* 登录窗口 */
+.formLib{padding:20px 0; clear:both;}
+.formLib input{padding:0 10px; height:36px; border:1px solid #ccc; background: url(http://sentsin.com/lily/lib/layer/skin/default/textbg.png) #fff repeat-x;}
+.formLib .form_lilib{position:relative; margin-bottom:20px; font-size:0;}
+.form_lilib *{display:inline-block; *display:inline; *zoom:1; vertical-align:top; font-size:14px; line-height:36px;}
+.form_lilib label{width:100px; height:36px; text-align:right; padding-right:5px; overflow:hidden; text-overflow: ellipsis; white-space:nowrap;}
+.form_lilib span{padding:0 5px;}
+.from_msg{padding-left:10px; font-size:12px; color:#999;}
+.from_msg a{color:#3595CC}
+.form_libtn{padding-left:105px; font-size:12px; color:#999;}
+.formLib .BB_button{line-height:30px; padding:0 30px; border:none; background:#f40; color:#fff; }
+</STYLE>
+
+<META name="GENERATOR" content="MSHTML 9.00.8112.16584"></HEAD>
+<BODY>
+<DIV class="layer_top layer_nav">
+<DIV class="box"><A href="http://sentsin.com/jquery/layer/">layer首页</A><A href="http://sentsin.com/jquery/layer/api.html">API手册</A><A 
+href="http://say.sentsin.com/home-48.html" target="_blank">有问必答</A></DIV></DIV>
+<DIV class="layer_left newdemov">
+<UL class="navlist">
+  <LI class="thisnavlist"><A href="http://sentsin.com/jquery/layer/test.html#login">一个登录窗口的实现</A></LI>
+  <LI><A href="http://sentsin.com/jquery/layer/test.html#loops">无限层中层</A></LI>
+  <LI><A 
+href="http://sentsin.com/jquery/layer/test.html#tab">制作一个tab选项卡</A></LI></UL><!-- 300*250 --><INS 
+style="width: 300px; height: 250px; display: inline-block;" class="adsbygoogle" 
+data-ad-slot="2182025432" data-ad-client="ca-pub-6111334333458862"></INS></DIV>
+<DIV class="layer_right"><!-- layer970*90 --><INS style="width: 970px; height: 90px; margin-top: 15px; margin-left: 15px; display: inline-block;" 
+class="adsbygoogle" data-ad-slot="5254867833" data-ad-client="ca-pub-6111334333458862"></INS>
+<DIV class="codelist"><A name="login"></A><BUTTON id="poplogin" 
+class="button">运行：登录窗口</BUTTON>
+<DIV class="code"><PRE>//小预告：在下一版本中（又可能会是layer1.9），将会在拓展模块集成layer.login
+            
+var loginhtml, validation = function(){
+    //验证写在这
+    $('.BB_button').on('click', function(){
+        return false; //此处只作演示
+    });
+};
+var page = {};
+layer.login = function(options){
+    options = options || {};
+    $.layer({
+        type: 1,
+        title: '用户登录',
+        offset: [($(window).height() - 290)/2+'px', ''],
+        border : [5, 0.5, '#666'],
+        area: ['450px','290px'],
+        shadeClose: true,
+        page: page
+    });
+};
+$('#poplogin').on('click', function(){
+    //如果已经请求过，则直接读取缓存节点
+    if(loginhtml){
+        page.html = loginhtml;
+    } else {
+        page.url = 'test/uplogin.html'
+        page.ok = function(datas){
+            loginhtml = datas; //保存登录节点
+            validation();
+        }
+    }
+    layer.login();    
+});
+            </PRE></DIV><A 
+name="loops"></A><BUTTON id="looplayer" class="button">运行：无限层中层：</BUTTON>
+<DIV class="code"><PRE>var offset = [10, 10], layerLoop = function(){
+    //获取随机宽高，仅为了区分层
+    var area = [(100+Math.random()*800)+'px', (100+Math.random()*400)+'px'];
+    
+    //坐标叠加，仅为了区分层
+    offset[0] += 15;
+    offset[1] += 15;
+
+    var index = $.layer({
+        type:1,
+        fix: false,
+        area: area,
+        moveOut: true,
+        zIndex: layer.zIndex,
+        shade: [0],
+        title: '层：'+layer.index,
+        offset: [offset[0]+'px', offset[1]+'px'],
+        //以下对html做转义是为了防止被代码演示解析，实际应用时无需转义
+        page: {html: '&lt;\a href="javascript:;" id="next" class="next"&gt;点击继续弹出窗口\&lt;\/a&gt; &lt;\a style="margin-top:10px;" class="btns" href="javascript:;" onclick="layer.closeAll();"&gt;关闭所有\&lt;\/a&gt;'}, 
+        success: function(othis){
+            var next = othis.find('#next'), tit = othis.find('.xubox_title');
+            next.on('click', function(event){
+                layerLoop();
+            });
+            
+            //开启点击使当前窗口置顶功能
+            layer.setTop(othis);
+        }
+    });
+};
+$('#looplayer').on('click', layerLoop);
+
+//关闭所有层用此方法：layer.closeAll();
+            
+            </PRE></DIV><A 
+name="tab"></A><BUTTON id="maketab" class="button">运行：制作一个tab选项卡：</BUTTON>
+<DIV class="code"><PRE>
+//此功能已集成到layer拓展模块，即layer.tab(options)，以下只是演示一个简单的tab弹层是如何制作而成的
+var tabi;
+$('#maketab').on('click', function(){
+    tabi = $.layer({
+        type:1,
+        border: [0],
+        area: ['602px', 'auto'],
+        title: false,
+        shade : [0.7 , '#000' , true],
+        move: '.tabmove',
+        closeBtn: false,
+        page: {dom: '.tab'}
+    });    
+});
+
+//切换事件
+var btn = $('.tabtit').children(), main = $('.tab_main').children(), close = $('.tabclose');
+btn.on('click', function(){
+    var othis = $(this), index = othis.index();
+    othis.addClass('tabnow').siblings().removeClass('tabnow');
+    main.eq(index).show().siblings().hide();
+});
+//关闭层
+close.on('click', function(){
+    layer.close(tabi);
+});
+            </PRE></DIV>
+<DIV style="text-align: center; line-height: 50px;">例子会陆续更新</DIV></DIV>
+<DIV style="text-align: center; line-height: 100px;" class="box">layui layer - 
+2014 sentsin.com    </DIV></DIV>
+<DIV class="tab"><SPAN class="tabmove"></SPAN>
+<DIV class="tabtit"><SPAN 
+class="tabnow">layer交流</SPAN><SPAN>前端开发</SPAN><SPAN>PHP开发</SPAN><SPAN>NodeJS</SPAN></DIV>
+<UL class="tab_main">
+  <LI 
+  class="tab_layer">layer作为一种web弹层解决方案，最早发布于2012年6月6号，短短一年间，已经赢得了上万名web开发者所青睐。<BR>layer致力于为web开发提供动力。</LI>
+  <LI 
+  class="tab_f2e">前端开发曾是计算机领域最具有争议的工种之一，但经过一批人多年的努力，目前已经赫然成为一种重量级职业，它以html、css、javascript为基础语言，致力于提供更人性化的交互体验，是当今互联网产品血拼的重要领域</LI>
+  <LI class="tab_php">简单易上手的后端开发脚本</LI>
+  <LI class="tab_nodejs">用来编写高性能的服务端javascript工具集，它使得前端开发有了更开阔的领域！</LI></UL><SPAN 
+class="tabclose" title="关闭">X</SPAN></DIV>
+<DIV style="height: 54px;"></DIV>
+<SCRIPT src="layer各类场景实战_files/lib.js"></SCRIPT>
+
+<SCRIPT src="layer各类场景实战_files/layer.min.js"></SCRIPT>
+
+<SCRIPT src="layer各类场景实战_files/laycode.min.js"></SCRIPT>
+
+<SCRIPT src="layer各类场景实战_files/demo.js"></SCRIPT>
+
+<SCRIPT>
+!function(){
+    var codes = $('.code');
+    codes.laycode({height: 400});
+    for(var i = 0; i <= codes.length; i++){
+        new Function(codes.eq(i).find('pre').text())();
+    }
+}();
+</SCRIPT>
+
+<SCRIPT src="layer各类场景实战_files/f.txt" async=""></SCRIPT>
+
+<SCRIPT>
+var i = 0, len = jQuery('.adsbygoogle').length;
+for(; i < len; i++){
+    (adsbygoogle = window.adsbygoogle || []).push({});
+}
+</SCRIPT>
+
+<SCRIPT src="layer各类场景实战_files/c.js"></SCRIPT>
+</BODY></HTML>

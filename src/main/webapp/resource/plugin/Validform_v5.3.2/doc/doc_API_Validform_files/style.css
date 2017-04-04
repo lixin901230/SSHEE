@@ -1,0 +1,354 @@
+body {
+	background: rgb(33, 34, 34); font: 12px/1.5 arial; margin: 0px auto; text-align: center; color: rgb(36, 36, 36); font-size-adjust: none; font-stretch: normal;
+}
+div {
+	text-align: left;
+}
+:focus {
+	
+}
+h4 {
+	margin: 0px; font-size: 14px;
+}
+h3 {
+	margin: 0px; font-size: 14px;
+}
+h2 {
+	margin: 0px; font-size: 14px;
+}
+h1 {
+	margin: 0px; font-size: 14px;
+}
+form {
+	margin: 0px; padding: 0px;
+}
+ul {
+	margin: 0px; padding: 0px;
+}
+ol {
+	margin: 0px; padding: 0px;
+}
+dl {
+	margin: 0px; padding: 0px;
+}
+dd {
+	margin: 0px; padding: 0px;
+}
+p {
+	margin: 0px; padding: 0px;
+}
+li {
+	list-style-type: none;
+}
+img {
+	border: currentColor; vertical-align: middle;
+}
+button {
+	margin: 0px; color: rgb(72, 72, 72); font-family: tahoma, arial, simsun, sans-serif; font-size: 1em;
+}
+input {
+	margin: 0px; color: rgb(72, 72, 72); font-family: tahoma, arial, simsun, sans-serif; font-size: 1em;
+}
+select {
+	margin: 0px; color: rgb(72, 72, 72); font-family: tahoma, arial, simsun, sans-serif; font-size: 1em;
+}
+textarea {
+	margin: 0px; color: rgb(72, 72, 72); font-family: tahoma, arial, simsun, sans-serif; font-size: 1em;
+}
+a {
+	color: rgb(242, 127, 2); text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+sup {
+	vertical-align: text-top;
+}
+sub {
+	vertical-align: text-bottom;
+}
+del {
+	color: rgb(104, 104, 104);
+}
+table {
+	border-collapse: collapse; border-spacing: 0;
+}
+.red {
+	color: red !important;
+}
+.gray {
+	color: rgb(104, 104, 104) !important;
+}
+.hasDefaultText {
+	color: rgb(153, 153, 153);
+}
+.orange {
+	color: rgb(255, 102, 0) !important;
+}
+.green {
+	color: rgb(121, 166, 5) !important;
+}
+.blue {
+	color: rgb(0, 87, 176) !important;
+}
+b {
+	margin: 0px 8px; color: rgb(242, 127, 2); font-weight: normal; display: inline-block;
+}
+.mb10 {
+	margin-bottom: 10px;
+}
+.mb18 {
+	margin-bottom: 18px;
+}
+.mb22 {
+	margin-bottom: 22px;
+}
+.mt10 {
+	margin-top: 10px;
+}
+.mr20 {
+	margin-right: 20px;
+}
+.p10 {
+	padding: 10px;
+}
+.tl {
+	text-align: left;
+}
+.tr {
+	text-align: right;
+}
+.tc {
+	text-align: center;
+}
+.ml10 {
+	margin-left: 10px;
+}
+.mr10 {
+	margin-right: 10px;
+}
+.fl {
+	float: left; display: inline;
+}
+.fr {
+	float: right; display: inline;
+}
+.clear {
+	height: 0px; overflow: hidden; clear: both;
+}
+.lireset li {
+	background: url("images/arrow1.gif") no-repeat left 8px; padding-left: 15px; margin-bottom: 4px;
+}
+.lireset2 li {
+	background: url("images/arrow2.gif") no-repeat left 8px; padding-left: 15px; margin-bottom: 4px;
+}
+.download {
+	background: url("images/download.png") no-repeat; padding: 6px 0px 6px 70px; height: 64px; line-height: 26px; font-family: "microsoft yahei"; font-size: 16px; white-space: nowrap;
+}
+.donate {
+	background: url("images/donate.png") no-repeat 3px rgb(250, 228, 174); padding: 15px 5px 6px 72px; border: 5px solid rgb(242, 127, 2); width: 213px; height: 55px; color: rgb(139, 99, 0); display: block;
+}
+.donate:hover {
+	text-decoration: none; background-color: rgb(255, 247, 159);
+}
+.cls::after {
+	height: 0px; clear: both; font-size: 0px; display: block; visibility: hidden; content: "";
+}
+* html .cls {
+	zoom: 1;
+}
+*:first-child + html .cls {
+	zoom: 1;
+}
+.wraper {
+	width: 980px; margin-right: auto; margin-left: auto;
+}
+.header {
+	background: url("images/header-bg.gif") repeat-x left bottom;
+}
+.header h1 {
+	padding: 6px 0px 8px; line-height: 52px; font-size: 34px; font-weight: normal;
+}
+.header h1 a {
+	color: rgb(255, 255, 255);
+}
+.header .wraper {
+	height: 72px; position: relative;
+}
+.header .nav {
+	top: 0px; right: -1px; font-family: "microsoft yahei"; position: absolute;
+}
+.header .nav li {
+	float: left;
+}
+.header .nav li a {
+	background: url("images/navbg.gif") repeat-x; height: 67px; text-align: center; color: rgb(255, 255, 255); line-height: 67px; padding-right: 15px; padding-left: 15px; font-size: 20px; text-decoration: none; margin-right: 1px; float: left;
+}
+.header .nav li a.current {
+	border-bottom-color: rgb(242, 127, 2); border-bottom-width: 5px; border-bottom-style: solid;
+}
+.header .nav li a:hover {
+	border-bottom-color: rgb(242, 127, 2); border-bottom-width: 5px; border-bottom-style: solid;
+}
+.gallery {
+	background: url("images/gallerry-bg.gif") repeat-x 0px 0px rgb(204, 204, 204); height: 496px; overflow: hidden; border-bottom-color: rgb(234, 234, 234); border-bottom-width: 5px; border-bottom-style: solid;
+}
+.gallery li {
+	overflow: hidden; background-color: rgb(255, 255, 255);
+}
+.roundabout-holder {
+	margin: 0px auto; width: 646px; height: 496px;
+}
+.roundabout-moveable-item {
+	border-radius: 4px; border: 3px solid rgba(255, 255, 255, 0.5); width: 646px; height: 416px; cursor: pointer; -moz-border-radius: 4px; -webkit-border-radius: 4px;
+}
+.roundabout-moveable-item img {
+	width: 100%;
+}
+.roundabout-in-focus {
+	border: 3px solid rgba(255, 255, 255, 0.8); cursor: default;
+}
+.main {
+	padding: 20px 0px 30px; color: rgb(66, 66, 66); line-height: 22px; background-color: rgb(255, 255, 255);
+}
+.aside {
+	width: 300px;
+}
+.main h3 {
+	color: rgb(33, 34, 34); line-height: 1.2em; font-family: "microsoft yahei"; font-size: 26px; font-weight: normal; margin-bottom: 22px;
+}
+.main h2 {
+	color: rgb(33, 34, 34); line-height: 1.2em; font-family: "microsoft yahei"; font-size: 26px; font-weight: normal; margin-bottom: 22px;
+}
+.main h3 span {
+	color: rgb(136, 136, 136);
+}
+.main h2 span {
+	color: rgb(136, 136, 136);
+}
+.content {
+	width: 650px;
+}
+.main p {
+	margin-bottom: 18px;
+}
+.latestcomment li {
+	color: rgb(0, 0, 0); line-height: 18px; overflow: hidden; margin-bottom: 16px; max-height: 36px;
+}
+.latestcomment a {
+	color: rgb(138, 138, 138); text-decoration: underline;
+}
+.latestcomment a:hover {
+	text-decoration: none;
+}
+.footer {
+	padding: 20px 0px 22px; height: 20px; color: rgb(255, 255, 255); border-top-color: rgb(238, 238, 238); border-top-width: 5px; border-top-style: solid;
+}
+.commentlist cite {
+	font-style: normal;
+}
+.commentlist em {
+	font-style: normal;
+}
+.comment .tit {
+	padding-bottom: 6px; font-weight: bold; margin-bottom: 10px; border-bottom-color: rgb(204, 204, 204); border-bottom-width: 1px; border-bottom-style: dashed;
+}
+.comment .tit span.gray {
+	font-weight: normal;
+}
+.comment .comment-meta a {
+	color: rgb(153, 153, 153); cursor: default;
+}
+.comment .comment-meta a:hover {
+	text-decoration: none;
+}
+.commentlist p {
+	margin: 8px 0px; color: rgb(51, 51, 51); line-height: 23px;
+}
+.commentlist li {
+	margin: 0px; padding: 10px 10px 10px 72px; width: 898px; height: auto; color: rgb(102, 102, 102); float: none; position: relative; min-height: 50px;
+}
+.commentlist li.graybg {
+	background-color: rgb(238, 238, 238);
+}
+.commentlist li img {
+	padding: 4px; border: 1px solid rgb(221, 221, 221); left: 10px; top: 13px; width: 32px; height: 32px; position: absolute;
+}
+.commentlist li .said {
+	margin: 10px 0px;
+}
+.sendcomment li {
+	padding: 5px 0px;
+}
+.sendcomment .inputxt {
+	padding: 5px; border: 1px solid rgb(204, 204, 204); width: 230px;
+}
+.sendcomment textarea {
+	padding: 5px; border: 1px solid rgb(204, 204, 204); width: 566px; height: 160px; overflow: auto;
+}
+.sendcomment .btn_sub {
+	padding: 8px 20px; cursor: pointer;
+}
+.pagenav {
+	padding: 10px 0px;
+}
+.pagenav a {
+	padding: 0px 4px 1px; border: 1px solid rgb(221, 221, 221); display: inline-block;
+}
+.pagenav b {
+	color: red;
+}
+.pagenav * {
+	margin-right: 6px;
+}
+.wp_syntax {
+	margin-bottom: 22px !important;
+}
+.post p {
+	margin-bottom: 8px;
+}
+.questionlist dt {
+	padding: 5px 15px; color: rgb(51, 51, 51); font-size: 14px; background-color: rgb(238, 238, 238);
+}
+.questionlist dd {
+	padding: 6px 15px 15px; color: rgb(102, 102, 102); margin-bottom: 10px;
+}
+.questionlist p {
+	margin: 8px 0px;
+}
+.Validform_checktip {
+	height: 20px; color: rgb(153, 153, 153); line-height: 20px; overflow: hidden; font-size: 12px; margin-left: 8px;
+}
+.Validform_right {
+	background: url("images/right.png") no-repeat left; color: rgb(113, 184, 61); padding-left: 20px;
+}
+.Validform_wrong {
+	background: url("images/error.png") no-repeat left; color: red; padding-left: 20px; white-space: nowrap;
+}
+.Validform_loading {
+	background: url("images/onLoad.gif") no-repeat left; padding-left: 20px;
+}
+.Validform_error {
+	background-color: rgb(255, 231, 231);
+}
+#Validform_msg {
+	background: rgb(255, 255, 255); font: 12px/1.5 tahoma, arial, ËÎÌו, sans-serif; top: 0px; width: 280px; right: 50px; color: rgb(125, 130, 137); display: none; filter: progid:DXImageTransform.Microsoft.Shadow(Strength=3, Direction=135, Color='#999999'); position: absolute; z-index: 99999; font-size-adjust: none; font-stretch: normal; box-shadow: 2px 2px 0px rgba(0,0,0,0.1); -webkit-box-shadow: 2px 2px 3px #aaa; -moz-box-shadow: 2px 2px 3px #aaa;
+}
+#Validform_msg .iframe {
+	left: 0px; top: -1px; position: absolute; z-index: -1;
+}
+#Validform_msg .Validform_title {
+	padding: 0px 8px; height: 25px; text-align: left; color: rgb(255, 255, 255); line-height: 25px; font-weight: bold; filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#999999', endColorstr='#666666'); position: relative; background-color: rgb(153, 153, 153);
+}
+#Validform_msg a.Validform_close:link {
+	top: 0px; right: 8px; color: rgb(255, 255, 255); line-height: 22px; text-decoration: none; position: absolute;
+}
+#Validform_msg a.Validform_close:visited {
+	top: 0px; right: 8px; color: rgb(255, 255, 255); line-height: 22px; text-decoration: none; position: absolute;
+}
+#Validform_msg a.Validform_close:hover {
+	color: rgb(204, 204, 204);
+}
+#Validform_msg .Validform_info {
+	border-width: medium 1px 1px; border-style: none solid solid; border-color: currentColor rgb(187, 187, 187) rgb(187, 187, 187); padding: 8px; text-align: left;
+}

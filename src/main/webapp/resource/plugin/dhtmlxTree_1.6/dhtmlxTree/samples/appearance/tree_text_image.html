@@ -1,0 +1,124 @@
+<!--conf
+<sample in_favorites="false">
+              <product version="1.5" edition="std"/>
+                     <modifications>
+                            <modified date="070101"/>
+                     </modifications>
+               </sample>
+ --> 
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+	
+<title>Dynamically change icon/text/style</title>
+
+</head>
+
+<body>
+<link rel='STYLESHEET' type='text/css' href='../common/style.css'>
+<table cellspacing="0" cellpadding="0" class="sample_header" border="0">
+	<tr valign="middle">
+		<!-- COMPONENT ICON -->
+		<td width="40" align="center"><img src="../common/dhtmlxtree_icon.gif" border="0"></td>
+		<!-- COMPONENT NAME -->
+		<td width="120" align="left">Sample: dhtmlxTree</td>
+		<!-- SAMPLE TITLE -->
+		<td width="0" align="left"><b>Dynamically change icon/text/style</b></td>
+		<!-- LINK TO COMPONENT PAGE -->
+		<td width="0" align="right"><a href="http://www.dhtmlx.com/docs/products/dhtmlxTree/index.shtml">dhtmlxTree main page</a></td>
+		<!-- CLOSE BUTTON -->
+		<td width="50"><div class="sample_close"><a href="javascript:void(0);" onclick="self.close();"><img src="../common/sample_close.gif" width="14" height="14" border="0" alt="X"></a></div></td>
+	</tr>
+</table>
+	<link rel="STYLESHEET" type="text/css" href="../../codebase/dhtmlxtree.css">
+	<script  src="../../codebase/dhtmlxcommon.js"></script>
+	<script  src="../../codebase/dhtmlxtree.js"></script>
+	
+	
+	<p>You can customize this JavaScript tree to look just the way you want. 
+	Select a tree item you want to edit then click on image or color to make apstdpriate changes.  
+	To change tree item's text, type new text in the box and click "Set new item label".</p>
+		
+	<script>
+		function setColor(color1,color2)
+		{
+			tree.setItemColor(tree.getSelectedItemId(),color1,color2);
+		}
+	</script>
+	<table>
+		<tr>
+			<td valign="top">
+				<div id="treeboxbox_tree" style="width:250; height:218;background-color:#f5f5f5;border :1px solid Silver;"></div>
+			</td>
+			<td rowspan="2" style="padding-left:25" valign="top">
+			
+			
+			<a href="javascript:void(0);" onclick="var d=new Date(); tree.setItemText(tree.getSelectedItemId(),document.getElementById('ed1').value);">Set new item label</a>&nbsp;<input type="text" value="New label" id="ed1"><br><br>
+			
+			To change item's image - click on one of next images: 
+			<table>
+				<tr><td>
+					<a href="javascript:void(0);" onclick="tree.setItemImage2(tree.getSelectedItemId(),'tombs.gif','tombs.gif','tombs.gif');"><img src="../../codebase/imgs/csh_yellowbooks/tombs.gif" border="0"></a></td>
+					<td><a href="javascript:void(0);" onclick="tree.setItemImage2(tree.getSelectedItemId(),'tombs_open.gif','tombs_open.gif','tombs_open.gif');"><img src="../../codebase/imgs/csh_yellowbooks/tombs_open.gif" border="0"></a></td>
+					<td><a href="javascript:void(0);" onclick="tree.setItemImage2(tree.getSelectedItemId(),'leaf.gif','leaf.gif','leaf.gif');"><img src="../../codebase/imgs/csh_yellowbooks/leaf.gif" border="0"></a></td>
+					<td><a href="javascript:void(0);" onclick="tree.setItemImage2(tree.getSelectedItemId(),'leaf2.gif','leaf2.gif','leaf2.gif');"><img src="../../codebase/imgs/csh_yellowbooks/leaf2.gif" border="0"></a></td>
+					
+				</td></tr>
+				<tr><td nowrap>
+					<a href="javascript:void(0);" onclick="tree.setItemImage2(tree.getSelectedItemId(),'iconText.gif','iconText.gif','iconText.gif');"><img src="../../codebase/imgs/csh_yellowbooks/iconText.gif" border="0"></a></td>
+					<td><a href="javascript:void(0);" onclick="tree.setItemImage2(tree.getSelectedItemId(),'folderOpen.gif','folderOpen.gif','folderOpen.gif');"><img src="../../codebase/imgs/csh_yellowbooks/folderOpen.gif" border="0"></a></td>
+					<td><a href="javascript:void(0);" onclick="tree.setItemImage2(tree.getSelectedItemId(),'folderClosed.gif','folderClosed.gif','folderClosed.gif');"><img src="../../codebase/imgs/csh_yellowbooks/folderClosed.gif" border="0"></a></td>
+					<td><a href="javascript:void(0);" onclick="tree.setItemImage2(tree.getSelectedItemId(),'leaf3.gif','leaf3.gif','leaf3.gif');"><img src="../../codebase/imgs/csh_yellowbooks/leaf3.gif" border="0"></a></td>
+				</td></tr>				
+			</table>
+			<br>
+			To change item's color - click on one of next colors: 
+			<table>
+				<tr>
+					<td><div style="cursor:pointer; width:20px; height:20px; background-color:#ff0000;" onclick="setColor('#ff0000','#ff0000')">&nbsp;</div></td>
+					<td><div style="cursor:pointer;width:20px; height:20px; background-color:#ffa500;" onclick="setColor('#ffa500','#ffa500')">&nbsp;</div></td>
+					<td><div style="cursor:pointer;width:20px; height:20px; background-color:#ffff00;" onclick="setColor('#ffff00','#ffff00')">&nbsp;</div></td>				
+				</tr>			
+				<tr> 
+					<td><div style="cursor:pointer;width:20px; height:20px; background-color:#008000;" onclick="setColor('#008000','#adff2f')">&nbsp;</div></td>
+					<td><div style="cursor:pointer; width:20px; height:20px; background-color:#00ff7f;" onclick="setColor('#00ff7f','#adff2f')">&nbsp;</div></td>
+					<td><div style="cursor:pointer; width:20px; height:20px; background-color:#adff2f;" onclick="setColor('#adff2f')">&nbsp;</div></td>				
+				</tr>
+				<tr>
+					<td><div style="cursor:pointer; width:20px; height:20px; background-color:#0000ff;" onclick="setColor('#0000ff','#87ceeb')">&nbsp;</div></td>
+					<td><div style="cursor:pointer; width:20px; height:20px; background-color:#9932cc;" onclick="setColor('#9932cc','#9932cc')">&nbsp;</div></td>
+					<td><div style="cursor:pointer; width:20px; height:20px; background-color:#87ceeb;" onclick="setColor('#87ceeb','#87ceeb')">&nbsp;</div></td>				
+				</tr>
+			</table>
+			</td>
+		</tr>
+		
+	</table>
+	
+<div class='sample_code'><div class="hl-main"><pre><span class="hl-code"> 
+</span><span class="hl-brackets">&lt;</span><span class="hl-reserved">div</span><span class="hl-code"> </span><span class="hl-var">id</span><span class="hl-code">=</span><span class="hl-quotes">&quot;</span><span class="hl-string">treeboxbox_tree</span><span class="hl-quotes">&quot;</span><span class="hl-code"> </span><span class="hl-var">style</span><span class="hl-code">=</span><span class="hl-quotes">&quot;</span><span class="hl-string">width:200;height:200</span><span class="hl-quotes">&quot;</span><span class="hl-brackets">&gt;</span><span class="hl-brackets">&lt;/</span><span class="hl-reserved">div</span><span class="hl-brackets">&gt;</span><span class="hl-code">
+</span><span class="hl-brackets">&lt;</span><span class="hl-reserved">script</span><span class="hl-brackets">&gt;</span><span class="hl-code"><div class="hl-main"><pre><span class="hl-code"> 
+            </span><span class="hl-identifier">tree</span><span class="hl-code">=</span><span class="hl-reserved">new</span><span class="hl-code"> </span><span class="hl-identifier">dhtmlXTreeObject</span><span class="hl-brackets">(</span><span class="hl-quotes">&quot;</span><span class="hl-string">treeboxbox_tree</span><span class="hl-quotes">&quot;</span><span class="hl-code">,</span><span class="hl-quotes">&quot;</span><span class="hl-string">100%</span><span class="hl-quotes">&quot;</span><span class="hl-code">,</span><span class="hl-quotes">&quot;</span><span class="hl-string">100%</span><span class="hl-quotes">&quot;</span><span class="hl-code">,</span><span class="hl-number">0</span><span class="hl-brackets">)</span><span class="hl-code">;
+            </span><span class="hl-identifier">tree</span><span class="hl-code">.</span><span class="hl-identifier">setImagePath</span><span class="hl-brackets">(</span><span class="hl-quotes">&quot;</span><span class="hl-string">../imgs/</span><span class="hl-quotes">&quot;</span><span class="hl-brackets">)</span><span class="hl-code">;
+            </span><span class="hl-identifier">tree</span><span class="hl-code">.</span><span class="hl-identifier">loadXML</span><span class="hl-brackets">(</span><span class="hl-quotes">&quot;</span><span class="hl-string">tree.xml</span><span class="hl-quotes">&quot;</span><span class="hl-brackets">)</span><span class="hl-code">;
+            
+            ....
+            </span><span class="hl-comment">//</span><span class="hl-comment">set item text</span><span class="hl-comment"></span><span class="hl-code">
+            </span><span class="hl-identifier">tree</span><span class="hl-code">.</span><span class="hl-identifier">setItemText</span><span class="hl-brackets">(</span><span class="hl-identifier">id</span><span class="hl-code">,</span><span class="hl-quotes">&quot;</span><span class="hl-string">New text</span><span class="hl-quotes">&quot;</span><span class="hl-brackets">)</span><span class="hl-code">;
+            </span><span class="hl-comment">//</span><span class="hl-comment">set item images</span><span class="hl-comment"></span><span class="hl-code">
+            </span><span class="hl-identifier">tree</span><span class="hl-code">.</span><span class="hl-identifier">setItemImage2</span><span class="hl-brackets">(</span><span class="hl-identifier">id</span><span class="hl-code">,</span><span class="hl-quotes">&quot;</span><span class="hl-string">item.gif</span><span class="hl-quotes">&quot;</span><span class="hl-code">,</span><span class="hl-quotes">&quot;</span><span class="hl-string">closeItem.gif</span><span class="hl-quotes">&quot;</span><span class="hl-code">,</span><span class="hl-quotes">&quot;</span><span class="hl-string">openItem.gif</span><span class="hl-quotes">&quot;</span><span class="hl-brackets">)</span><span class="hl-code">;</span></pre></div></span><span class="hl-brackets">&lt;/</span><span class="hl-reserved">script</span><span class="hl-brackets">&gt;</span></pre></div></div>
+	<script>
+			tree=new dhtmlXTreeObject("treeboxbox_tree","100%","100%",0);
+			tree.setImagePath("../../codebase/imgs/csh_yellowbooks/");
+			tree.loadXML("tree.xml");
+
+	</script>
+
+<!-- FOOTER -->
+<table callspacing="0" cellpadding="0" border="0" class="sample_footer"><tr><td style="padding-left: 8px;">&copy; <a href="http://www.dhtmlx.com">DHTMLX LTD</a>. All rights reserved</td></tr></table>
+<!-- FOOTER -->
+
+</body>
+</html>

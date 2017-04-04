@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+	<title>Setting path in tree</title>
+</head>
+
+<body>
+<link rel='STYLESHEET' type='text/css' href='../common/style.css'>
+<table cellspacing="0" cellpadding="0" class="sample_header" border="0">
+	<tr valign="middle">
+		<!-- COMPONENT ICON -->
+		<td width="40" align="center"><img src="../common/dhtmlxtree_icon.gif" border="0"></td>
+		<!-- COMPONENT NAME -->
+		<td width="120" align="left">Sample: dhtmlxTree</td>
+		<!-- SAMPLE TITLE -->
+		<td width="0" align="left"><b>Setting path in tree</b></td>
+		<!-- LINK TO COMPONENT PAGE -->
+		<td width="0" align="right"><a href="http://www.dhtmlx.com/docs/products/dhtmlxTree/index.shtml">dhtmlxTree main page</a></td>
+		<!-- CLOSE BUTTON -->
+		<td width="50"><div class="sample_close"><a href="javascript:void(0);" onclick="self.close();"><img src="../common/sample_close.gif" width="14" height="14" border="0" alt="X"></a></div></td>
+	</tr>
+</table>
+	
+	<p>Tree supports representation of a path between two nodes: a parent and a child.<br/>
+	Path can be set in xml or added by the script. Try to select any two radio buttons in tree and then press "set path" button.  
+	</p>
+	<link rel="STYLESHEET" type="text/css" href="../../codebase/dhtmlXTree.css">
+	<script  src="../../codebase/dhtmlXCommon.js"></script>
+	<script  src="../../codebase/dhtmlXTree.js"></script>
+	<script  src="../../codebase/ext/dhtmlXTree_path.js"></script>
+	<table>
+		<tr>
+			<td>
+				<div id="treeboxbox_tree" style="width:300; height:300;background-color:#f5f5f5;border :1px solid Silver;"/>
+			</td>
+		</tr>
+		<tr><td><input type="button" name="add path" value="set path" onclick="addPathNew();">
+<input type="button" name="delete path" value="delete all paths" onclick="tree.deleteAllPaths();"></td></tr>
+	</table>
+
+<div class='sample_code'><div class="hl-main"><pre><span class="hl-code"> 
+    </span><span class="hl-identifier">tree</span><span class="hl-code">.</span><span class="hl-identifier">addPath</span><span class="hl-brackets">(</span><span class="hl-identifier">start</span><span class="hl-code">,</span><span class="hl-identifier">end</span><span class="hl-code">,</span><span class="hl-brackets">{</span><span class="hl-identifier">color</span><span class="hl-code">:</span><span class="hl-quotes">&quot;</span><span class="hl-string">blue</span><span class="hl-quotes">&quot;</span><span class="hl-code">, </span><span class="hl-identifier">width</span><span class="hl-code">:</span><span class="hl-number">3</span><span class="hl-brackets">}</span><span class="hl-code">,</span><span class="hl-quotes">&quot;</span><span class="hl-string">new</span><span class="hl-quotes">&quot;</span><span class="hl-brackets">)</span><span class="hl-code">;
+    </span><span class="hl-identifier">tree</span><span class="hl-code">.</span><span class="hl-identifier">deleteAllPaths</span><span class="hl-brackets">(</span><span class="hl-brackets">)</span><span class="hl-code">;
+    
+=============================</span><span class="hl-identifier">XML</span><span class="hl-code">=============================
+&lt;?</span><span class="hl-identifier">xml</span><span class="hl-code"> </span><span class="hl-identifier">version</span><span class="hl-code">=</span><span class="hl-quotes">'</span><span class="hl-string">1.0</span><span class="hl-quotes">'</span><span class="hl-code"> </span><span class="hl-identifier">encoding</span><span class="hl-code">=</span><span class="hl-quotes">'</span><span class="hl-string">iso-8859-1</span><span class="hl-quotes">'</span><span class="hl-code">?&gt;
+&lt;</span><span class="hl-identifier">tree</span><span class="hl-code"> </span><span class="hl-identifier">id</span><span class="hl-code">=</span><span class="hl-quotes">&quot;</span><span class="hl-string">0</span><span class="hl-quotes">&quot;</span><span class="hl-code">&gt;
+&lt;</span><span class="hl-identifier">item</span><span class="hl-code"> </span><span class="hl-identifier">text</span><span class="hl-code">=</span><span class="hl-quotes">&quot;</span><span class="hl-string">Books</span><span class="hl-quotes">&quot;</span><span class="hl-code"> </span><span class="hl-identifier">id</span><span class="hl-code">=</span><span class="hl-quotes">&quot;</span><span class="hl-string">books</span><span class="hl-quotes">&quot;</span><span class="hl-code"> ...&gt;
+    &lt;</span><span class="hl-identifier">pathstart</span><span class="hl-code"> </span><span class="hl-identifier">id</span><span class="hl-code">=</span><span class="hl-quotes">&quot;</span><span class="hl-string">path1</span><span class="hl-quotes">&quot;</span><span class="hl-code"> </span><span class="hl-identifier">color</span><span class="hl-code">=</span><span class="hl-quotes">&quot;</span><span class="hl-string">red</span><span class="hl-quotes">&quot;</span><span class="hl-code"> </span><span class="hl-identifier">width</span><span class="hl-code">=</span><span class="hl-quotes">&quot;</span><span class="hl-string">3</span><span class="hl-quotes">&quot;</span><span class="hl-code"> </span><span class="hl-identifier">mode</span><span class="hl-code">=</span><span class="hl-quotes">&quot;</span><span class="hl-string">dashed</span><span class="hl-quotes">&quot;</span><span class="hl-code">/&gt;
+    &lt;</span><span class="hl-identifier">item</span><span class="hl-code"> </span><span class="hl-identifier">text</span><span class="hl-code">=</span><span class="hl-quotes">&quot;</span><span class="hl-string">Mystery &amp;amp; Thrillers</span><span class="hl-quotes">&quot;</span><span class="hl-code"> </span><span class="hl-identifier">id</span><span class="hl-code">=</span><span class="hl-quotes">&quot;</span><span class="hl-string">mystery</span><span class="hl-quotes">&quot;</span><span class="hl-code"> ...&gt;
+    ...
+         &lt;</span><span class="hl-identifier">item</span><span class="hl-code"> </span><span class="hl-identifier">path_end</span><span class="hl-code">=</span><span class="hl-quotes">&quot;</span><span class="hl-string">path1</span><span class="hl-quotes">&quot;</span><span class="hl-code"> </span><span class="hl-identifier">text</span><span class="hl-code">=</span><span class="hl-quotes">&quot;</span><span class="hl-string">Digital Fortress</span><span class="hl-quotes">&quot;</span><span class="hl-code"> </span><span class="hl-identifier">id</span><span class="hl-code">=</span><span class="hl-quotes">&quot;</span><span class="hl-string">db_3</span><span class="hl-quotes">&quot;</span><span class="hl-code"> ...&gt;
+                &lt;</span><span class="hl-identifier">pathend</span><span class="hl-code"> </span><span class="hl-identifier">id</span><span class="hl-code">=</span><span class="hl-quotes">&quot;</span><span class="hl-string">path1</span><span class="hl-quotes">&quot;</span><span class="hl-code"> /&gt;
+         &lt;/</span><span class="hl-identifier">item</span><span class="hl-code">&gt;
+    ...
+&lt;/</span><span class="hl-identifier">item</span><span class="hl-code">&gt;
+&lt;</span><span class="hl-identifier">tree</span><span class="hl-code">&gt;</span></pre></div></div>
+
+	<script>
+var tree = new dhtmlXTreeObject('treeboxbox_tree', '100%', '100%', 0); 
+tree.setImagePath('../../codebase/imgs/csh_bluebooks/');
+tree.enableCheckBoxes(true);
+tree.enableRadioButtons(true)
+tree.activatePaths()
+
+
+tree.loadXML('tree_p.xml');
+
+
+function addPathNew(){
+	tree.deletePath("new")
+	arr = tree.getAllChecked().split(",")
+	
+		if(arr.length > 1){
+			end = arr[arr.length-1]
+			start = arr[0]
+			tree.addPath(start,end,{color:"blue", width:3},"new");
+		}
+		else alert("Please, select two radio buttons to set the beginning and the end of the path!")
+}
+
+
+	</script>
+
+<!-- FOOTER -->
+<table callspacing="0" cellpadding="0" border="0" class="sample_footer"><tr><td style="padding-left: 8px;">&copy; <a href="http://www.dhtmlx.com">DHTMLX LTD</a>. All rights reserved</td></tr></table>
+<!-- FOOTER -->
+
+</body>
+</html>

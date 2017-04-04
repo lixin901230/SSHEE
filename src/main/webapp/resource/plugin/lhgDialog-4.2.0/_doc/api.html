@@ -1,0 +1,348 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>API文档 - 弹出窗口组件</title>
+    <meta name="keywords" content="lhgdialog,dialog,弹出窗口,js窗口,js弹出窗口,js库,对话框,alert,提示,警告,确认,提问,ajax,tip,confirm,open,prompt,lhgcore,javascript,jquery,window,clientside,control,open source,LGPL,dhtml,html,xhtml,plugins"/>
+    <meta name="description" content="lhgdialog是一功能强大的简单迷你并且高效的弹出窗口插件,基于网络访问并且兼容IE 6.0+,Firefox 3.0+,Opera 9.6+,Chrome 1.0+,Safari 3.22+."/>
+    <meta name="copyright" content="lhgcore.com"/>
+    <link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+    <link href="common.css" type="text/css" rel="stylesheet"/>
+	<link href="prettify/prettify.css" type="text/css" rel="stylesheet"/>
+	<script type="text/javascript" src="prettify/prettify.js"></script>
+</head>
+
+<body>
+    <div class="container">
+	    <div class="header">
+		    <div class="hd_logo"><a href="../index.html"><img border="0" src="images/hd_logo.gif" alt="lhgdialog"/></a></div>
+			<div class="hd_nav">
+			    <a href="../index.html">首页</a> | API文档 | <a href="../_demo/demo.html">基础示例</a> | <a href="../_demo/value.html">传值示例</a> | <a href="../_demo/animate.html">动画示例</a> | <a href="../_demo/frameset.html">框架示例</a> | <a href="update.html">更新记录</a>
+			</div>
+		</div>
+		<div class="line">&nbsp;</div>
+		<div class="cbody">
+		    <h2>应用到你的项目</h2>
+			<p>如果您使用独立版本的lhgDialog窗口组件，您只需在页面head中引入lhgcore.lhgdialog.min.js文件，<em style="color:#f00;font-style:normal;">4.1.1+版本做了修改可以和jQuerya库同时引用，而且4.1.1+版本的独立组件的lhgcore库做了极大的修改，专门为组件定制，压缩后才6K与组件合在一起总大小才不到20K，效率上得到很大提高，比引用jQuery快很多，但这里要注意如果你同时引用了jQuery库的话必须把$换成J，如果没引用jQuery库则可直接使用$。</em></p>
+			<pre class="prettyprint">&lt;script type=&quot;text/javascript&quot; src=&quot;lhgcore.lhgdialog.min.js&quot;&gt;&lt;/script&gt;</pre>
+			<p>如果您的页面中引入了jQuery库文件，您只需在页面head中再引入lhgdialog.min.js文件即可，此时lhgDialog组件将作为jQuery的一个插件使用，注意lhgdialog.min.js要写到jQuery库文件的下面哟。</p>
+			<pre class="prettyprint">&lt;script type=&quot;text/javascript&quot; src=&quot;jQuery-1.7.1.min.js&quot;&gt;&lt;/script&gt;<br/>&lt;script type=&quot;text/javascript&quot; src=&quot;lhgdialog.min.js&quot;&gt;&lt;/script&gt;</pre>
+			<p>组件提供全局默认配置参数读/写接口，如果您想修改组件的全局默认配置，按照以下方法设置即可(可选):</p>
+<pre class="prettyprint">
+(function(config){
+    config['extendDrag'] = true; // 注意，此配置参数只能在这里使用全局配置，在调用窗口的传参数使用无效
+    config['lock'] = true;
+    config['fixed'] = true;
+    config['okVal'] = 'Ok';
+    config['cancelVal'] = 'Cancel';
+    // [more..]
+})($.dialog.setting);
+
+// 如果只设置一个或少量全局配置也可这样：
+$.dialog.setting.extendDrag = true;
+
+// 获取一个全局配置参数值(获取lhgDialog组件绝对路径)：
+var path = $.dialog.setting.path;
+</pre>
+			<p></p>
+			<h2>快速入门</h2>
+			<p></p>
+<pre class="prettyprint">
+4.2.0+版本开始去掉了传统传参数的方法
+</pre>
+			<p><b>使用字面量传参</b><br/>$.dialog(options)</p>
+<pre class="prettyprint">
+var dialog = $.dialog({title: '欢迎',content: '欢迎使用lhgdialog对话框组件！',icon: 'succeed',ok: function(){
+        this.title('警告').content('请注意lhgdialog两秒后将关闭！').lock().time(2);
+        return false;
+    }
+});
+</pre>
+			<p></p>
+			<h2>窗口lhgdialog.min.js文件的url参数</h2>
+			<p>参数形式为：&lt;script type=&quot;text/javascript&quot; src=&quot;lhgdialog.min.js?self=true&skin=chrome&quot;&gt;&lt;/script&gt;</p>
+			<ol>
+			    <li>
+				    <h3>self：指定弹出窗口的页面</h3>
+					<pre class="prettyprint">类型：String<br/>默认：'false'<br/>说明：此参数只用在框架页面中，如果不写此参数或值为false时则窗口跨框架弹出在框架最顶层页面，如果值为true则不跨框架，而在当前面页弹出。</pre>
+				</li>
+				<li>
+				    <h3>skin：多皮肤共享CSS文件名</h3>
+					<pre class="prettyprint">类型：String<br/>默认：'default'<br/>说明：不写此参数则值为default。如果你想在同一页面使用不同皮肤的窗口，此处的值就为多皮肤共存的CSS的文件名</pre>
+				</li>
+			</ol>
+			<p>url参数不需要设定的就可以不写，不写时就使用默认值。</p>
+			<h2>初始化参数列表</h2>
+			<p><b>内容相关</b></p>
+			<ol>
+				<li>
+				    <h3>title：窗口的标题文本</h3>
+					<pre class="prettyprint">类型：String|Boolean<br/>默认：'视窗'<br/>说明：窗口标题的文件字符，如果值为false时就会隐藏标题栏</pre>
+				</li>
+				<li>
+				    <h3>content：窗口中加载的内容</h3>
+					<pre class="prettyprint">类型：String<br/>默认：'loading...'<br/>说明：1.如果想加载单独的页面，只要在字符前加'url:'字符即可，如：content:'url:content.html'<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.如果没有设定content的值则会有loading的动画</pre>
+				</li>
+			</ol>
+			<p><b>按钮相关</b></p>
+			<ol>
+				<li>
+				    <h3>ok：确定按钮回调函数</h3>
+					<pre class="prettyprint">类型：Function|Boolean<br/>默认：null<br/>说明：函数如果返回false将阻止对话框关闭；函数this指针指向内部api；如果传入true表示只显示有关闭功能的按钮</pre>
+				</li>
+				<li>
+				    <h3>cancel：取消按钮回调函数</h3>
+					<pre class="prettyprint">类型：Function|Boolean<br/>默认：null<br/>说明：1.函数如果返回false将阻止对话框关闭；函数this指针指向内部api；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.如果传入true表示只显示有关闭功能的按钮，标题栏的关闭按钮其实就是取消按钮，点击同样触发cancel事件<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.如果值为false时则隐藏标题栏右边的关闭按钮</pre>
+				</li>
+				<li>
+				    <h3>okVal：确定按钮文字</h3>
+					<pre class="prettyprint">类型：String<br/>默认：确定</pre>
+				</li>
+				<li>
+				    <h3>cancelVal：取消按钮文字</h3>
+					<pre class="prettyprint">类型：String<br/>默认：取消</pre>
+				</li>
+				<li>
+				    <h3>min：是否显示最小化按钮</h3>
+					<pre class="prettyprint">类型：Boolean<br/>默认：true</pre>
+				</li>
+				<li>
+				    <h3>max：是否显示最大化按钮</h3>
+					<pre class="prettyprint">类型：Boolean<br/>默认：true</pre>
+				</li>
+				<li>
+				    <h3>button：自定义按钮</h3>
+					<pre class="prettyprint">类型：Array<br/>默认：null<br/>说明：<br/>配置参数成员：<br/>name —— 按钮名称<br/>callback —— 按下后执行的函数<br/>focus —— 是否聚焦点<br/>disabled —— 是否标记按钮为不可用状态（后续可使用扩展方法让其恢复可用状态）<br/>示例：<br/>参数如：[{name: '登录', callback: function () {}}, {name: '取消'}] 。注意点击按钮默认会触发按钮关闭动作，需要阻止触发关闭请让回调函数返回false</pre>
+				</li>
+			</ol>
+			<p><b>尺寸相关</b></p>
+			<ol>
+				<li>
+				    <h3>width：指定窗口的宽度</h3>
+					<pre class="prettyprint">类型：Number|String<br/>默认：'auto'<br/>说明：设置窗口的宽度，可以带单位。一般不需要设置此，对话框框架会自己适应内容</pre>
+				</li>
+				<li>
+				    <h3>height：指定窗口的高度</h3>
+					<pre class="prettyprint">类型：Number|String<br/>默认：'auto'<br/>说明：设置窗口的高度，可以带单位。</pre>
+				</li>
+			</ol>
+			<p><b>位置相关</b></p>
+			<ol>
+				<li>
+				    <h3>fixed：开启静止定位</h3>
+					<pre class="prettyprint">类型：Boolean<br/>默认：false<br/>说明：静止定位是css2.1的一个属性，它静止在浏览器某个地方不动，也不受滚动条拖动影响</pre>
+				</li>
+				<li>
+				    <h3>left：相对于可视区域的X轴的坐标</h3>
+					<pre class="prettyprint">类型：Number|String<br/>默认：'50%'<br/>说明：可以使用'0%' ~ '100%'作为相对坐标，如果浏览器窗口大小被改变其也会进行相应的调整</pre>
+				</li>
+				<li>
+				    <h3>top：相对于可视区域的Y轴的坐标</h3>
+					<pre class="prettyprint">类型：Number|String<br/>默认：'50%'<br/>说明：可以使用'0%' ~ '100%'作为相对坐标，如果浏览器窗口大小被改变其也会进行相应的调整</pre>
+				</li>
+			</ol>
+			<p><b>视觉相关</b></p>
+			<ol>
+				<li>
+				    <h3>lock：开启锁屏</h3>
+					<pre class="prettyprint">类型：Boolean<br/>默认：false<br/>说明：中断用户对话框之外的交互，用于显示非常重要的操作/消息，所以不建议频繁使用它，它会让操作变得繁琐</pre>
+				</li>
+				<li>
+				    <h3>icon：定义消息图标</h3>
+					<pre class="prettyprint">类型：String<br/>默认：null<br/>说明：可定义“skins/icons/”目录下的图标名作为参数名（一定要包含后缀名）</pre>
+				</li>
+				<li>
+				    <h3>padding：内容与边界填充边距(即css padding)</h3>
+					<pre class="prettyprint">类型：String<br/>默认：'15px 10px'<br/>说明：如果内容页为iframe方式加载的则在css里需要设置为0，要不在IE6中易出问题</pre>
+				</li>
+				<li>
+				    <h3>skin：多皮肤共存时指定的皮肤样式</h3>
+					<pre class="prettyprint">类型：String<br/>默认：''<br/>说明：指定窗口要使用的皮肤在加载的多皮肤共存的CSS文件中的相应主类名</pre>
+				</li>
+			</ol>
+			<p><b>交互相关</b></p>
+			<ol>
+				<li>
+				    <h3>focus：弹出窗口后是否自动获取焦点（4.2.0新增）</h3>
+					<pre class="prettyprint">类型：Boolean<br/>默认：true</pre>
+				</li>
+				<li>
+				    <h3>time：设置对话框显示时间</h3>
+					<pre class="prettyprint">类型：Number<br/>默认：null<br/>说明：以秒为单位</pre>
+				</li>
+				<li>
+				    <h3>resize：是否允许用户调节尺寸</h3>
+					<pre class="prettyprint">类型：Boolean<br/>默认：true</pre>
+				</li>
+				<li>
+				    <h3>drag：是否允许用户拖动位置</h3>
+					<pre class="prettyprint">类型：Boolean<br/>默认：true</pre>
+				</li>
+				<li>
+				    <h3>esc：是否允许用户按Esc键关闭对话框</h3>
+					<pre class="prettyprint">类型：Boolean<br/>默认：true<br/>说明：只有窗口获得焦点后才能使用此功能</pre>
+				</li>
+				<li>
+				    <h3>cache：是否缓存iframe方式加载的窗口内容页</h3>
+					<pre class="prettyprint">类型：Boolean<br/>默认：true<br/>说明：只有使用iframe方式加载的单独页面的内容时此参数才有效</pre>
+				</li>
+				<li>
+				    <h3>extendDrag：是否开启增强拖拽体验</h3>
+					<pre class="prettyprint">类型：Boolean<br/>默认：true<br/>说明：1.此属性为全局性设置，不能在窗口调用的参数里设置，只能使用lhgdialog.setting.extendDrag来设置<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.防止鼠标落入iframe导致不流畅，对超大对话框拖动优化</pre>
+				</li>
+			</ol>
+			<p><b>高级相关</b></p>
+			<ol>
+				<li>
+				    <h3>data：数据传输入参数（4.2.0新增）</h3>
+					<pre class="prettyprint">类型：anyone<br/>默认：null<br/>说明：此参数的值可以为任何类型的数据，比如常量，对象，数组，函数等等...</pre>
+				</li>
+				<li>
+				    <h3>id：设定对话框唯一标识</h3>
+					<pre class="prettyprint">类型：String|Number<br/>默认：null<br/>说明：1.防止重复弹出<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.定义id后可以使用this.get(youID)和lhgdialog.list[youID]获取扩展方法</pre>
+				</li>
+				<li>
+				    <h3>zIndex：重置全局zIndex初始值</h3>
+					<pre class="prettyprint">类型：Number<br/>默认：1976<br/>说明：用来改变对话框叠加高度，请注意这是一个会影响到全局的配置，后续出现的对话框叠加高度将重新按此累加。</pre>
+				</li>
+				<li>
+				    <h3>init：对话框弹出后执行的函数</h3>
+					<pre class="prettyprint">类型：Function<br/>默认：null<br/>说明：如果是以iframe方式加载的内容页此函数会在内容页加载完成后执行</pre>
+				</li>
+				<li>
+				    <h3>close：对话框关闭前执行的函数</h3>
+					<pre class="prettyprint">类型：Function<br/>默认：null<br/>说明：函数如果返回false将阻止对话框关闭。请注意这不是关闭按钮的回调函数，无论何种方式关闭对话框，close都将执行。</pre>
+				</li>
+				<li>
+				    <h3>parent：打开子窗口的父窗口对象</h3>
+					<pre class="prettyprint">类型：Object<br/>默认：null<br/>说明：此参数只用在打开多层窗口都使用遮罩层时才会用到此参数，注意多层窗口锁屏时一定要加此参数</pre>
+				</li>
+			</ol>
+			<h2>扩展方法</h2>
+			<p><b>窗口实例对象内部方法</b></p>
+			<ol>
+				<li>
+				    <h3>close()：关闭对话框</h3>
+					<pre class="prettyprint">参数：无<br/>说明：在需要关闭窗口时可调用此方法</pre>
+				</li>
+				<li>
+				    <h3>reload(win,url)：刷新或跳转指定的页面</h3>
+					<pre class="prettyprint">参数1：指定的要刷新或跳转的页面的window对象<br/>参数2：要跳转到的页面地址</pre>
+				</li>
+				<li>
+				    <h3>show()：显示对话框</h3>
+					<pre class="prettyprint">参数：无</pre>
+				</li>
+				<li>
+				    <h3>hide()：隐藏对话框</h3>
+					<pre class="prettyprint">参数：无</pre>
+				</li>
+				<li>
+				    <h3>title(value)：写入标题</h3>
+					<pre class="prettyprint">参数1：标题的文本<br/>说明：无参数则返回创建的窗口对象实例</pre>
+				</li>
+				<li>
+				    <h3>content(value,add,isFrm)：向窗口中写入内容</h3>
+					<pre class="prettyprint">参数1：value -- 窗口中的内容<br/>参数2：add -- 是否窗口中为后增加的内容<br/>参数3：isFrm -- 是否使用iframe方式加载窗口<br/>说明：如果参数1的前3个字符为'url:'则说明您使用iframe方式加载单独的内容页，这时第三个参数要为true，无参数则返回创建的窗口对象实例</pre>
+				</li>
+			    <li>
+				    <h3>button(arguments)：插入一个自定义按钮</h3>
+					<pre class="prettyprint">参数1：name -- 按钮名称<br/>参数2：callback -- 按下后执行的函数<br/>参数3：focus -- 是否聚焦点<br/>参数4：disabled -- 是否标记按钮为不可用状态（后续可使用扩展方法让其恢复可用状态）<br/>说明：此参数为多个对象<br/>示例：<br/>button({<br/>&nbsp;&nbsp;&nbsp;&nbsp;name: '登录',<br/>&nbsp;&nbsp;&nbsp;&nbsp;focus: true,<br/>&nbsp;&nbsp;&nbsp;&nbsp;callback: function(){}<br/>},{<br/>&nbsp;&nbsp;&nbsp;&nbsp;name: '取消'<br/>});</pre>
+				</li>
+				<li>
+				    <h3>position(left,top)：重新定位对话框</h3>
+					<pre class="prettyprint">参数1：X轴的坐标<br/>参数2：Y轴的坐标<br/>说明：参数可以为数字或带单位的字符如：'200px'或使用'0%' ~ '100%'作为相对坐标</pre>
+				</li>
+			    <li>
+				    <h3>size(width,height)：重新设定对话框大小</h3>
+					<pre class="prettyprint">参数1：窗口的宽度<br/>参数2：窗口的高度<br/>说明：参数可以为数字或带单位的字符如：200或'200px'</pre>
+				</li>
+			    <li>
+				    <h3>max()：最大化窗口</h3>
+					<pre class="prettyprint">参数：无</pre>
+				</li>
+			    <li>
+				    <h3>min()：最小化窗口</h3>
+					<pre class="prettyprint">参数：无</pre>
+				</li>
+			    <li>
+				    <h3>lock()：锁屏</h3>
+					<pre class="prettyprint">参数：无</pre>
+				</li>
+				<li>
+				    <h3>unlock()：解锁</h3>
+					<pre class="prettyprint">参数：无</pre>
+				</li>
+			    <li>
+				    <h3>time(val,callback)：定时关闭（单位秒）</h3>
+					<pre class="prettyprint">参数1：数值，以秒为单位<br/>参数2：回调函数<br/>说明：参数2为窗口关闭前执行的函数</pre>
+				</li>
+				<li>
+				    <h3>focus() ：自动设置窗口中焦点元素</h3>
+					<pre class="prettyprint">参数：无</pre>
+				</li>
+				<li>
+				    <h3>zindex() ：置顶窗口</h3>
+					<pre class="prettyprint">参数：无</pre>
+				</li>
+			    <li>
+				    <h3>get(id,object) ：根据指定id获取相应的对象</h3>
+					<pre class="prettyprint">参数1：窗口的id<br/>参数2：是否返回的是窗口实例对象<br/>说明：参数2的值只有为数字1时才返回指定id的窗口的实例对象</pre>
+				</li>
+				<li>
+				    <h3>api：内容页中调用窗口实例对象接口</h3>
+					<pre class="prettyprint">说明：此对象属性是附加在iframe元素的一个属性，在iframe方式加载的内容页中通过调用此函数来获取窗口的实例对象，示例：var api = frameElement.api; <b>注：此句代码是加在iframe方式加载的内容页中的，一定要注意</b></pre>
+				</li>
+				<li>
+				    <h3>opener：加载窗口组件页面的window对象</h3>
+					<pre class="prettyprint">说明：此属性主要用在iframe方式加载的内容页中，示例：var api = frameElement.api, W = api.opener; 此时的W即为加载窗口组件页面的window对象</pre>
+				</li>
+				<li>
+				    <h3>iframe：iframe方式加载内容的iframe对象</h3>
+					<pre class="prettyprint">说明：此属性主要用于在窗口组件调用页面操作窗口中的iframe对象</pre>
+				</li>
+				<li>
+				    <h3>content：iframe方式加载内容页的window对象</h3>
+					<pre class="prettyprint">说明：此属性主要用于在窗口组件调用页面操作窗口中的window对象，示例：var dg = $.dialog({'url:content.html',init:function(){ if( this.content.document.body ) alert('窗口内容页加载完成'); });</pre>
+				</li>
+			</ol>
+			<p><b>窗口外部方法</b></p>
+			<ol>
+				<li>
+				    <h3>$.dialog.focus：获取焦点的窗口实例对象</h3>
+					<pre class="prettyprint">说明：可以使用此属性获取儿得焦点的窗口的对象，示例：var dg = $.dialog.focus; 此时的dg就是当前焦点窗口的对象实例</pre>
+				</li>
+			    <li>
+				    <h3>$.dialog.list：所有窗口对象实例的集合</h3>
+					<pre class="prettyprint">说明：通过此属性可获取所有打开的窗口对象，示例：关闭页面所有对话框<br/>var list = $.dialog.list;<br/>for( var i in list ){<br/>&nbsp;&nbsp;&nbsp;&nbsp;list[i].close();<br/>}</pre>
+				</li>
+			</ol>
+			<p>扩展的一些提示性的窗口</p>
+			<ol>
+			    <li>
+				    <h3>$.dialog.alert(content,callback,parent)：警告消息</h3>
+					<pre class="prettyprint">参数1：内容<br/>参数2：窗口关闭时执行的回调函数<br/>参数3：警告窗口的父窗口对象</pre>
+				</li>
+			    <li>
+				    <h3>$.dialog.confirm(content,yes,no,parent)：确认</h3>
+					<pre class="prettyprint">参数1：内容<br/>参数2：确定按钮回调函数<br/>参数3：取消按钮回调函数<br/>参数4：确认窗口的父窗口对象</pre>
+				</li>
+			    <li>
+				    <h3>$.dialog.prompt(content,yes,value,parent)：提问</h3>
+					<pre class="prettyprint">参数1：内容<br/>参数2：确定按钮回调函数<br/>参数3：文本框默认值<br/>参数4：提问窗口的父窗口对象</pre>
+				</li>
+			    <li>
+				    <h3>$.dialog.tips(content,time,icon,callback)：短暂提示</h3>
+					<pre class="prettyprint">参数1：内容<br/>参数2：显示时间<br/>参数3：提示图标<br/>参数4：提示关闭时执行的函数</pre>
+				</li>
+			</ol>
+		</div>
+		<div class="line">&nbsp;</div>
+		<div class="footer">
+		    <div class="ft_copy">Copyright &copy <a href="http://www.lhgcore.com/" target="_blank">lhgcore.com</a>. All rights reserved. | 豫ICP备06002782号 | <a href="http://t.qq.com/lhgcore" target="_blank">官方微博</a></div>
+		</div>
+	</div>
+	<script type="text/javascript">prettyPrint();</script>
+</body>
+</html>

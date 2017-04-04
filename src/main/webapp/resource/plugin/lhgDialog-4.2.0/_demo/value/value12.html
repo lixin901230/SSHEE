@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<style type="text/css">
+body{margin:0;padding:0;}
+p{margin:5px 0;}
+.btninp{border:1px solid #ddd;background:#f3f3f3;cursor:pointer;padding:2px 8px;_padding:0 5px;font-size:12px;margin:0;}
+.txtinp{font-size:12px;margin:0;padding:2px;}
+	</style>
+	<script type="text/javascript" src="../jquery-1.7.2.min.js"></script>
+	<script type="text/javascript">
+var api = frameElement.api, W = api.opener;
+
+function CC()
+{
+    alert( '我是C窗口中的一个函数' );
+};
+
+// api.get('demo_ZB') 返回的是id为'demo_ZB'的B窗口的内容页的window对象
+function getValue1()
+{
+    // demo_ZB 为B窗口的id
+	if( !api.get('demo_ZB') || !api.get('demo_ZB') )
+	    alert( '请先打开B窗口' );
+	else
+	    alert( api.get('demo_ZB').document.getElementById('btxt').value );
+};
+
+function getFunc1()
+{
+    if( !api.get('demo_ZB') || !api.get('demo_ZB') )
+	    alert( '请先打开B窗口' );
+	else
+	    api.get('demo_ZB').BB();
+};
+
+function getValue2()
+{
+    alert( W.document.getElementById('txt5').value );
+};
+
+function closeB()
+{
+    if( !api.get('demo_ZB') || !api.get('demo_ZB') )
+	    alert( '请先打开B窗口' );
+	else // api.get('demo_ZB',1) 返回的是id为'demo_ZB'的B窗口的实例对象
+	    api.get('demo_ZB',1).close();
+};
+
+function reloadB()
+{
+    if( !api.get('demo_ZB') || !api.get('demo_ZB') )
+	    alert( '请先打开B窗口' );
+	else
+	    api.reload( api.get('demo_ZB') );
+}
+	</script>
+</head>
+
+<body>
+<p style="text-align:center;"><input class="txtinp" id="ctxt" type="text" value="C窗口中的文本框"/></p>
+<p style="text-align:center;"><input class="btninp" id="C_btn2" type="button" value="调用B窗口中文本框的值»" onclick="getValue1();"/></p>
+<p style="text-align:center;"><input class="btninp" id="C_btn3" type="button" value="调用B窗口中的函数»" onclick="getFunc1();"/></p>
+<p style="text-align:center;"><input class="btninp" id="C_btn4" type="button" value="调用加载组件页面文本框的值»" onclick="getValue2();"/></p>
+<p style="text-align:center;"><input class="btninp" id="C_btn5" type="button" value="调用加载组件页面中的函数»" onclick="W.AA();"/></p>
+<p style="text-align:center;"><input class="btninp" id="C_btn6" type="button" value="关闭C窗口»" onclick="api.close();"/></p>
+<p style="text-align:center;"><input class="btninp" id="C_btn7" type="button" value="关闭B窗口»" onclick="closeB();"/></p>
+<p style="text-align:center;"><input class="btninp" id="C_btn8" type="button" value="刷新C窗口»" onclick="api.reload(window);"/></p>
+<p style="text-align:center;"><input class="btninp" id="C_btn9" type="button" value="刷新B窗口»" onclick="reloadB();"/></p>
+<p style="text-align:center;"><input class="btninp" id="C_btn9" type="button" value="同时关闭B窗口和C窗口并刷新加载组件页面»" onclick="api.reload();"/></p>
+</body>
+</html>

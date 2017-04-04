@@ -1,0 +1,150 @@
+.fz12 {
+	font-size: 12px;
+}
+input {
+	padding: 8px 20px; vertical-align: middle;
+}
+.main {
+	padding-top: 36px; padding-bottom: 60px;
+}
+.main h1 {
+	padding-left: 10px;
+}
+.main h2 {
+	padding-left: 10px;
+}
+.main h3 {
+	padding-left: 10px;
+}
+.main h1 {
+	text-align: center; color: rgb(33, 34, 34); line-height: 2em; font-family: "microsoft yahei"; font-size: 36px; font-weight: normal; margin-bottom: 36px;
+}
+.main h2 {
+	line-height: 2 !important; background-color: rgb(238, 238, 238);
+}
+.main h3 {
+	font-size: 20px; margin-bottom: 10px;
+}
+.lireset2 {
+	padding-left: 10px;
+}
+.registerform {
+	margin-bottom: 40px;
+}
+.registerform .need {
+	width: 10px; color: rgb(178, 2, 2);
+}
+.registerform td {
+	padding: 5px 0px; text-align: left; vertical-align: top;
+}
+.registerform .inputxt {
+	padding: 4px 2px; border: 1px solid rgb(165, 174, 182); width: 196px;
+}
+.registerform textarea {
+	padding: 4px 2px; border: 1px solid rgb(165, 174, 182); width: 196px;
+}
+.registerform textarea {
+	height: 75px;
+}
+.registerform label {
+	margin: 0px 15px 0px 4px;
+}
+.registerform .tip {
+	color: rgb(95, 106, 114); line-height: 20px;
+}
+.registerform select {
+	width: 202px;
+}
+.registerformalter select {
+	width: 124px;
+}
+.swfupload {
+	vertical-align: top;
+}
+.passwordStrength {
+	
+}
+.passwordStrength b {
+	font-weight: normal;
+}
+.passwordStrength b {
+	height: 16px; line-height: 18px; vertical-align: middle; display: inline-block;
+}
+.passwordStrength span {
+	height: 16px; line-height: 18px; vertical-align: middle; display: inline-block;
+}
+.passwordStrength span {
+	width: 45px; text-align: center; border-right-color: rgb(255, 255, 255); border-right-width: 1px; border-right-style: solid; background-color: rgb(208, 208, 208);
+}
+.passwordStrength .last {
+	border-right-color: currentColor; border-right-width: medium; border-right-style: none;
+}
+.passwordStrength .bgStrength {
+	color: rgb(255, 255, 255); background-color: rgb(113, 184, 61);
+}
+#demo1 .passwordStrength {
+	margin-left: 8px;
+}
+.tipmsg {
+	padding: 0px 10px;
+}
+textarea {
+	overflow: auto; resize: none;
+}
+.document {
+	min-height: 800px;
+}
+.document .sidenav {
+	padding: 10px 10px 20px; width: 170px; background-color: rgb(238, 238, 238);
+}
+.document .sidenav h3 {
+	padding: 5px 10px; font-size: 14px; background-color: rgb(225, 225, 225);
+}
+.document .sidenav a {
+	color: rgb(24, 112, 169);
+}
+.document .content {
+	width: 750px;
+}
+.document .content dt {
+	padding: 0px 10px; line-height: 2; background-color: rgb(238, 238, 238);
+}
+.document .content dt a {
+	padding: 5px 0px; color: rgb(121, 166, 5); font-size: 20px; font-weight: bold; display: block;
+}
+.document .content dt a:hover {
+	text-decoration: none; cursor: default;
+}
+.document .content h3 a:hover {
+	text-decoration: none; cursor: default;
+}
+.document .content dd {
+	padding: 15px 0px;
+}
+.document .content h3 {
+	color: rgb(51, 51, 51); font-size: 16px;
+}
+.document .content p {
+	padding: 0px 0px 16px 10px; margin-bottom: 0px;
+}
+.document .content .intro {
+	margin-bottom: 16px;
+}
+.document .content .intro p {
+	padding-bottom: 0px;
+}
+.document .content .intro pre {
+	padding-left: 10px;
+}
+.document .content .wp_syntax {
+	margin-right: 10px; margin-left: 10px;
+}
+.document .sidenav .lireset2 {
+	padding-left: 0px;
+}
+.document .sidenav li ul {
+	display: none;
+}
+.toTop {
+	background: url("images/totop.png") no-repeat; width: 48px; height: 49px; right: 15px; bottom: 20px; text-indent: -20000px; overflow: hidden; display: none; position: fixed; _position: absolute;
+}

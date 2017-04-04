@@ -1,0 +1,130 @@
+<!--conf
+<sample>
+              <product version="1.5" edition="std"/>
+                     <modifications>
+                            <modified date="070101"/>
+                     </modifications>
+               </sample>
+ --> 
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+	
+<title>Easy skinable design</title>
+
+</head>
+
+<body>
+<link rel='STYLESHEET' type='text/css' href='../common/style.css'>
+<table cellspacing="0" cellpadding="0" class="sample_header" border="0">
+	<tr valign="middle">
+		<!-- COMPONENT ICON -->
+		<td width="40" align="center"><img src="../common/dhtmlxtree_icon.gif" border="0"></td>
+		<!-- COMPONENT NAME -->
+		<td width="120" align="left">Sample: dhtmlxTree</td>
+		<!-- SAMPLE TITLE -->
+		<td width="0" align="left"><b>Easy skinable design</b></td>
+		<!-- LINK TO COMPONENT PAGE -->
+		<td width="0" align="right"><a href="http://www.dhtmlx.com/docs/products/dhtmlxTree/index.shtml">dhtmlxTree main page</a></td>
+		<!-- CLOSE BUTTON -->
+		<td width="50"><div class="sample_close"><a href="javascript:void(0);" onclick="self.close();"><img src="../common/sample_close.gif" width="14" height="14" border="0" alt="X"></a></div></td>
+	</tr>
+</table>
+<link rel="STYLESHEET" type="text/css" href="../../codebase/dhtmlxtree.css">
+	<script  src="../../codebase/dhtmlxcommon.js"></script>
+	<script  src="../../codebase/dhtmlxtree.js"></script>	
+	
+	<p>dhtmlxTree is highly customizable JavaScript tree menu. Choose one of four tree 
+	designs to see how easily the tree appearance can be changed.</p>
+		
+	<script>
+		function setDesign(n){
+			switch(n){
+			case 4:
+				tree.enableTreeLines(true);
+				tree.setImageArrays("plus","plus2.gif","plus3.gif","plus4.gif","plus.gif","plus5.gif");
+				tree.setImageArrays("minus","minus2.gif","minus3.gif","minus4.gif","minus.gif","minus5.gif");
+				tree.setStdImages("book.gif","books_open.gif","books_close.gif");					
+				break;
+	
+			    break;
+			case 3:
+				tree.enableTreeLines(true);
+				tree.setImageArrays("plus","open2.gif","open2.gif","open2.gif","open2.gif","open2.gif");
+				tree.setImageArrays("minus","close2.gif","close2.gif","close2.gif","close2.gif","close2.gif");
+				tree.setStdImages("leaf.gif","folderOpen.gif","folderClosed.gif");					
+				break;
+			case 2:
+				tree.enableTreeLines(true);
+				tree.setImageArrays("plus","open2.gif","open2.gif","open2.gif","open2.gif","open2.gif");
+				tree.setImageArrays("minus","close2.gif","close2.gif","close2.gif","close2.gif","close2.gif");
+				tree.setStdImages("book.gif","books_open.gif","books_close.gif");					
+				break;
+			case 1:
+				tree.enableTreeLines(false);
+				tree.setImageArrays("plus","","","","plus_ar.gif","plus_ar.gif");
+				tree.setImageArrays("minus","","","","minus_ar.gif","minus_ar.gif");
+				tree.setStdImages("book.gif","books_open.gif","books_close.gif");					
+				break;
+			}
+			tree.refreshItem(0);
+		}
+	</script>
+	<table>
+		<tr>
+			<td valign="top">
+
+
+				<div id="treeboxbox_tree" style="width:250; height:218;background-color:#f5f5f5;border :1px solid Silver;"></div><br>
+
+			</td>
+			<td rowspan="2" style="padding-left:25" valign="top">
+			
+			<a href="javascript:void(0)" onclick="setDesign(1);">Set design 1</a><br>
+			<a href="javascript:void(0)" onclick="setDesign(2);">Set design 2</a><br>
+			<a href="javascript:void(0)" onclick="setDesign(3);">Set design 3</a><br>
+			<a href="javascript:void(0)" onclick="setDesign(4);">Set design 4</a><br>
+			
+			
+
+			</td>
+		</tr>
+		
+	</table>
+	
+<div class='sample_code'><div class="hl-main"><pre><span class="hl-code"> 
+</span><span class="hl-brackets">&lt;</span><span class="hl-reserved">div</span><span class="hl-code"> </span><span class="hl-var">id</span><span class="hl-code">=</span><span class="hl-quotes">&quot;</span><span class="hl-string">treeboxbox_tree</span><span class="hl-quotes">&quot;</span><span class="hl-code"> </span><span class="hl-var">style</span><span class="hl-code">=</span><span class="hl-quotes">&quot;</span><span class="hl-string">width:200;height:200</span><span class="hl-quotes">&quot;</span><span class="hl-brackets">&gt;</span><span class="hl-brackets">&lt;/</span><span class="hl-reserved">div</span><span class="hl-brackets">&gt;</span><span class="hl-code">
+</span><span class="hl-brackets">&lt;</span><span class="hl-reserved">script</span><span class="hl-brackets">&gt;</span><span class="hl-code"><div class="hl-main"><pre><span class="hl-code"> 
+            </span><span class="hl-identifier">tree</span><span class="hl-code">=</span><span class="hl-reserved">new</span><span class="hl-code"> </span><span class="hl-identifier">dhtmlXTreeObject</span><span class="hl-brackets">(</span><span class="hl-quotes">&quot;</span><span class="hl-string">treeboxbox_tree</span><span class="hl-quotes">&quot;</span><span class="hl-code">,</span><span class="hl-quotes">&quot;</span><span class="hl-string">100%</span><span class="hl-quotes">&quot;</span><span class="hl-code">,</span><span class="hl-quotes">&quot;</span><span class="hl-string">100%</span><span class="hl-quotes">&quot;</span><span class="hl-code">,</span><span class="hl-number">0</span><span class="hl-brackets">)</span><span class="hl-code">;
+            </span><span class="hl-identifier">tree</span><span class="hl-code">.</span><span class="hl-identifier">setImagePath</span><span class="hl-brackets">(</span><span class="hl-quotes">&quot;</span><span class="hl-string">../images/</span><span class="hl-quotes">&quot;</span><span class="hl-brackets">)</span><span class="hl-code">;
+            </span><span class="hl-identifier">tree</span><span class="hl-code">.</span><span class="hl-identifier">loadXML</span><span class="hl-brackets">(</span><span class="hl-quotes">&quot;</span><span class="hl-string">tree.xml</span><span class="hl-quotes">&quot;</span><span class="hl-brackets">)</span><span class="hl-code">;
+ 
+                </span><span class="hl-comment">//</span><span class="hl-comment"> enable/disable tree lines</span><span class="hl-comment"></span><span class="hl-code">
+                </span><span class="hl-identifier">tree</span><span class="hl-code">.</span><span class="hl-identifier">enableTreeLines</span><span class="hl-brackets">(</span><span class="hl-reserved">false</span><span class="hl-brackets">)</span><span class="hl-code">;
+                </span><span class="hl-comment">//</span><span class="hl-comment"> set plus images</span><span class="hl-comment"></span><span class="hl-code">
+                </span><span class="hl-identifier">tree</span><span class="hl-code">.</span><span class="hl-identifier">setImageArrays</span><span class="hl-brackets">(</span><span class="hl-quotes">&quot;</span><span class="hl-string">plus</span><span class="hl-quotes">&quot;</span><span class="hl-code">,</span><span class="hl-quotes">&quot;</span><span class="hl-quotes">&quot;</span><span class="hl-code">,</span><span class="hl-quotes">&quot;</span><span class="hl-quotes">&quot;</span><span class="hl-code">,</span><span class="hl-quotes">&quot;</span><span class="hl-quotes">&quot;</span><span class="hl-code">,</span><span class="hl-quotes">&quot;</span><span class="hl-string">open2.gif</span><span class="hl-quotes">&quot;</span><span class="hl-brackets">)</span><span class="hl-code">;
+                </span><span class="hl-comment">//</span><span class="hl-comment">set minus images</span><span class="hl-comment"></span><span class="hl-code">
+                </span><span class="hl-identifier">tree</span><span class="hl-code">.</span><span class="hl-identifier">setImageArrays</span><span class="hl-brackets">(</span><span class="hl-quotes">&quot;</span><span class="hl-string">minus</span><span class="hl-quotes">&quot;</span><span class="hl-code">,</span><span class="hl-quotes">&quot;</span><span class="hl-quotes">&quot;</span><span class="hl-code">,</span><span class="hl-quotes">&quot;</span><span class="hl-quotes">&quot;</span><span class="hl-code">,</span><span class="hl-quotes">&quot;</span><span class="hl-quotes">&quot;</span><span class="hl-code">,</span><span class="hl-quotes">&quot;</span><span class="hl-string">close2.gif</span><span class="hl-quotes">&quot;</span><span class="hl-brackets">)</span><span class="hl-code">;
+                </span><span class="hl-comment">//</span><span class="hl-comment">set default node images</span><span class="hl-comment"></span><span class="hl-code">
+                </span><span class="hl-identifier">tree</span><span class="hl-code">.</span><span class="hl-identifier">setStdImages</span><span class="hl-brackets">(</span><span class="hl-quotes">&quot;</span><span class="hl-string">books.gif</span><span class="hl-quotes">&quot;</span><span class="hl-code">,</span><span class="hl-quotes">&quot;</span><span class="hl-string">books_open.gif</span><span class="hl-quotes">&quot;</span><span class="hl-code">,</span><span class="hl-quotes">&quot;</span><span class="hl-string">books_close.gif</span><span class="hl-quotes">&quot;</span><span class="hl-brackets">)</span><span class="hl-code">;</span></pre></div></span><span class="hl-brackets">&lt;/</span><span class="hl-reserved">script</span><span class="hl-brackets">&gt;</span></pre></div></div>	
+ 
+	<script>
+			tree=new dhtmlXTreeObject("treeboxbox_tree","100%","100%",0);
+			tree.setImagePath("../images/");
+			tree.enableDragAndDrop(0);
+			tree.enableTreeLines(false);
+			tree.setImageArrays("plus","","","","plus.gif");
+			tree.setImageArrays("minus","","","","minus.gif");
+			tree.setStdImages("book.gif","books_open.gif","books_close.gif");	
+			tree.setXMLAutoLoading("tree4.xml");
+			tree.loadXML("tree4.xml");
+	</script>
+
+<!-- FOOTER -->
+<table callspacing="0" cellpadding="0" border="0" class="sample_footer"><tr><td style="padding-left: 8px;">&copy; <a href="http://www.dhtmlx.com">DHTMLX LTD</a>. All rights reserved</td></tr></table>
+<!-- FOOTER -->
+
+</body>
+</html>
+

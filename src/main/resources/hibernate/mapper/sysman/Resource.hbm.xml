@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.zl.frame.sysman.resourceman.bean">
+    <class name="com.zl.frame.sysman.resourceman.bean.Resource" table="t_sys_resource" >
+        <id name="id" type="java.lang.String">
+            <column name="id" />
+<!--             <generator class="assigned"/> -->
+            <generator class="uuid"/>
+        </id>
+        <property name="parentId" type="java.lang.String">
+            <column name="parentId" />
+        </property>
+        <property name="resourceCode" type="java.lang.String">
+            <column name="resourceCode" />
+        </property>
+        <property name="resourceName" type="java.lang.String">
+            <column name="resourceName" />
+        </property>
+        <property name="url" type="java.lang.String">
+            <column name="url" />
+        </property>
+        <property name="createTime" type="java.sql.Timestamp">
+            <column name="createTime" length="0" />
+        </property>
+        <property name="statu" type="java.lang.Integer">
+            <column name="statu" />
+        </property>
+        <property name="isMenu" type="java.lang.Integer">
+            <column name="isMenu" />
+        </property>
+        <property name="nodeSort" type="java.lang.Integer">
+            <column name="nodeSort" />
+        </property>
+        <property name="iconCls" type="java.lang.String">
+            <column name="iconCls" />
+        </property>
+        <property name="state" type="java.lang.String">
+            <column name="state" />
+        </property>
+        <property name="remark" type="java.lang.String">
+            <column name="remark" />
+        </property>
+        
+        <!-- one to one of node$parentNode -->
+<!-- 		<many-to-one name="resource" column="parentId" class="com.zl.frame.sysman.resourceman.bean.Resource" lazy="false" cascade="all" /> -->
+        
+<!--         <many-to-one name="resource" column="parentId" lazy="false" insert="false" update="false"></many-to-one> -->
+        
+		<!-- one to many of resource$childResourceList -->
+		<bag name="childResourceList" lazy="false" inverse="true" >
+			<key column="parentId"/>
+			<one-to-many class="com.zl.frame.sysman.resourceman.bean.Resource" />
+		</bag>		
+		
+		<!-- many to many of role$node -->
+		<bag name="roleList" table="t_sys_role$resource" inverse="true" lazy="true" >
+			<key column="resourceId" />
+			<many-to-many column="roleId" class="com.zl.frame.sysman.roleman.bean.Role" />
+		</bag>
+
+    </class>
+</hibernate-mapping>
