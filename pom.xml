@@ -336,12 +336,28 @@
 		<groupId>org.springframework</groupId>
   		<artifactId>org.springframework.transaction</artifactId>
   		<version>${org.springframework.version}</version>
+  		<exclusions>
+  			<exclusion>
+  				<artifactId>
+  					com.springsource.org.aopalliance
+  				</artifactId>
+  				<groupId>org.aopalliance</groupId>
+  			</exclusion>
+  		</exclusions>
 	</dependency>
 	
 	<dependency>
 		<groupId>org.springframework</groupId>
   		<artifactId>org.springframework.web</artifactId>
   		<version>${org.springframework.version}</version>
+  		<exclusions>
+  			<exclusion>
+  				<artifactId>
+  					com.springsource.org.aopalliance
+  				</artifactId>
+  				<groupId>org.aopalliance</groupId>
+  			</exclusion>
+  		</exclusions>
 	</dependency>
 	
 	<dependency>
@@ -509,6 +525,13 @@
 	  	<groupId>org.hibernate</groupId>
 	  	<artifactId>hibernate-entitymanager</artifactId>
 	  	<version>${org.hibernate.version}</version>
+	  	<exclusions>
+	  		<!-- cglib-nodep 取代ciglib包 -->
+	  		<exclusion>
+	  			<artifactId>cglib</artifactId>
+	  			<groupId>cglib</groupId>
+	  		</exclusion>
+	  	</exclusions>
 	</dependency>
 	<dependency>
 	  	<groupId>org.hibernate</groupId>
