@@ -118,7 +118,7 @@ $.extend($.fn.validatebox.defaults.rules, {
  * 
  * 扩展tree，使其支持平滑数据格式
  */
-$.fn.tree.defaults.loadFilter = function(data, parent) {
+/*$.fn.tree.defaults.loadFilter = function(data, parent) {
 	var opt = $(this).data().tree.options;
 	var idFiled, textFiled, parentField;
 	if (opt.parentField) {
@@ -143,7 +143,7 @@ $.fn.tree.defaults.loadFilter = function(data, parent) {
 		return treeData;
 	}
 	return data;
-};
+};*/
 
 /**
  * 
@@ -152,14 +152,14 @@ $.fn.tree.defaults.loadFilter = function(data, parent) {
  * 扩展tree，使其支持平滑数据格式
  * 加入attrsField属性，用来给tree的属性attributes设置自定义属性key
  */
-/*$.fn.tree.defaults.loadFilter = function(data, parent) {
+$.fn.tree.defaults.loadFilter = function(data, parent) {
 	var opt = $(this).data().tree.options;
 	var idFiled, textFiled, parentField, attrsField;
 	if (opt.parentField) {
-		idFiled = opt.idFiled || opt.id;
-		textFiled = opt.textFiled || opt.text;
-		parentField = opt.parentField || opt.parentId;
-		attrsField = opt.attrsField || opt.attributesField;
+		idFiled = opt.idFiled || opt.id || 'id';
+		textFiled = opt.textFiled || opt.text || 'text';
+		parentField = opt.parentField || opt.parentId || 'parentId';
+		attrsField = opt.attrsField || opt.attributesField || 'attrsField';
 		var i, l, treeData = [], tmpMap = [];
 		for (i = 0, l = data.length; i < l; i++) {
 			tmpMap[data[i][idFiled]] = data[i];
@@ -189,7 +189,7 @@ $.fn.tree.defaults.loadFilter = function(data, parent) {
 		return treeData;
 	}
 	return data;
-};*/
+};
 
 
 /**
@@ -198,7 +198,7 @@ $.fn.tree.defaults.loadFilter = function(data, parent) {
  * 
  * 扩展treegrid，使其支持平滑数据格式
  */
-$.fn.treegrid.defaults.loadFilter = function(data, parentId) {
+/*$.fn.treegrid.defaults.loadFilter = function(data, parentId) {
 	var opt = $(this).data().treegrid.options;
 	var idFiled, textFiled, parentField;
 	if (opt.parentField) {
@@ -223,7 +223,7 @@ $.fn.treegrid.defaults.loadFilter = function(data, parentId) {
 		return treeData;
 	}
 	return data;
-};
+};*/
 
 /**
  * 
@@ -232,14 +232,14 @@ $.fn.treegrid.defaults.loadFilter = function(data, parentId) {
  * 扩展treegrid，使其支持平滑数据格式
  * 加入attrsField属性，用来给tree的属性attributes设置自定义属性key
  */
-/*$.fn.treegrid.defaults.loadFilter = function(data, parentId) {
+$.fn.treegrid.defaults.loadFilter = function(data, parentId) {
 	var opt = $(this).data().treegrid.options;
 	var idFiled, textFiled, parentField, attrsField;
 	if (opt.parentField) {
-		idFiled = opt.idFiled || opt.id;
-		textFiled = opt.textFiled || opt.text;
-		parentField = opt.parentField || opt.parentId;
-		attrsField = opt.attrsField || opt.attributesField;
+		idFiled = opt.idFiled || 'id';
+		textFiled = opt.textFiled || 'text';
+		parentField = opt.parentField;
+		attrsField = opt.attrsField || opt.attributesField || 'attributes';
 		var i, l, treeData = [], tmpMap = [];
 		for (i = 0, l = data.length; i < l; i++) {
 			tmpMap[data[i][idFiled]] = data[i];
@@ -269,7 +269,7 @@ $.fn.treegrid.defaults.loadFilter = function(data, parentId) {
 		return treeData;
 	}
 	return data;
-};*/
+};
 
 /**
  * 
