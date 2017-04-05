@@ -51,16 +51,42 @@ public class HibernateBaseDaoImpl<T, PK extends Serializable> extends
 
 	private Class<T> entityClass;
 	
+//	@Autowired
+//	private SessionFactory sessionFactory;
+	
+	/**
+	 * 以注解的方式注入sessionFactory
+	 * @param sessionFactory
+	 */
+//	@Autowired
+//	public void setMySessionFactory(SessionFactory sessionFactory) {
+//		super.setSessionFactory(sessionFactory);
+//	}
+	
+	/**
+	 * 通过范型反射，取得子类中定义的entityClass
+	 */
+	/*@SuppressWarnings("unchecked")
+	public HibernateBaseDaoImpl() {
+		logger.info(">>>>>>>>>>>>>	实例化底层Hibernate接口HibernateBaseDaoImpl，通过反射获取泛型的实际类型");
+		ParameterizedType paramType = (ParameterizedType) getClass().getGenericSuperclass();
+		Type[] actualType = paramType.getActualTypeArguments();
+		this.entityClass = (Class<T>) actualType[0];
+	}*/
+	
 	/**
 	 * 通过范型反射，取得子类中定义的entityClass
 	 */
 	@SuppressWarnings("unchecked")
 	public HibernateBaseDaoImpl() {
-		
 		logger.info(">>>>>>>>>>>>>	实例化底层Hibernate接口HibernateBaseDaoImpl，通过反射获取泛型的实际类型");
-		ParameterizedType paramType = (ParameterizedType) getClass().getGenericSuperclass();
-		Type[] actualType = paramType.getActualTypeArguments();
-		this.entityClass = (Class<T>) actualType[0];
+		this.entityClass = null;
+		Class c = getClass();
+		Type type = c.getGenericSuperclass();
+		if (type instanceof ParameterizedType) {
+			Type[] parameterizedType = ((ParameterizedType) type).getActualTypeArguments();
+			this.entityClass = (Class<T>) parameterizedType[0];
+		}
 	}
 	
 	/**

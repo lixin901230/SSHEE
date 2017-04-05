@@ -18,7 +18,8 @@ import com.zl.frame.sysman.userman.dao.IUserDao;
 //@RunWith(SpringJUnit4ClassRunner.class)
 //@ContextConfiguration(locations={"classpath:spring/applicationContext-base.xml"})
 public class UserServiceImplTest {
-
+	
+	@Autowired
 	private IUserDao userDao;
 	
 	ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext-base.xml");
@@ -42,6 +43,7 @@ public class UserServiceImplTest {
 			countHql.append(hql);
 			
 			page = userDao.findByHql(hql, countHql.toString(), new Object[]{}, page.getCurPage(), page.getPageSize());
+			
 			System.out.println(page);
 		} catch (BeansException e) {
 			e.printStackTrace();
@@ -53,7 +55,6 @@ public class UserServiceImplTest {
 	public IUserDao getUserDao() {
 		return userDao;
 	}
-	@Autowired
 	public void setUserDao(IUserDao userDao) {
 		this.userDao = userDao;
 	}
