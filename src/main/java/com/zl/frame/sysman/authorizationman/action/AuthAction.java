@@ -88,6 +88,7 @@ public class AuthAction extends BaseAction {
 			}
 			
 			StringBuffer queryHql = new StringBuffer();
+			queryHql.append(hql);
 			queryHql.append(" order by u.id desc ");
 			
 			StringBuffer countHql = new StringBuffer();

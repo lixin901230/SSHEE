@@ -51,7 +51,7 @@
 			    idField : 'id',
 				treeField : 'resourceName',
 				parentField : 'parentId',
-				attrsField: ['url', 'resourceCode'], // easyui_tool.js 中扩展tree的loadFilter方法来添加自定义属性 
+				//attrsField: ['url', 'resourceCode'], // easyui_tool.js 中扩展tree的loadFilter方法来添加自定义属性 
 				animate:true,
 				fit : true,
 				fitColumns : true,

@@ -128,7 +128,6 @@ public class HibernateBaseDaoImpl<T, PK extends Serializable> extends
 	public void delete(Class<T> clazz, PK id) throws Exception {
 		logger.info(">>>>>>>>>>>>>	删除id为["+id+"]的对象信息");
 		if(id == null){
-			logger.debug(">>>>>>>>>>>>>	根据主键删除对象，主键不能为null");
 			throw new PersistenceException("根据主键删除对象，主键不能为null");
 		}
 		T entity = null;
@@ -138,7 +137,6 @@ public class HibernateBaseDaoImpl<T, PK extends Serializable> extends
 			entity = get(entityClass, id);
 		}
 		if(entity == null){
-			logger.debug(">>>>>>>>>>>>>	删除主键id为"+id+"的对象不存在");
 			throw new PersistenceException("删除主键id为"+id+"的对象不存在");
 		}
 		getHibernateTemplate().delete(entity);
