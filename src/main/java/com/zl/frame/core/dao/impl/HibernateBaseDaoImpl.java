@@ -674,11 +674,9 @@ public class HibernateBaseDaoImpl<T, PK extends Serializable> extends
         }
         int totalRow =0;
 		try {
-			totalRow = ((BigDecimal) query.uniqueResult()).intValue();	//todo bug 可能超过整形最大？
+			totalRow = Integer.valueOf(query.uniqueResult().toString());
 		} catch (Exception e) {
-			logger.error("分页统计结果类型转换异常", e.getMessage());
-			totalRow = ((BigInteger)query.uniqueResult()).intValue();
-			logger.info("已解决分页统计结果类型转换异常！");
+			logger.error("分页统计结果类型转换异常", e);
 		}
 		return totalRow;
     }
@@ -700,11 +698,9 @@ public class HibernateBaseDaoImpl<T, PK extends Serializable> extends
     	}
     	int totalRow =0;
     	try {
-    		totalRow = ((BigDecimal) query.uniqueResult()).intValue();	//todo bug 可能超过整形最大？
+    		totalRow = Integer.valueOf(query.uniqueResult().toString());
     	} catch (Exception e) {
-    		logger.error("分页统计结果类型转换异常", e.getMessage());
-    		totalRow = ((BigInteger)query.uniqueResult()).intValue();
-    		logger.info("已解决分页统计结果类型转换异常！");
+    		logger.error("分页统计结果类型转换异常", e);
     	}
     	return totalRow;
     }
