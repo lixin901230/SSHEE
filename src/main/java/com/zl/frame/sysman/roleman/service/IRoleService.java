@@ -88,6 +88,6 @@ public interface IRoleService {
 	 * @param objects 可变参数列表
 	 * @return
 	 */
-	public abstract Page<Role> findRoleListByPage(String hql, Page<Role> page,
+	public abstract Page<Role> findRoleListByPage(String hql, String countHql, Page<Role> page,
 			Object... objects) throws Exception;
 }

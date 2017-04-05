@@ -255,12 +255,23 @@ public class OrgInfoAction extends BaseAction {
 			
 			logger.info("开始获取组织机构["+orgInfo.getId()+"]中的用户信息....");
 			
-			StringBuffer hql = new StringBuffer("select u.id,u.userName,u.sex,u.telphone,u.email,");
-			hql.append("u.statu,u.createTime,u.lastUpdateTime,u.remark from t_sys_user u ");
-			hql.append("inner join t_sys_user$organization uo on u.id=uo.userId ");
-			hql.append("inner join t_sys_organization o on uo.orgId=o.id where o.id=? order by u.createTime desc");
+			StringBuffer fromSql = new StringBuffer();
+			fromSql.append(" from t_sys_user u ");
+			fromSql.append(" inner join t_sys_user$organization uo on u.id=uo.userId ");
+			fromSql.append(" inner join t_sys_organization o on uo.orgId=o.id where o.id=? ");
+			fromSql.append(" order by u.createTime desc");
 			
-			pager = userService.findUserListPageBySql(hql.toString(), pager, new String[]{orgInfo.getId()});
+
+			StringBuffer querySql = new StringBuffer();
+			querySql.append(" select u.id,u.userName,u.sex,u.telphone,u.email,");
+			querySql.append(" u.statu,u.createTime,u.lastUpdateTime,u.remark ");
+			querySql.append(fromSql);
+
+			StringBuffer countSql = new StringBuffer();
+			countSql.append("select count(*) ");
+			countSql.append(fromSql);
+			
+			pager = userService.findUserListPageBySql(querySql.toString(), countSql.toString(), pager, new String[]{orgInfo.getId()});
 			DataGrid datagrid = new DataGrid(Long.valueOf(pager.getTotalRow()), pager.getData());
 			writeJson(JsonUtil.obj2json(datagrid));
 			

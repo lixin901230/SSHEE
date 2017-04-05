@@ -31,12 +31,17 @@ public class UserServiceImplTest {
 	public void testFindUserListByPage(){
 
 		try {
+			userDao = (IUserDao) applicationContext.getBean("userDao");
+
 			Page<User> page =  new Page<User>();
 			String hql = "from User u";
 			
-			userDao = (IUserDao) applicationContext.getBean("userDao");
 			
-			page = userDao.findByHql(hql, new Object[]{}, page.getCurPage(), page.getPageSize());
+			StringBuffer countHql = new StringBuffer();
+			countHql.append("select count(*) ");
+			countHql.append(hql);
+			
+			page = userDao.findByHql(hql, countHql.toString(), new Object[]{}, page.getCurPage(), page.getPageSize());
 			System.out.println(page);
 		} catch (BeansException e) {
 			e.printStackTrace();

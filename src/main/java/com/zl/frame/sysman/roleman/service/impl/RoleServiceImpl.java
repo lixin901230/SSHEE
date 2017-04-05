@@ -121,7 +121,7 @@ public class RoleServiceImpl implements IRoleService {
 	 * @param objects 可变参数列表
 	 * @return
 	 */
-	public Page<Role> findRoleListByPage(String hql, Page<Role> page, Object...objects) throws Exception {
-		return roleDao.findByHql(hql, objects, page.getCurPage(), page.getPageSize());
+	public Page<Role> findRoleListByPage(String hql, String countHql, Page<Role> page, Object...objects) throws Exception {
+		return roleDao.findByHql(hql, countHql, objects, page.getCurPage(), page.getPageSize());
 	}
 }

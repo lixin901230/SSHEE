@@ -38,11 +38,12 @@ public class Page<T> implements Serializable {
 		this.pageSize = pageSize;
 	}
 
-	public Page(Integer curPage, Integer pageSize, Integer totalPage, Integer totalRow, List<T> data) {
+	public Page(Integer curPage, Integer pageSize, /*Integer totalPage,*/ Integer totalRow, List<T> data) {
 		
 		this.curPage = curPage;
 		this.pageSize = pageSize;
-		this.totalPage = totalPage;
+		//this.totalPage = totalPage;
+		this.totalPage = totalRow / pageSize + ((totalRow % pageSize) > 0 ? 1 : 0);
 		this.totalRow = totalRow;
 		this.data = data;
 	}
@@ -63,6 +64,7 @@ public class Page<T> implements Serializable {
 		return totalRow;
 	}
 	public void setTotalRow(Integer totalRow) {
+		this.totalPage = totalRow / pageSize + ((totalRow % pageSize) > 0 ? 1 : 0);
 		this.totalRow = totalRow;
 	}
 	public Integer getCurPage() {

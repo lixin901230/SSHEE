@@ -86,6 +86,6 @@ public interface IAccessLogService {
 	 * @param objects
 	 * @return
 	 */
-	public abstract Page<AccessLog> findAccessLogByPage(String hql,
+	public abstract Page<AccessLog> findAccessLogByPage(String hql, String countHql,
 			Page<AccessLog> page, Object... objects) throws Exception;
 }

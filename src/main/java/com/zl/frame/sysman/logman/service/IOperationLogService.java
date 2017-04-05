@@ -87,6 +87,6 @@ public interface IOperationLogService {
 	 * @param objects 可变参数
 	 * @return Page<OperationLog>
 	 */
-	public abstract Page<OperationLog> findOperationLogListByPage(String hql,
+	public abstract Page<OperationLog> findOperationLogListByPage(String hql, String countHql,
 			Page<OperationLog> page, Object... objects) throws Exception;
 }

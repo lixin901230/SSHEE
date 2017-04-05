@@ -68,6 +68,10 @@ public interface IHibernateBaseDao<T, PK extends Serializable> extends IBaseDao<
 	 */
 	void deleteAll(Collection<T> collection) throws Exception;
 	
+	int deleteByHql(String hql) throws Exception;
+	
+	int deleteByHql(String hql, Object object) throws Exception;
+	
 	/**
 	 * 根据hql删除orm对象，可包含多个参数
 	 * @param hql
@@ -174,17 +178,27 @@ public interface IHibernateBaseDao<T, PK extends Serializable> extends IBaseDao<
 	 */
 	List<T> findAllByHql(String hql, Object...objects) throws Exception;
 	
+	/**
+	 * 分页查询统计
+	 * @param countHql
+	 * @param params
+	 * @return
+	 * @throws Exception
+	 */
+	public Integer findCountByHql(final String countHql, final Object[] params) throws Exception;
+	
     /**
      * 分页查询，根据hql进行分页查询
      *
-     * @param hql    查询语句
+     * @param hql   	分页列表查询语句
+     * @param countHql  分页统计查询语句
      * @param obj     命名参数
      * @param curPage 当前页
      * @param pageSize 每页的数量
      *
      * @return Page<T> 分页对象
      */
-	Page<T> findByHql(String hql, int curPage, int pageSize) throws Exception;
+	Page<T> findByHql(String hql, String countHql, int curPage, int pageSize) throws Exception;
     /**
      * 分页查询，根据hql进行分页查询
      * @param hql
@@ -193,7 +207,7 @@ public interface IHibernateBaseDao<T, PK extends Serializable> extends IBaseDao<
      * @param pageSize
      * @return
      */
-    Page<T> findByHql(String hql, Object[] params, int curPage, int pageSize) throws Exception;
+    Page<T> findByHql(String hql, String countHql, Object[] params, int curPage, int pageSize) throws Exception;
     
     
     //**************************	Hibernate 原生Sql查询接口定义	************************************
@@ -206,6 +220,15 @@ public interface IHibernateBaseDao<T, PK extends Serializable> extends IBaseDao<
      * @return
      */
     T findBySql(Class<T> clazz, String sql, Object[] params) throws Exception;
+    
+    /**
+     * 将查询出来的数据转换为Map集合,但前提是只能为一条数据 ,它的key为其查询的字段
+     * @param sql
+     * @param params
+     * @return
+     * @throws Exception
+     */
+	Map<String, Object> findMapBySql(final String sql, final Object[] params) throws Exception;
     
     /**
 	 * 通过原生sql查询全部信息，用于导出报表查询等
@@ -225,6 +248,34 @@ public interface IHibernateBaseDao<T, PK extends Serializable> extends IBaseDao<
 	 */
 	List<T> findAllBySql(Class<T> clazz, String sql, Object[] params) throws Exception;
 	
+	/**
+	 * sql查询，返回以sql查询字段名（或 别名）为key的map的，字段值为value的map 结果集
+	 * @param clazz 查询结果集Object数组根据转换器转换时指定的转换目标类型
+	 * @param sql 原生sql语句
+	 * @param params 参数
+	 * @return List<Map<String, Object>>
+	 */
+	List<Map<String, Object>> findMapListBySql(final String sql, final Object[] params) throws Exception;
+	
+	/**
+	 * 分页查询统计
+	 * @param countSql
+	 * @param params
+	 * @return
+	 * @throws Exception
+	 */
+	public Integer findCountBySql(final String countSql, final Object[] params) throws Exception;
+	
+	/**
+	 * 根据原生sql查询返回Obejct数组
+	 * @param sql 原生sql
+	 * @param params 参数数组对象
+	 * @param curPage 当前页
+	 * @param pageSize 每页显示数
+	 * @return
+	 */
+	Page<T> findBySql(final String sql, final String countSql, final Object[] params, final int curPage, final int pageSize) throws Exception;
+	
     /**
 	 * 根据原生sql查询返回Obejct数组
 	 * @param sql 原生sql
@@ -233,7 +284,7 @@ public interface IHibernateBaseDao<T, PK extends Serializable> extends IBaseDao<
 	 * @param pageSize 每页显示数
 	 * @return
 	 */
-	Page<T> findBySql(Class<T> clazz, String sql, Object params, int curPage, int pageSize) throws Exception;
+	Page<T> findBySql(Class<T> clazz, String sql, String countHql, Object params, int curPage, int pageSize) throws Exception;
 	
 	/**
 	 * 根据原生sql查询返回Obejct数组
@@ -243,7 +294,21 @@ public interface IHibernateBaseDao<T, PK extends Serializable> extends IBaseDao<
 	 * @param pageSize 每页显示数
 	 * @return
 	 */
-	Page<T> findBySql(Class<T> clazz, String sql, Object[] params, int curPage, int pageSize) throws Exception;
+	Page<T> findBySql(Class<T> clazz, String sql, String countHql, Object[] params, int curPage, int pageSize) throws Exception;
+	
+	
+	/**
+	 * sql分页查询，返回值为一个List<Map<String, Object>>
+	 * @param sql
+	 * @param countSql
+	 * @param params
+	 * @param curPage
+	 * @param pageSize
+	 * @return
+	 * @throws Exception
+	 */
+	Page<T> findMapListBySql(final String sql, final String countSql, final Object[] params, 
+			final int curPage, final int pageSize) throws Exception;
 	
 	
 	//***********************	hibernate QBC 纯对象化查询	**********************
@@ -273,7 +338,7 @@ public interface IHibernateBaseDao<T, PK extends Serializable> extends IBaseDao<
 	 * 
 	 * @param criterions 数量可变的Criterion.
 	 */
-	public List<T> findByCriterion(final Criterion... criterions) throws Exception;
+	List<T> findByCriterion(final Criterion... criterions) throws Exception;
 	
 	/**
 	 * 按Criteria查询分页，返回分页对象Page<T>
@@ -306,81 +371,6 @@ public interface IHibernateBaseDao<T, PK extends Serializable> extends IBaseDao<
 	Page<T> findByCriteria(DetachedCriteria detachedCriteria, int curPage, int pageSize) throws Exception;
     
 	
-	//***********************	hibernate 命名查询接口定义	**********************
-	
-    /**
-     * 命名查询,?形式的助记符
-     * @param queryName
-     * @return
-     */
-    List<T> findByNamedQuery(String queryName) throws Exception;
-    /**
-     * 命名查询,?形式的助记符
-     * @param queryName
-     * @param obj
-     * @return
-     */
-    List<T> findByNamedQuery(String queryName, Object obj) throws Exception;
-    /**
-     * 命名查询,?形式的助记符
-     * @param queryName
-     * @param objects
-     * @return
-     */
-    List<T> findByNamedQuery(String queryName, Object...objects) throws Exception;
-
-    /**
-     * 命名查询分页，?形式的助记符
-     * @param queryName
-     * @param curPage
-     * @param pageSize
-     * @return
-     */
-    Page<T> findByNamedQuery(String queryName, int curPage, int pageSize) throws Exception;
-    /**
-     * 命名查询分页，?形式的助记符
-     * @param queryName
-     * @param obj
-     * @param curPage
-     * @param pageSize
-     * @return
-     */
-    Page<T> findByNamedQuery(String queryName, Object obj, int curPage, int pageSize) throws Exception;
-    /**
-     * 命名查询分页，?形式的助记符
-     * @param queryName
-     * @param obj
-     * @param curPage
-     * @param pageSize
-     * @return
-     */
-    Page<T> findByNamedQuery(String queryName, Object[] obj, int curPage, int pageSize) throws Exception;
-
-    /**
-     * 命名查询,:key 形式的助记符
-     * @param queryName
-     * @param params
-     * @return
-     */
-    List<T> findByNamedQuery(String queryName, Map<String, Object> params) throws Exception;
-    /**
-     * 命名查询,:key 形式的助记符
-     * @param queryName
-     * @param name
-     * @param obj
-     * @return
-     */
-    List<T> findByNamedQuery(String queryName, String name, Object obj) throws Exception;
-    /**
-     * 命名查询,:key 形式的助记符
-     * @param queryName
-     * @param names
-     * @param objects
-     * @return
-     */
-    List<T> findByNamedQuery(String queryName, String[] names, Object...objects) throws Exception;
-    
-    
     //***********************	Hql批量处理	*************************
     
     /**
@@ -403,6 +393,20 @@ public interface IHibernateBaseDao<T, PK extends Serializable> extends IBaseDao<
      * @return
      */
     int batchByHql(String hql, Object...objects) throws Exception;
+    
+    /**
+     * 采用HQL语句实现批量操作<br>
+     * @param hql HQL语句
+     * @return 处理的条数
+     */
+    int execHQL(final String hql) throws Exception;
+    
+    /**
+     * 采用HQL语句实现批量操作,单参数<br>
+     * @param hql HQL语句
+     * @return 处理的条数
+     */
+    int execHQL(final String hql, final Object value) throws Exception;
 
     /**
      * 采用HQL语句实现批量操作,多参数<br>

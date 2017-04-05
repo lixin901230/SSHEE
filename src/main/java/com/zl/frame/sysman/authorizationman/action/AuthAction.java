@@ -86,9 +86,15 @@ public class AuthAction extends BaseAction {
 					params.add(DateUtil.formatDate(userVo.getLastUpdateTimeEnd(), DateUtil.YYYYMMDDHHMMSS));
 				}
 			}
-			hql.append(" order by u.id desc ");
 			
-			userPage = userService.findUserListByPage(hql.toString(), userPage, params.toArray());
+			StringBuffer queryHql = new StringBuffer();
+			queryHql.append(" order by u.id desc ");
+			
+			StringBuffer countHql = new StringBuffer();
+			countHql.append("select count(*) ");
+			countHql.append(hql);
+			
+			userPage = userService.findUserListByPage(queryHql.toString(), countHql.toString(), userPage, params.toArray());
 			DataGrid dataGrid = new DataGrid(Long.valueOf(userPage.getTotalRow()), userPage.getData());
 			writeJson(JsonUtil.obj2json(dataGrid));
 //			writeJson(JsonUtil.objToJson(dataGrid, new String[]{"roleList"}, null));
@@ -152,10 +158,11 @@ public class AuthAction extends BaseAction {
 			logger.info("开始加载未授权的用户信息");
 			
 			String hql = "from User";
+			String countHql = "select count(*) from User";
 			List<Object> params = new ArrayList<Object>();
 			
-			userPage = authService.findUnAuthUserList(hql.toString(), userPage, params.toArray());
-			userPage = userService.findUserListByPage(hql.toString(), userPage, params.toArray());
+			userPage = authService.findUnAuthUserList(hql, countHql, userPage, params.toArray());
+			userPage = userService.findUserListByPage(hql, countHql, userPage, params.toArray());
 			DataGrid dataGrid = new DataGrid(Long.valueOf(userPage.getTotalRow()), userPage.getData());
 			writeJson(JsonUtil.obj2json(dataGrid));
 			

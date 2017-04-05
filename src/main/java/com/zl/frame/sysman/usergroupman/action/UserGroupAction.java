@@ -84,9 +84,16 @@ public class UserGroupAction extends BaseAction {
 					params.add(DateUtil.formatDate(userVo.getLastUpdateTimeEnd(), DateUtil.YYYYMMDDHHMMSS));
 				}
 			}*/
-			hql.append(" order by u.id desc ");
 			
-			pager = userGroupService.findUserGroupListByPage(hql.toString(), pager, params.toArray());
+			StringBuffer queryHql = new StringBuffer();
+			queryHql.append(hql);
+			queryHql.append(" order by u.id desc ");
+
+			StringBuffer countHql = new StringBuffer();
+			countHql.append("select count(*) ");
+			countHql.append(hql);
+			
+			pager = userGroupService.findUserGroupListByPage(queryHql.toString(), countHql.toString(), pager, params.toArray());
 			DataGrid dataGrid = new DataGrid(Long.valueOf(pager.getTotalRow()), pager.getData());
 			writeJson(JsonUtil.obj2json(dataGrid));
 //			writeJson(JsonUtil.objToJson(dataGrid, new String[]{"roleList"}, null));
@@ -254,12 +261,22 @@ public class UserGroupAction extends BaseAction {
 		logger.info("开始根据用户组ID获取该用户组下的用户列表");
 		
 		try {
-			StringBuffer sql = new StringBuffer("select u.id,u.userName,u.sex,u.telphone,u.email,u.statu,");
-			sql.append("u.createTime,u.lastUpdateTime,u.remark from t_sys_user u ");
-			sql.append("inner join t_sys_user$user_group uug on u.id=uug.userId ");
-			sql.append("inner join t_sys_user_group ug on ug.id=uug.userGroupId where ug.id=?");
+			StringBuffer sql = new StringBuffer();
+			sql.append(" from t_sys_user u  ");
+			sql.append(" inner join t_sys_user$user_group uug on u.id=uug.userId ");
+			sql.append(" inner join t_sys_user_group ug on ug.id=uug.userGroupId where ug.id=? ");
 			
-			usersPage = userService.findUserListPageBySql(sql.toString(), usersPage, new String[]{userGroup.getId()});
+			StringBuffer querySql = new StringBuffer();
+			querySql.append("select u.id,u.userName,u.sex,u.telphone,u.email,u.statu,");
+			querySql.append("u.createTime,u.lastUpdateTime,u.remark ");
+			querySql.append(sql);
+			querySql.append(" order by u.id desc ");
+
+			StringBuffer countSql = new StringBuffer();
+			countSql.append("select count(*) ");
+			countSql.append(sql);
+			
+			usersPage = userService.findUserListPageBySql(querySql.toString(), countSql.toString(), usersPage, new String[]{userGroup.getId()});
 			DataGrid dataGrid = new DataGrid(Long.valueOf(usersPage.getTotalRow()), usersPage.getData());
 			writeJson(JsonUtil.obj2json(dataGrid));
 			

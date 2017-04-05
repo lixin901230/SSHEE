@@ -63,7 +63,7 @@ public interface IUserGroupService {
 	 * @param params
 	 * @return Page<UserGroup>
 	 */
-	public Page<UserGroup> findUserGroupListByPage(String hql, Page<UserGroup> page, Object[] params) throws Exception;
+	public Page<UserGroup> findUserGroupListByPage(String hql, String countHql, Page<UserGroup> page, Object[] params) throws Exception;
 	
 	/**
 	 * 根据Hql和条件查询用户信息

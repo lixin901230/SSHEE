@@ -100,9 +100,16 @@ public class UserAction extends BaseAction {
 					params.add(DateUtil.formatDate(userVo.getLastUpdateTimeEnd(), DateUtil.YYYYMMDDHHMMSS));
 				}
 			}
-			hql.append(" order by u.createTime desc ");
 			
-			pager = userService.findUserListByPage(hql.toString(), pager, params.toArray());
+			StringBuffer queryHql = new StringBuffer();
+			queryHql.append(hql);
+			queryHql.append(" order by u.createTime desc ");
+
+			StringBuffer countHql = new StringBuffer();
+			countHql.append("select count(*) ");
+			countHql.append(hql);
+			
+			pager = userService.findUserListByPage(queryHql.toString(), queryHql.toString(), pager, params.toArray());
 			String resultJson = JsonUtil.obj2json(pager);
 			logger.info("获取用户信息列表数据成功；数据如下：\n"+resultJson);
 			
@@ -171,9 +178,16 @@ public class UserAction extends BaseAction {
 					params.add(DateUtil.formatDate(userVo.getLastUpdateTimeEnd(), DateUtil.YYYYMMDDHHMMSS));
 				}
 			}
-			hql.append(" order by u.id desc ");
 			
-			pager = userService.findUserListByPage(hql.toString(), pager, params.toArray());
+			StringBuffer queryHql = new StringBuffer();
+			queryHql.append(hql);
+			queryHql.append(" order by u.id desc ");
+
+			StringBuffer countHql = new StringBuffer();
+			countHql.append("select count(*) ");
+			countHql.append(hql);
+			
+			pager = userService.findUserListByPage(queryHql.toString(), countHql.toString(), pager, params.toArray());
 			DataGrid dataGrid = new DataGrid(Long.valueOf(pager.getTotalRow()), pager.getData());
 			writeJson(JsonUtil.obj2json(dataGrid));
 //			writeJson(JsonUtil.objToJson(dataGrid, new String[]{"roleList"}, null));

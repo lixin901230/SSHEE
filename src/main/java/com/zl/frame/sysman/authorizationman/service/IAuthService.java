@@ -32,6 +32,6 @@ public interface IAuthService {
 	 * @throws Exception 
 	 * @date 2014-4-2下午4:35:39
 	 */
-	public Page<User> findUnAuthUserList(String hql, Page<User> userPage, Object[] params) throws Exception;
+	public Page<User> findUnAuthUserList(String hql, String countHql, Page<User> userPage, Object[] params) throws Exception;
 
 }

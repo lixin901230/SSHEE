@@ -109,7 +109,7 @@ public class OperationLogServiceImpl implements IOperationLogService {
 	 * @param objects 可变参数
 	 * @return Page<OperationLog>
 	 */
-	public Page<OperationLog> findOperationLogListByPage(String hql, Page<OperationLog> page, Object...objects) throws Exception {
-		return operationLogDao.findByHql(hql, objects, page.getCurPage(), page.getPageSize());
+	public Page<OperationLog> findOperationLogListByPage(String hql, String countHql, Page<OperationLog> page, Object...objects) throws Exception {
+		return operationLogDao.findByHql(hql, countHql, objects, page.getCurPage(), page.getPageSize());
 	}
 }
