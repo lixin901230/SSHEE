@@ -25,6 +25,7 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projections;
 import org.hibernate.metadata.ClassMetadata;
 import org.hibernate.transform.AliasToBeanResultTransformer;
+import org.hibernate.transform.Transformers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.orm.hibernate3.HibernateCallback;
@@ -155,10 +156,12 @@ public class HibernateBaseDaoImpl<T, PK extends Serializable> extends
 		getHibernateTemplate().deleteAll(collection);
 	}
 	
+	@Override
 	public int deleteByHql(String hql) throws Exception {
 		return deleteByHql(hql, new Object[]{});
 	}
 	
+	@Override
 	public int deleteByHql(String hql, Object object) throws Exception {
 		return deleteByHql(hql, new Object[]{object});
 	}
@@ -274,7 +277,14 @@ public class HibernateBaseDaoImpl<T, PK extends Serializable> extends
 		return getHibernateTemplate().execute(new HibernateCallback<T>() {
 			@Override
 			public T doInHibernate(Session session) throws HibernateException, SQLException {
-				return executeQueryObj(session, hql, objects);
+				Query query = session.createQuery(hql);
+		    	if(objects != null && objects.length > 0){
+		    		for (int i = 0; i < objects.length; i++) {
+						query.setParameter(i, objects[i]);
+					}
+		    	}
+		    	T result = (T) query.uniqueResult();
+				return result;
 			}
 		});
 	}
@@ -289,23 +299,49 @@ public class HibernateBaseDaoImpl<T, PK extends Serializable> extends
 	public List<T> findAllByHql(final String hql, final Object... objects) throws Exception {
 		return (List<T>) getHibernateTemplate().execute(new HibernateCallback<Object>() {
 			public Object doInHibernate(Session session) throws HibernateException, SQLException {
-				return executeQueryAll(session, hql, objects);
+				Query query = session.createQuery(hql);
+		    	if(objects != null && objects.length > 0){
+		    		for (int i = 0; i < objects.length; i++) {
+						query.setParameter(i, objects[i]);
+					}
+		    	}
+		    	List<T> data = query.list();
+				return data;
 			}
 		});
 	}
 	
 	@Override
-	public Page<T> findByHql(String hql, int curPage, int pageSize) throws Exception {
-		return findByHql(hql, new Object[]{}, curPage, pageSize);
+	public Integer findCountByHql(final String countHql, final Object[] params) throws Exception {
+		return getHibernateTemplate().execute(new HibernateCallback<Integer>() {
+			@Override
+			public Integer doInHibernate(Session session) throws HibernateException, SQLException {
+				return executePageCountQueryByHql(session, countHql, params);
+			}
+		});
+	}
+	
+	@Override
+	public Page<T> findByHql(String hql, String countHql, int curPage, int pageSize) throws Exception {
+		return findByHql(hql, countHql, new Object[]{}, curPage, pageSize);
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public Page<T> findByHql(final String hql, final Object[] params, final int curPage, final int pageSize) throws Exception {
+	public Page<T> findByHql(final String hql, final String countHql, 
+			final Object[] params, final int curPage, final int pageSize) throws Exception {
 		return (Page<T>) getHibernateTemplate().execute(new HibernateCallback<Object>() {
 			@Override
 			public Page<T> doInHibernate(Session session) throws HibernateException, SQLException {
-				return executePageQuery(session, hql, params, pageSize, curPage);
+				int totalRow = executePageCountQueryByHql(session, countHql, params);
+		    	Query query = session.createQuery(hql);
+		        if (params != null) {
+		            for (int i = 0; i < params.length; i++) {
+		                query.setParameter(i, params[i]);
+		            }
+		        }
+		        List<T> data = query.setFirstResult(pageSize * (curPage - 1)).setMaxResults(pageSize).list();
+		        return new Page<T>(curPage, pageSize, totalRow, data);
 			}
 		});
 	}
@@ -315,14 +351,31 @@ public class HibernateBaseDaoImpl<T, PK extends Serializable> extends
 		return getHibernateTemplate().execute(new HibernateCallback<T>() {
 			@Override
 			public T doInHibernate(Session session) throws HibernateException, SQLException {
-				return executeSqlQueryObj(clazz, session, sql, params);
+				Query query = session.createSQLQuery(sql);
+		    	if (params != null) {
+		    		for (int i = 0; i < params.length; i++) {
+		    			query.setParameter(i, params[i]);
+		    		}
+		    	}
+		    	//query.setResultTransformer(Transformers.aliasToBean(clazz));
+		    	query.setResultTransformer(new AliasToBeanResultTransformer(clazz));
+		    	T object = (T) query.uniqueResult();
+		    	return object;
 			}
 		});
 	}
-
+	
 	@Override
-	public Page<T> findBySql(Class<T> clazz, String sql, Object params, int curPage, int pageSize) throws Exception {
-		return findBySql(clazz, sql, new Object[]{params}, curPage, pageSize);
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> findMapBySql(final String sql, final Object[] params) throws Exception {
+		return (Map<String, Object>) getHibernateTemplate().execute(new HibernateCallback<Map<String, Object>>() {
+            @Override  
+            public Map<String, Object> doInHibernate(Session session) throws HibernateException,
+                    SQLException {
+                Query query = session.createSQLQuery(sql);
+                return (Map<String, Object>) query.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).uniqueResult(); //返回值为map集合 且为唯一值（只能返回一条数据）
+            }  
+        });
 	}
 	
 	@Override
@@ -339,13 +392,57 @@ public class HibernateBaseDaoImpl<T, PK extends Serializable> extends
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<T> findAllBySql(final Class<T> clazz, final String sql, final Object[] params)throws Exception {
+	public List<T> findAllBySql(final Class<T> clazz, final String sql, final Object[] params) throws Exception {
 		return (List<T>) getHibernateTemplate().execute(new HibernateCallback<Object>() {
 			public List<T> doInHibernate(Session session) throws HibernateException, SQLException {
-				return executeSQLQueryAll(clazz, session, sql, params);
+				Query query = session.createSQLQuery(sql);
+		    	if (params != null && params.length > 0) {
+		    		for (int i = 0; i < params.length; i++) {
+		    			query.setParameter(i, params[i]);
+		    		}
+		    	}
+		    	//通过Transformers将结果集数组映射为指定类型对象
+		    	//query.setResultTransformer(Transformers.aliasToBean(clazz));
+		    	List<T> data = query.setResultTransformer(new AliasToBeanResultTransformer(clazz)).list();
+		        return data;
 			}
 		});
 	}
+	
+	/**
+	 * 将sql中的全部数据查出来，返回值为一个List<Map<String, Object>>
+	 * @param clazz 查询结果集Object数组根据转换器转换时指定的转换目标类型
+	 * @param sql 原生sql语句
+	 * @param params 参数
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Map<String, Object>> findMapListBySql(final String sql, final Object[] params) throws Exception {
+		return (List<Map<String, Object>>) getHibernateTemplate().execute(new HibernateCallback<Object>() {
+			public List<Map<String, Object>> doInHibernate(Session session) throws HibernateException, SQLException {
+				Query query = session.createSQLQuery(sql);
+		    	if (params != null) {
+		    		for (int i = 0; i < params.length; i++) {
+		    			query.setParameter(i, params[i]);
+		    		}
+		    	}
+		    	//通过Transformers将结果集数组转换为Map
+		    	query.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
+		    	List<Map<String, Object>> data = query.list();
+				return data;
+			}
+		});
+	}
+	
+	@Override
+	public Integer findCountBySql(final String countSql, final Object[] params) throws Exception {
+        return getHibernateTemplate().execute(new HibernateCallback<Integer>() {
+            public Integer doInHibernate(Session session) throws HibernateException, SQLException {
+                return executePageCountQueryBySql(session, countSql, params);
+            }
+        });
+    }
 	
 	/**
 	 * 根据原生sql查询返回Obejct数组
@@ -356,14 +453,30 @@ public class HibernateBaseDaoImpl<T, PK extends Serializable> extends
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public Page<T> findBySql(final String sql, final Object[] params, final int curPage, 
+	@Override
+	public Page<T> findBySql(final String sql, final String countSql, final Object[] params, final int curPage, 
 			final int pageSize) throws Exception {
         return (Page<T>) getHibernateTemplate().execute(new HibernateCallback<Object>() {
             public Object doInHibernate(Session session) throws HibernateException, SQLException {
-                return executePageSQLQuery(session, sql, params, pageSize, curPage);
+            	int totalRow = executePageCountQueryBySql(session, countSql, params);
+                Query query = session.createSQLQuery(sql);
+                if (params != null) {
+                    for (int i = 0; i < params.length; i++) {
+                        query.setParameter(i, params[i]);
+                    }
+                }
+                List<T> data = query.setFirstResult(pageSize * (curPage - 1)).setMaxResults(pageSize).list();
+                Page<T> page = new Page<T>(curPage, pageSize, totalRow, data);
+                return page;
             }
         });
     }
+	
+	@Override
+	public Page<T> findBySql(Class<T> clazz, String sql, String countSql, 
+			Object params, int curPage, int pageSize) throws Exception {
+		return findBySql(clazz, countSql, sql, new Object[]{params}, curPage, pageSize);
+	}
 	
     /**
      * 原生sql查询，根据传入类型clazz返回对应类型的结果集集合（使用转换器转换结果集数组）
@@ -375,15 +488,51 @@ public class HibernateBaseDaoImpl<T, PK extends Serializable> extends
      * @return
      */
     @SuppressWarnings("unchecked")
-	public Page<T> findBySql(final Class<T> clazz, final String sql, final Object[] params, 
+    @Override
+	public Page<T> findBySql(final Class<T> clazz, final String sql, final String countSql, final Object[] params, 
 			final int curPage, final int pageSize) throws Exception {
     	return (Page<T>) getHibernateTemplate().execute(new HibernateCallback<Object>() {
     		public Object doInHibernate(Session session) throws HibernateException, SQLException {
-    			return executePageSQLQuery(clazz, session, sql, params, pageSize, curPage);
+
+    			int totalRow = executePageCountQueryBySql(session, countSql, params);
+    	    	Query query = session.createSQLQuery(sql);
+    	    	if (params != null) {
+    	    		for (int i = 0; i < params.length; i++) {
+    	    			query.setParameter(i, params[i]);
+    	    		}
+    	    	}
+    	    	//通过Transformers将结果集数组映射为指定类型对象
+    	    	//query.setResultTransformer(Transformers.aliasToBean(clazz));
+    	    	query.setResultTransformer(new AliasToBeanResultTransformer(clazz));
+    	    	List<T> data = query.setFirstResult(pageSize * (curPage - 1)).setMaxResults(pageSize).list();
+    	    	Page<T> page = new Page<T>(curPage, pageSize, totalRow, data);
+    	    	return page;
     		}
     	});
     }
     
+    @SuppressWarnings("unchecked")
+    @Override
+	public Page<T> findMapListBySql(final String sql, final String countSql, final Object[] params, 
+			final int curPage, final int pageSize) throws Exception {
+    	return (Page<T>) getHibernateTemplate().execute(new HibernateCallback<Object>() {
+    		public Object doInHibernate(Session session) throws HibernateException, SQLException {
+    			int totalRow = executePageCountQueryBySql(session, countSql, params);
+    	    	
+    	    	Query query = session.createSQLQuery(sql);
+    	    	if (params != null) {
+    	    		for (int i = 0; i < params.length; i++) {
+    	    			query.setParameter(i, params[i]);
+    	    		}
+    	    	}
+    	    	//通过Transformers将结果集数组转换为Map
+    	    	query.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
+    	    	List<List<Map>> data = query.setFirstResult(pageSize * (curPage - 1)).setMaxResults(pageSize).list();
+    	    	Page<List<Map>> page = new Page<List<Map>>(curPage, pageSize, totalRow, data);
+    	    	return page;
+    		}
+    	});
+    }
     
     //**********************	 Hibernate QBC查询		*******************
     
@@ -391,10 +540,12 @@ public class HibernateBaseDaoImpl<T, PK extends Serializable> extends
      * 查询全部，通过Criteria
      * @return
      */
+    @Override
     public List<T> findAllByCriteria() throws Exception {
 		return findByCriteria();
 	}
     
+    @Override
     public List<T> findByCriteria(final Criterion... criterion) throws Exception {
 		@SuppressWarnings("unchecked")
 		List<T> list = getHibernateTemplate().executeFind(
@@ -445,10 +596,8 @@ public class HibernateBaseDaoImpl<T, PK extends Serializable> extends
 		int totalRow = (Integer) criteria.setProjection(Projections.rowCount()).uniqueResult();
 		criteria.setProjection(null);
 		
-		int totalPage = totalRow / pageSize + ((totalRow % pageSize) > 0 ? 1 : 0);
-		
         List<T> data = criteria.setFirstResult(pageSize * (curPage - 1)).setMaxResults(pageSize).list();
-		return new Page<T>(curPage, pageSize, totalPage, totalRow, data);
+		return new Page<T>(curPage, pageSize, totalRow, data);
 	}
     
     /**
@@ -496,303 +645,69 @@ public class HibernateBaseDaoImpl<T, PK extends Serializable> extends
 		return (Page<T>) getHibernateTemplate().execute(new HibernateCallback<Object>() {
 			@Override
 			public Object doInHibernate(Session session) throws HibernateException, SQLException {
-				return executePageByCriteria(session, detachedCriteria, pageSize, curPage);
+				
+				Criteria criteria = detachedCriteria.getExecutableCriteria(session);
+		    	int totalRow = (Integer) criteria.setProjection(Projections.rowCount()).uniqueResult();
+		    	criteria.setProjection(null);
+		    	
+		        List<T> data = criteria.setFirstResult(pageSize * (curPage - 1)).setMaxResults(pageSize).list();
+		        Page<T> page = new Page<T>(curPage, pageSize, totalRow, data);
+		        return page;
 			}
 		});
 	}
-	
-
-    //**********************	 命名查询		*******************
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<T> findByNamedQuery(String queryName) throws Exception {
-		return getHibernateTemplate().findByNamedQuery(queryName);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<T> findByNamedQuery(String queryName, Object obj) throws Exception {
-		return getHibernateTemplate().findByNamedQuery(queryName, obj);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<T> findByNamedQuery(String queryName, Object...objects) throws Exception {
-		return getHibernateTemplate().findByNamedQuery(queryName, objects);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<T> findByNamedQuery(String queryName, Map<String, Object> params) throws Exception {
-		return getHibernateTemplate().findByNamedQueryAndNamedParam(queryName, 
-				params.keySet().toArray(new String[params.size()]), params.values().toArray());
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<T> findByNamedQuery(String queryName, String name, Object obj) throws Exception {
-		return getHibernateTemplate().findByNamedQueryAndNamedParam(queryName, name, obj);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<T> findByNamedQuery(String queryName, String[] names, 
-			Object... objects) throws Exception {
-		return getHibernateTemplate().findByNamedQueryAndNamedParam(queryName, names, objects);
-	}
-
-	@Override
-	public Page<T> findByNamedQuery(String queryName, int curPage, int pageSize) throws Exception {
-		return findByNamedQuery(queryName, new Object[]{}, curPage, pageSize);
-	}
-
-	@Override
-	public Page<T> findByNamedQuery(String queryName, Object obj, 
-			int curPage, int pageSize) throws Exception {
-		return findByNamedQuery(queryName, new Object[]{obj}, curPage, pageSize);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public Page<T> findByNamedQuery(final String queryName, 
-			final Object[] obj, final int curPage, final int pageSize) throws Exception {
-		return (Page<T>) getHibernateTemplate().execute(new HibernateCallback<Object>() {
-			@Override
-			public Page<T> doInHibernate(Session session) throws HibernateException, SQLException {
-				String hql = session.getNamedQuery(queryName).getQueryString();
-				return executePageQuery(session, hql, obj, pageSize, curPage);
-			}
-		});
-	}
-
-    /**
-     * 根据hql和参数列表，查询单个对象
-     * @param session
-     * @param hql
-     * @param objects
-     * @return T 
-     */
-    @SuppressWarnings("unchecked")
-	private T executeQueryObj(Session session, String hql, Object[] objects) {
-    	
-    	Query query = session.createQuery(hql);
-    	if(objects != null && objects.length > 0){
-    		for (int i = 0; i < objects.length; i++) {
-				query.setParameter(i, objects[i]);
-			}
-    	}
-    	T result = (T) query.uniqueResult();
-    	return result;
-    }
     
     /**
-     * 根据hql查询符合条件的全部信息
+     * hql 分页查询统计
      * @param session
-     * @param hql
-     * @param params
-     * @return List<T>
-     */
-    @SuppressWarnings("unchecked")
-	private List<T> executeQueryAll(Session session, String hql, Object[] params) {
-    	
-    	Query query = session.createQuery(hql);
-    	if(params != null && params.length > 0){
-    		for (int i = 0; i < params.length; i++) {
-				query.setParameter(i, params[i]);
-			}
-    	}
-    	List<T> data = query.list();
-    	return data;
-    }
-    
-    /**
-     * 根据hql分页查询
-     * @param session
-     * @param hql
-     * @param params
-     * @param pageSize
-     * @param curPage
-     * @param endPage
-     * @return Page<T>
-     */
-    @SuppressWarnings({ "unchecked" })
-	private Page<T> executePageQuery(Session session, String hql, Object[] params, int pageSize, int curPage) {
-        Query query = session.createQuery("select count(*) " + hql.substring(hql.toLowerCase().indexOf("from")));//todo 去掉order子句
-        if (params != null) {
-            for (int i = 0; i < params.length; i++) {
-                query.setParameter(i, params[i]);
-            }
-        }
-        List<T> list = query.list();
-
-        int totalRow = Integer.parseInt(list.get(0).toString());//todo bug 可能超过整形最大？
-        int totalPage = totalRow / pageSize + ((totalRow % pageSize) > 0 ? 1 : 0);
-
-        query = session.createQuery(hql);
-        //getHibernateTemplate().prepareQuery(query);
-        if (params != null) {
-            for (int i = 0; i < params.length; i++) {
-                query.setParameter(i, params[i]);
-            }
-        }
-        List<T> data = query.setFirstResult(pageSize * (curPage - 1)).setMaxResults(pageSize).list();
-
-        return new Page<T>(curPage, pageSize, totalPage, totalRow, data);
-    }
-    
-	/**
-     * 根据原生sql查询单个对象
-     * @param clazz
-     * @param session
-     * @param sql
+     * @param countHql
      * @param params
      * @return
+     * @throws RuntimeException
      */
-    @SuppressWarnings("unchecked")
-	private T executeSqlQueryObj(final Class<T> clazz, Session session,
-			final String sql, final Object[] params) {
-    	
-    	Query query = session.createSQLQuery(sql);
-    	if (params != null) {
-    		for (int i = 0; i < params.length; i++) {
-    			query.setParameter(i, params[i]);
-    		}
-    	}
-    	query.setResultTransformer(new AliasToBeanResultTransformer(clazz));
-    	T object = (T) query.uniqueResult();
-    	return object;
-    }
-	
-	/**
-	 * 根据原生sql查询返回结果集为Obejct数组的Page对象
-	 * @param sql 原生sql
-	 * @param params 参数数组对象
-	 * @param curPage 当前页
-	 * @param pageSize 每页显示数
-	 * @return Page<T>
-	 */
-    @SuppressWarnings("unchecked")
-	private Page<T> executePageSQLQuery(Session session, String sql, 
-			Object[] params, int pageSize, int curPage) {
-        
-    	Query query = session.createSQLQuery("select count(*) " + sql.substring(sql.toLowerCase().indexOf("from")));//todo 去掉order子句
+    private int executePageCountQueryByHql(Session session, String countHql, Object[] params) throws RuntimeException {
+    	Query query = session.createQuery(countHql);
         if (params != null) {
             for (int i = 0; i < params.length; i++) {
                 query.setParameter(i, params[i]);
             }
         }
-//        List<?> list = query.list();
         int totalRow =0;
 		try {
-			totalRow = ((BigDecimal) query.uniqueResult()).intValue();
+			totalRow = Integer.valueOf(query.uniqueResult().toString());
 		} catch (Exception e) {
-			logger.debug("分页统计结果类型转换异常，原因："+e.getMessage());
-//			e.printStackTrace();
+			logger.error("分页统计结果类型转换异常", e.getMessage());
 			totalRow = ((BigInteger)query.uniqueResult()).intValue();
-			logger.debug("已解决分页统计结果类型转换异常！");
+			logger.info("已解决分页统计结果类型转换异常！");
 		}
-        int totalPage = totalRow / pageSize + ((totalRow % pageSize) > 0 ? 1 : 0);
-        
-        query = session.createSQLQuery(sql);
-        //getHibernateTemplate().prepareQuery(query);
-        if (params != null) {
-            for (int i = 0; i < params.length; i++) {
-                query.setParameter(i, params[i]);
-            }
-        }
-        List<T> data = query.setFirstResult(pageSize * (curPage - 1)).setMaxResults(pageSize).list();
-        
-        //page需要带有一下参数的构造函数
-        Page<T> page = new Page<T>(curPage, pageSize, totalPage, totalRow, data);
-        return page;
+		return totalRow;
     }
     
     /**
-     * 原生sql查询，根据传入类型clazz返回含有对应类型结果集集合的Page分页对象（使用转换器转换结果集数组）
-     * @param clazz 查询结果集Object数组根据转换器转换时指定的类型
-     * @param sql 原生sql
-     * @param params 参数数组对象
-     * @param curPage 当前页
-     * @param pageSize 每页显示数
-     * @return Page
+     * sql 分页查询统计
+     * @param session
+     * @param countSql
+     * @param params
+     * @return
+     * @throws RuntimeException
      */
-    @SuppressWarnings("unchecked")
-	private Page<T> executePageSQLQuery(Class<T> clazz, Session session, String sql, Object[] params, 
-			int pageSize, int curPage) {
-    	Query query = session.createSQLQuery("select count(*) " + sql.substring(sql.toLowerCase().indexOf("from")));//todo 去掉order子句
+    private int executePageCountQueryBySql(Session session, String countSql, Object[] params) throws RuntimeException {
+    	Query query = session.createSQLQuery(countSql);
     	if (params != null) {
     		for (int i = 0; i < params.length; i++) {
     			query.setParameter(i, params[i]);
     		}
     	}
-//    	List<?> list = query.list();
-    	//修正，为了适应带有group by分组查询的记录统计
     	int totalRow =0;
-		try {
-			totalRow = ((BigDecimal) query.uniqueResult()).intValue();
-		} catch (Exception e) {
-			logger.debug("分页统计结果类型转换异常，原因："+e.getMessage());
-//			e.printStackTrace();
-			totalRow = ((BigInteger)query.uniqueResult()).intValue();
-			logger.debug("已解决分页统计结果类型转换异常！");
-		}
-    	int totalPage = totalRow / pageSize + ((totalRow % pageSize) > 0 ? 1 : 0);
-    	
-    	query = session.createSQLQuery(sql);
-    	//getHibernateTemplate().prepareQuery(query);
-    	if (params != null) {
-    		for (int i = 0; i < params.length; i++) {
-    			query.setParameter(i, params[i]);
-    		}
+    	try {
+    		totalRow = Integer.valueOf(query.uniqueResult().toString());
+    	} catch (Exception e) {
+    		logger.error("分页统计结果类型转换异常", e.getMessage());
+    		totalRow = ((BigInteger)query.uniqueResult()).intValue();
+    		logger.info("已解决分页统计结果类型转换异常！");
     	}
-    	//通过Transformers将结果集数组映射为指定类型对象
-//    	query.setResultTransformer(Transformers.aliasToBean(clazz)); ResultTransformer
-    	query.setResultTransformer(new AliasToBeanResultTransformer(clazz));
-    	List<T> data = query.setFirstResult(pageSize * (curPage - 1)).setMaxResults(pageSize).list();
-    	
-    	//page需要带有一下参数的构造函数
-    	 Page<T> page = new Page<T>(curPage, pageSize, totalPage, totalRow, data);
-         return page;
+    	return totalRow;
     }
-    
-    /**
-     * 原生sql查询，根据传入类型clazz返回对应类型的结果集集合（使用转换器转换结果集数组）
-     * @param clazz 查询结果集Object数组根据转换器转换时指定的类型
-     * @param sql 原生sql
-     * @param params 参数数组对象
-     */
-    @SuppressWarnings({ "unchecked" })
-	private List<T> executeSQLQueryAll(Class<T> clazz, Session session, String sql, Object[] params) {
-    	Query query = session.createSQLQuery(sql);
-    	if (params != null && params.length > 0) {
-    		for (int i = 0; i < params.length; i++) {
-    			query.setParameter(i, params[i]);
-    		}
-    	}
-    	//getHibernateTemplate().prepareQuery(query);
-    	//通过Transformers将结果集数组映射为指定类型对象
-//    	query.setResultTransformer(Transformers.aliasToBean(clazz)); ResultTransformer
-    	List<T> data = query.setResultTransformer(new AliasToBeanResultTransformer(clazz)).list();
-        return data;
-    }
-    
-    @SuppressWarnings("unchecked")
-	private Page<T> executePageByCriteria(Session session, DetachedCriteria detachedCriteria, 
-    		int pageSize, int curPage) {
-    	
-    	Criteria criteria = detachedCriteria.getExecutableCriteria(session);
-    	int totalRow = (Integer) criteria.setProjection(Projections.rowCount()).uniqueResult();
-    	criteria.setProjection(null);
-    	int totalPage = totalRow / pageSize + ((totalRow % pageSize) > 0 ? 1 : 0);
-    	
-        List<T> data = criteria.setFirstResult(pageSize * (curPage - 1)).setMaxResults(pageSize).list();
-        
-        //page需要带有一下参数的构造函数
-        Page<T> page = new Page<T>(curPage, pageSize, totalPage, totalRow, data);
-        return page;
-    }
-    
     
     //**********************	创建Query对象	**************
     
@@ -803,7 +718,7 @@ public class HibernateBaseDaoImpl<T, PK extends Serializable> extends
      * @param params 数量可变的参数,按顺序绑定.
      * @return
      */
-    public Query createQuery(Session session, String hql, Object[] params)throws Exception {
+    protected Query createQuery(Session session, String hql, Object[] params)throws Exception {
     	Query query = session.createQuery(hql);
     	if(params != null && params.length > 0){
     		for (int i = 0; i < params.length; i++) {
@@ -819,7 +734,7 @@ public class HibernateBaseDaoImpl<T, PK extends Serializable> extends
      * @param params 数量可变的参数,按顺序绑定.
      * @return
      */
-    public Query createQuery(final String hql, final Object[] objects)throws Exception {
+    protected Query createQuery(final String hql, final Object[] objects)throws Exception {
     	return getHibernateTemplate().execute(new HibernateCallback<Query>() {
     		@Override
     		public Query doInHibernate(Session session) throws HibernateException, SQLException {
@@ -841,7 +756,7 @@ public class HibernateBaseDaoImpl<T, PK extends Serializable> extends
      * @param params 命名参数,按名称绑定.
      * @return
      */
-    public Query createQuery(Session session, String hql, Map<String, Object> params)throws Exception {
+    protected Query createQuery(Session session, String hql, Map<String, Object> params)throws Exception {
     	Query query = session.createQuery(hql);
     	if(params != null && params.size() > 0){
     		query.setProperties(params);
@@ -856,7 +771,7 @@ public class HibernateBaseDaoImpl<T, PK extends Serializable> extends
      * @param params 命名参数,按名称绑定.
      * @return
      */
-    public Query createQuery(final String hql, final Map<String, Object> params)throws Exception {
+    protected Query createQuery(final String hql, final Map<String, Object> params)throws Exception {
     	return getHibernateTemplate().execute(new HibernateCallback<Query>() {
     		@Override
     		public Query doInHibernate(Session session) throws HibernateException, SQLException {
@@ -876,7 +791,7 @@ public class HibernateBaseDaoImpl<T, PK extends Serializable> extends
      * @param objects 数量可变的参数,按顺序绑定.
      * @return
      */
-    public Query createSQLQuery(Session session, String sql, Object...objects)throws Exception {
+    protected Query createSQLQuery(Session session, String sql, Object...objects)throws Exception {
     	Query query = session.createSQLQuery(sql);
     	if(objects != null && objects.length > 0){
     		for (int i = 0; i < objects.length; i++) {
@@ -892,7 +807,7 @@ public class HibernateBaseDaoImpl<T, PK extends Serializable> extends
      * @param objects 数量可变的参数,按顺序绑定.
      * @return
      */
-    public Query createSQLQuery(final String sql, final Object...objects)throws Exception {
+    protected Query createSQLQuery(final String sql, final Object...objects)throws Exception {
     	return getHibernateTemplate().execute(new HibernateCallback<Query>() {
     		@Override
     		public Query doInHibernate(Session session) throws HibernateException, SQLException {
@@ -914,7 +829,7 @@ public class HibernateBaseDaoImpl<T, PK extends Serializable> extends
      * @param objects 命名参数,按名称绑定.
      * @return Query
      */
-    public Query createSQLQuery(Session session, String sql, Map<String, Object> objects)throws Exception {
+    protected Query createSQLQuery(Session session, String sql, Map<String, Object> objects)throws Exception {
     	
     	Query query = session.createSQLQuery(sql);
     	if(objects != null && objects.size() > 0){
@@ -929,7 +844,7 @@ public class HibernateBaseDaoImpl<T, PK extends Serializable> extends
      * @param objects 命名参数,按名称绑定.
      * @return Query
      */
-    public Query createSQLQuery(final String sql, final Map<String, Object> objects)throws Exception {
+    protected Query createSQLQuery(final String sql, final Map<String, Object> objects)throws Exception {
     	
     	return getHibernateTemplate().execute(new HibernateCallback<Query>() {
     		@Override
@@ -966,6 +881,7 @@ public class HibernateBaseDaoImpl<T, PK extends Serializable> extends
      * @param hql HQL语句
      * @return 处理的条数
      */
+    @Override
     public int execHQL(final String hql) throws Exception {
         return execHQL(hql, new Object[]{});
     }
@@ -975,6 +891,7 @@ public class HibernateBaseDaoImpl<T, PK extends Serializable> extends
      * @param hql HQL语句
      * @return 处理的条数
      */
+    @Override
     public int execHQL(final String hql, final Object value) throws Exception {
         return execHQL(hql, new Object[]{value});
     }
@@ -1053,6 +970,7 @@ public class HibernateBaseDaoImpl<T, PK extends Serializable> extends
 				} catch (Exception e) {
 					conn.rollback();
 					e.printStackTrace();
+					throw new RuntimeException();
 				} finally {
 					if(ps != null && !conn.isClosed()) {
 						ps.close();

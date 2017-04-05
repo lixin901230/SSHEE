@@ -79,9 +79,16 @@ public class RoleAction extends BaseAction {
 					params.add(DateUtil.formatDate(roleVo.getCreateTimeEnd(), DateUtil.YYYYMMDDHHMMSS));
 				}
 			}
-			hql.append(" order by r.createTime desc ");
 			
-			pager = roleService.findRoleListByPage(hql.toString(), pager, params.toArray());
+			StringBuffer queryHql = new StringBuffer();
+			queryHql.append(hql);
+			queryHql.append(" order by r.createTime desc ");
+
+			StringBuffer countHql = new StringBuffer();
+			countHql.append("select count(*) ");
+			countHql.append(hql);
+			
+			pager = roleService.findRoleListByPage(queryHql.toString(), countHql.toString(), pager, params.toArray());
 			DataGrid dataGrid = new DataGrid(Long.valueOf(pager.getTotalRow()), pager.getData());
 			writeText(JsonUtil.obj2json(dataGrid));
 //			writeJson(JsonUtil.objToJson(dataGrid, new String[]{"userList","resourceList"}, null));

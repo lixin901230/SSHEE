@@ -113,7 +113,7 @@ public class AccessLogServiceImpl implements IAccessLogService {
 	 * @param objects
 	 * @return
 	 */
-	public Page<AccessLog> findAccessLogByPage(String hql, Page<AccessLog> page, Object...objects) throws Exception {
-		return accessLogDao.findByHql(hql, objects, page.getCurPage(), page.getPageSize());
+	public Page<AccessLog> findAccessLogByPage(String hql, String countHql, Page<AccessLog> page, Object...objects) throws Exception {
+		return accessLogDao.findByHql(hql, countHql, objects, page.getCurPage(), page.getPageSize());
 	}
 }

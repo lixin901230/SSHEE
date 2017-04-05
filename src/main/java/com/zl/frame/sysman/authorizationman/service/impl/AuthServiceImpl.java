@@ -45,8 +45,8 @@ public class AuthServiceImpl implements IAuthService {
 	 * @date 2014-4-2下午4:35:39
 	 */
 	@Override
-	public Page<User> findUnAuthUserList(String hql, Page<User> userPage, Object[] params) throws Exception{
-		return userDao.findByHql(hql, params, userPage.getCurPage(), userPage.getPageSize());
+	public Page<User> findUnAuthUserList(String hql, String countHql, Page<User> userPage, Object[] params) throws Exception{
+		return userDao.findByHql(hql, countHql, params, userPage.getCurPage(), userPage.getPageSize());
 	}
 	
 	

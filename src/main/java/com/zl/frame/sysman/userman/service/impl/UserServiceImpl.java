@@ -124,8 +124,8 @@ public class UserServiceImpl implements IUserService {
 	 * @param params
 	 * @return Page<User>
 	 */
-	public Page<User> findUserListByPage(String hql, Page<User> page, Object[] params) throws Exception {
-		return userDao.findByHql(hql, params, page.getCurPage(), page.getPageSize());
+	public Page<User> findUserListByPage(String hql, String countHql, Page<User> page, Object[] params) throws Exception {
+		return userDao.findByHql(hql, countHql, params, page.getCurPage(), page.getPageSize());
 	}
 
 	/**
@@ -135,7 +135,7 @@ public class UserServiceImpl implements IUserService {
 	 * @param params
 	 * @return Page<User>
 	 */
-	public Page<User> findUserListPageBySql(String hql, Page<User> page, Object[] params) throws Exception {
-		return userDao.findBySql(User.class, hql, params, page.getCurPage(), page.getPageSize());
+	public Page<User> findUserListPageBySql(String sql, String countSql, Page<User> page, Object[] params) throws Exception {
+		return userDao.findBySql(User.class, sql, countSql, params, page.getCurPage(), page.getPageSize());
 	}
 }

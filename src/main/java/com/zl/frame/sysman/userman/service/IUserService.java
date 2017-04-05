@@ -62,7 +62,7 @@ public interface IUserService {
 	 * @param params
 	 * @return Page<User>
 	 */
-	public Page<User> findUserListByPage(String hql, Page<User> page, Object[] params)throws Exception;
+	public Page<User> findUserListByPage(String hql, String countHql, Page<User> page, Object[] params)throws Exception;
 	
 	/**
 	 * 根据Hql和条件查询用户信息
@@ -102,5 +102,5 @@ public interface IUserService {
 	 * @param params
 	 * @return Page<User>
 	 */
-	public Page<User> findUserListPageBySql(String hql, Page<User> page, Object[] params) throws Exception;
+	public Page<User> findUserListPageBySql(String sql, String countHql, Page<User> page, Object[] params) throws Exception;
 }
