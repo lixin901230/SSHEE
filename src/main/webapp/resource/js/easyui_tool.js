@@ -150,6 +150,7 @@ $.fn.tree.defaults.loadFilter = function(data, parent) {
  * @requires jQuery,EasyUI
  * 
  * 扩展tree，使其支持平滑数据格式
+ * 加入attrsField属性，用来给tree的属性attributes设置自定义属性key
  */
 /*$.fn.tree.defaults.loadFilter = function(data, parent) {
 	var opt = $(this).data().tree.options;
@@ -229,6 +230,7 @@ $.fn.treegrid.defaults.loadFilter = function(data, parentId) {
  * @requires jQuery,EasyUI
  * 
  * 扩展treegrid，使其支持平滑数据格式
+ * 加入attrsField属性，用来给tree的属性attributes设置自定义属性key
  */
 /*$.fn.treegrid.defaults.loadFilter = function(data, parentId) {
 	var opt = $(this).data().treegrid.options;
