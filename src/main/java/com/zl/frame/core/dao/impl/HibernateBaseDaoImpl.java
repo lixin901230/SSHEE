@@ -397,6 +397,11 @@ public class HibernateBaseDaoImpl<T, PK extends Serializable> extends
             public Map<String, Object> doInHibernate(Session session) throws HibernateException,
                     SQLException {
                 Query query = session.createSQLQuery(sql);
+                if (params != null && params.length > 0) {
+		    		for (int i = 0; i < params.length; i++) {
+		    			query.setParameter(i, params[i]);
+		    		}
+		    	}
                 return (Map<String, Object>) query.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).uniqueResult(); //返回值为map集合 且为唯一值（只能返回一条数据）
             }  
         });
