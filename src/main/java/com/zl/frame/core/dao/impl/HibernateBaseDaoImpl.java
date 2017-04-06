@@ -51,27 +51,16 @@ public class HibernateBaseDaoImpl<T, PK extends Serializable> extends
 
 	private Class<T> entityClass;
 	
-//	@Autowired
-//	private SessionFactory sessionFactory;
-	
 	/**
 	 * 以注解的方式注入sessionFactory
+	 * 
+	 * 注意：使用注解为HibernateDaoSupport注入sessionFactory，因为 {@link HibernateDaoSupport#setSessionFactory(SessionFactory sessionFactory)} 方法为final类型的，
+	 * 故使用该这种方式来为HibernateDaoSupport注入sessionFactory
 	 * @param sessionFactory
 	 */
-//	@Autowired
-//	public void setMySessionFactory(SessionFactory sessionFactory) {
-//		super.setSessionFactory(sessionFactory);
-//	}
-	
-	/**
-	 * 通过范型反射，取得子类中定义的entityClass
-	 */
-	/*@SuppressWarnings("unchecked")
-	public HibernateBaseDaoImpl() {
-		logger.info(">>>>>>>>>>>>>	实例化底层Hibernate接口HibernateBaseDaoImpl，通过反射获取泛型的实际类型");
-		ParameterizedType paramType = (ParameterizedType) getClass().getGenericSuperclass();
-		Type[] actualType = paramType.getActualTypeArguments();
-		this.entityClass = (Class<T>) actualType[0];
+	/*@Autowired
+	public void setMySessionFactory(SessionFactory sessionFactory) {
+		super.setSessionFactory(sessionFactory);
 	}*/
 	
 	/**
@@ -82,6 +71,7 @@ public class HibernateBaseDaoImpl<T, PK extends Serializable> extends
 		logger.info(">>>>>>>>>>>>>	实例化底层Hibernate接口HibernateBaseDaoImpl，通过反射获取泛型的实际类型");
 		this.entityClass = null;
 		Class c = getClass();
+		//ParameterizedType type = (ParameterizedType) getClass().getGenericSuperclass();
 		Type type = c.getGenericSuperclass();
 		if (type instanceof ParameterizedType) {
 			Type[] parameterizedType = ((ParameterizedType) type).getActualTypeArguments();
@@ -542,9 +532,9 @@ public class HibernateBaseDaoImpl<T, PK extends Serializable> extends
     
     @SuppressWarnings("unchecked")
     @Override
-	public Page<T> findMapListBySql(final String sql, final String countSql, final Object[] params, 
+	public Page<List<Map<String, Object>>> findMapListBySql(final String sql, final String countSql, final Object[] params, 
 			final int curPage, final int pageSize) throws Exception {
-    	return (Page<T>) getHibernateTemplate().execute(new HibernateCallback<Object>() {
+    	return (Page<List<Map<String, Object>>>) getHibernateTemplate().execute(new HibernateCallback<Object>() {
     		public Object doInHibernate(Session session) throws HibernateException, SQLException {
     			int totalRow = executePageCountQueryBySql(session, countSql, params);
     	    	
@@ -556,8 +546,8 @@ public class HibernateBaseDaoImpl<T, PK extends Serializable> extends
     	    	}
     	    	//通过Transformers将结果集数组转换为Map
     	    	query.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
-    	    	List<List<Map>> data = query.setFirstResult(pageSize * (curPage - 1)).setMaxResults(pageSize).list();
-    	    	Page<List<Map>> page = new Page<List<Map>>(curPage, pageSize, totalRow, data);
+    	    	List<List<Map<String, Object>>> data = query.setFirstResult(pageSize * (curPage - 1)).setMaxResults(pageSize).list();
+    	    	Page<List<Map<String, Object>>> page = new Page<List<Map<String, Object>>>(curPage, pageSize, totalRow, data);
     	    	return page;
     		}
     	});

@@ -180,9 +180,9 @@ public interface IHibernateBaseDao<T, PK extends Serializable> extends IBaseDao<
 	
 	/**
 	 * 分页查询统计
-	 * @param countHql
-	 * @param params
-	 * @return
+	 * @param countHql	统计hql语句
+	 * @param params	统计参数数组
+	 * @return 统计的结果记录数
 	 * @throws Exception
 	 */
 	public Integer findCountByHql(final String countHql, final Object[] params) throws Exception;
@@ -226,7 +226,7 @@ public interface IHibernateBaseDao<T, PK extends Serializable> extends IBaseDao<
      * @param sql
      * @param params
      * @return
-     * @throws Exception
+     * @throws Exception Map&ltString, Object&gt
      */
 	Map<String, Object> findMapBySql(final String sql, final Object[] params) throws Exception;
     
@@ -253,15 +253,15 @@ public interface IHibernateBaseDao<T, PK extends Serializable> extends IBaseDao<
 	 * @param clazz 查询结果集Object数组根据转换器转换时指定的转换目标类型
 	 * @param sql 原生sql语句
 	 * @param params 参数
-	 * @return List<Map<String, Object>>
+	 * @return List&ltMap&ltString, Object&gt&gt
 	 */
 	List<Map<String, Object>> findMapListBySql(final String sql, final Object[] params) throws Exception;
 	
 	/**
 	 * 分页查询统计
-	 * @param countSql
-	 * @param params
-	 * @return
+	 * @param countSql	统计sql语句
+	 * @param params	统计参数数组
+	 * @return	统计结果
 	 * @throws Exception
 	 */
 	public Integer findCountBySql(final String countSql, final Object[] params) throws Exception;
@@ -298,16 +298,16 @@ public interface IHibernateBaseDao<T, PK extends Serializable> extends IBaseDao<
 	
 	
 	/**
-	 * sql分页查询，返回值为一个List<Map<String, Object>>
-	 * @param sql
-	 * @param countSql
-	 * @param params
-	 * @param curPage
-	 * @param pageSize
-	 * @return
+	 * sql分页查询，返回值为一个Page（具体类型为：Page&ltList&ltMap&ltString, Object&gt&gt&gt）
+	 * @param sql		分页列表查询sql
+	 * @param countSql	分页统计sql
+	 * @param params	参数数组
+	 * @param curPage	当前页
+	 * @param pageSize	每页记录条数
+	 * @return Page&ltList&ltMap&ltString, Object&gt&gt&gt
 	 * @throws Exception
 	 */
-	Page<T> findMapListBySql(final String sql, final String countSql, final Object[] params, 
+	Page<List<Map<String, Object>>> findMapListBySql(final String sql, final String countSql, final Object[] params, 
 			final int curPage, final int pageSize) throws Exception;
 	
 	
