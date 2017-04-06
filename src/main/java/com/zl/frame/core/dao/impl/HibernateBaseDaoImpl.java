@@ -931,7 +931,7 @@ public class HibernateBaseDaoImpl<T, PK extends Serializable> extends
     }
     
     /**
-	 * 批处理 
+	 * jdbc 批处理 
 	 * @param sql
 	 * @param list 参数，list中可以是基本类型或者是包含基本类型的List
 	 */
