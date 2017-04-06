@@ -1,0 +1,25 @@
+@charset "utf-8";
+
+/* 翻页 */
+/* .paging { height:37px; border-top:1px #ececec solid; background:#f8f8f8; padding:13px 0 0 80px;} */
+.paging { width: 100%; height:24px; line-height: 24px; text-align: center; vertical-align: middle;}
+.paging div { float: left; vertical-align: middle; line-height:24px; height:24px; list-style: none;}
+.paging div a { border:1px #e7ecf0 solid; background:#fff; text-align:center; margin:0 5px 0 0; display:inline-block; color:#4bb250; height:22px; line-height:22px; text-decoration: none;}
+.paging div a:hover { background:#f2f6fa;text-decoration: none;}
+.paging .p1 { width:40px;}
+.paging .p2 { width:52px;}
+.paging .p3 { width:24px;}
+.paging .p4 { width:43px; border-radius:2px; float: none;}
+.paging .font-color-red { color:#ff4128; }
+.paging font { color:#ff4128; margin:0 5px;}
+.paging input { width:30px; height:20px; text-align: center; vertical-align: middle; border-top:1px #bdbdbd solid; border-right:1px #dedede solid; border-left:1px #bdbdbd solid; border-bottom:1px #dedede solid; background:#fff; margin:0 5px;}
+.paging .p_current,
+.paging .p_current:hover { border:1px #4bb250 solid; background:#4bb250; color:#fff;}
+.paging .p_disable,
+.paging .p_disable:hover { color:#a0a0a0; background:#fff; cursor:default;}
+.paging .jump_btn {width:30px;}
+.paging select {border: 1px solid #dedede; height: 24px; line-height: 24px; *margin-top: -24px; padding:0px 0px;}
+.paging select option {padding:0px 0px;}
+.paging .fl {float: left}
+.paging .margin_t24 {*margin-top: -24px;}
+.paging .recordtotal {display: none}
