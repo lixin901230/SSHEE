@@ -13,6 +13,7 @@ import com.zl.frame.core.dao.impl.HibernateBaseDaoImpl;
 import com.zl.frame.core.pager.Page;
 import com.zl.frame.sysman.userman.bean.User;
 import com.zl.frame.sysman.userman.dao.IUserDao;
+import com.zl.frame.sysman.userman.vo.UserVo;
 
 /**
  * @desc：用户信息管理持久层接口单元测试
@@ -90,6 +91,35 @@ public class UserServiceImplTest {
 			List<Map<String, Object>> list = hibernateBaseDao.findMapListBySql(sql, null);
 			
 			System.out.println(list);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testSqlToObj() {
+		HibernateBaseDaoImpl hibernateBaseDao = (HibernateBaseDaoImpl) applicationContext.getBean("hibernateBaseDao");
+		try {
+			String sql = "select id, userName, email from t_sys_user where id=?";
+			UserVo userVo = (UserVo) hibernateBaseDao.findBySql(UserVo.class, sql, new Object[]{"1"});
+			
+			System.out.println(userVo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testSqlToObjList() {
+		HibernateBaseDaoImpl hibernateBaseDao = (HibernateBaseDaoImpl) applicationContext.getBean("hibernateBaseDao");
+		try {
+			String sql = "select id, userName, email from t_sys_user";
+			String countSql = "select count(*) from t_sys_user";
+			Page<UserVo> page = hibernateBaseDao.findBySql(UserVo.class, sql, countSql, null, 1, 10);
+			
+			System.out.println(page);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
