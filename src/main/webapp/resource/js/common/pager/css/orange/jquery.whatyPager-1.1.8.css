@@ -1,0 +1,22 @@
+@charset "utf-8";
+
+/* 翻页 */
+.pager_plugin {width: 100%; text-align: center; vertical-align: middle;}
+.paging { height:37px; text-align:center; padding:10px 0 0 0; /* border-top:1px #ececec solid; background:#f8f8f8; */} /*这种非分页通用的样式不建议写在分页栏上*/
+.paging ul {display:inline-block;}
+.paging ul {*display:inline;}
+.paging ul li { float: left; vertical-align: middle; line-height: 24px;}
+.paging ul li a { float: none;line-height: 24px; border:1px #e7ecf0 solid; background:#fff; text-align:center; margin:0 5px 0 0; display:inline-block; color: #f1822d;}
+.paging ul li a:hover { background:#f2f6fa;}
+.p1 { width:40px;}
+.p2 { width:52px;}
+.p3 { width:24px;}
+.p4 { width:43px; border-radius:2px; float: none;}
+.paging span { margin:0 2px 0 2px; line-height:24px; color:#ff4128; float: none;}
+.paging b { color:#ff4128; margin:0 5px;}
+.paging input { width:30px; height:20px;*height:17px; text-align: center; border-top:1px #bdbdbd solid; border-right:1px #dedede solid; border-left:1px #bdbdbd solid; border-bottom:1px #dedede solid; background:#fff; margin:0 5px;}
+.paging select {*height:18px;}
+.paging .p_current,
+.paging .p_current:hover { border:1px #f1822d solid; background:#f1822d; color:#fff;}
+.paging .p_disable,
+.paging .p_disable:hover { color:#a0a0a0; background:#fff; cursor:default;}
