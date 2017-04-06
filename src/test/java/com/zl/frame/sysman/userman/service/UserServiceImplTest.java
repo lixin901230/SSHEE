@@ -69,6 +69,7 @@ public class UserServiceImplTest {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Test
 	public void testMapPage() {
 		HibernateBaseDaoImpl hibernateBaseDao = (HibernateBaseDaoImpl) applicationContext.getBean("hibernateBaseDao");
