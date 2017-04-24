@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
+import javax.servlet.jsp.tagext.Tag;
 import javax.servlet.jsp.tagext.TagSupport;
 
 import org.apache.commons.lang.StringUtils;
@@ -27,22 +28,22 @@ public class SecurityRightCheckTag extends TagSupport {
 
 	private static Logger logger = LoggerFactory.getLogger(SecurityRightCheckTag.class);
 	
-//	private static final int INCLUDE = 1;
-//	private static final int SKIP = 0;
+	private static final int INCLUDE = 1;//Tag.EVAL_BODY_INCLUDE;	// 返回1：WEB容器会执行自定义标签的标签体（会渲染标签体内的元素）
+	private static final int SKIP = 0;//Tag.SKIP_BODY;	// 返回0：WEB容器会忽略自定义标签的标签体，直接解释执行自定义标签的结束标记（不渲染标签体内的元素）
 	private String rightId;
 	private String showContent;
 
 	public int doStartTag() throws JspException {
 		
 		if(StringUtils.isEmpty(rightId)){
-			return 0;
+			return SKIP;
 		}
 		
 		String userName = SecurityUtial.getCurrentUserName();
 		logger.info("当前用户:" + userName);
 		
 		if ((userName == null) || (userName.trim().length() == 0)) {
-			return 1;
+			return SKIP;
 		}
 
 		logger.info("从用户权限缓存对象中获取当前用户的权限信息");
@@ -52,7 +53,7 @@ public class SecurityRightCheckTag extends TagSupport {
 		if(currentUserRights != null && currentUserRights.size() > 0){
 			//如果当前用户权限中包含自定义权限标签中配置的权限ID，则说明该用户能访问该权限标签限制的内容
 			if(currentUserRights.contains(rightId)){	
-				return 1;
+				return INCLUDE;
 			}
 		}
 		
@@ -65,7 +66,7 @@ public class SecurityRightCheckTag extends TagSupport {
 				e.printStackTrace();
 			}
 		}
-		return 0;
+		return SKIP;
 	}
 
 	public String getRightId() {
