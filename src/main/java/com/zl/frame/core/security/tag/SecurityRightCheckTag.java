@@ -52,7 +52,6 @@ public class SecurityRightCheckTag extends TagSupport {
 		logger.info("自定义spring security 页面url鉴权标签检查当前用户是否拥有该标签范围内的的访问权限["+rightId+"]");
 		if(currentUserRights != null && currentUserRights.size() > 0){
 			//如果当前用户权限中包含自定义权限标签中配置的权限ID，则说明该用户能访问该权限标签限制的内容
-			//如果当前用户权限中包含自定义权限标签中配置的权限ID，则说明该用户能访问该权限标签限制的内容
 			if(currentUserRights.contains(rightId)){	
 				return INCLUDE;
 			}
